@@ -1,14 +1,14 @@
 <template>
   <div id="myshops" class=" clr-part">
-    <div class="title clr-part bg-part">我的店铺</div>
+    <div class="title clr-part bg-part">{{$t('shop.myshop')}}</div>
     <div class="list-box ft14 clr-part bg-part">
       <div class="list-header flex">
-        <div>名称</div>
-        <div>所属法币</div>
-        <div>注册时间</div>
-        <div>商家余额</div>
+        <div>{{$t('shop.name')}}</div>
+        <div>{{$t('shop.tolegal')}}</div>
+        <div>{{$t('shop.retime')}}</div>
+        <div>{{$t('shop.balance')}}</div>
         <!-- <div>支付方式</div> -->
-        <div>操作</div>
+        <div>{{$t('do')}}</div>
       </div>
       <ul class="list">
         <li class="flex" v-for="(item,index) in list" :key="index">
@@ -20,7 +20,7 @@
           <div>{{item.create_time}}</div>
           <div>{{item.seller_balance}}</div>
           <div>
-            <router-link :to="{path:'/legalShopDetail',query:{id:item.id}}">进入店铺</router-link>
+            <router-link :to="{path:'/legalShopDetail',query:{id:item.id,min:item.min_ctoc,max:item.max_ctoc}}">{{$t('shop.goshop')}}</router-link>
           </div>
         </li>
       </ul>

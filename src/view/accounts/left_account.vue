@@ -1,9 +1,9 @@
 <template>
 	<div class="leftNav ft14 bgf8 bg-part clr-part">
 		<ul class="bg-part">
-			<li v-for="(item,index) in array" :class="index == curActive ? 'active' :''" @click="goto(index,item.page)">
-				<img :src="index == curActive ? item.src2 : item.src1"/>
-				<span class="clr-part">{{item.text}}</span>
+			<li v-for="(item,index) in array" :class="index == curActive ? 'active_bg' :''" @click="goto(index,item.page)">
+				<img :src="index == curActive ? item.src2 : item.src1" class="hide"/>
+				<span class="">{{item.text}}</span>
 			</li>
 		</ul>
 	</div>
@@ -18,7 +18,7 @@
 					{
 						src1: require("@/assets/images/icon_mine.png"),
 						src2: require("@/assets/images/icon_mine_s.png"),
-						text: '交易账户',
+						text: this.$t('account.taccount'),
 						page:'finance',
 						children:['finance']
 					},
@@ -33,7 +33,7 @@
 					{
 						src1: require("@/assets/images/icon_delegate.png"),
 						src2: require("@/assets/images/icon_delegate_s.png"),
-						text: '法币账户',
+						text: this.$t('account.laccount'),
 						page:'legal',
 						children:['legal']
 					}
@@ -68,6 +68,7 @@
 		ul{
 			height:820px;
 			li{
+				cursor: pointer;
 				height:54px;
 				line-height:54px;
 				padding-left:38px;
@@ -87,6 +88,10 @@
 				display: block;
 			}
 		}
+	}
+	.active_bg{
+		background: #563BD1;
+		color: #fff;
 	}
 </style>
 

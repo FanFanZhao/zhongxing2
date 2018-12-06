@@ -1,18 +1,18 @@
 <template>
   <div id="legal-record" class="clr-part bg-main">
-    <div class="title bg-part ft16">法币交易记录</div>
+    <div class="title bg-part ft16">{{$t('legal.traderecord')}}</div>
     <div class="filter-box bg-part ft14">
       <div>
-        <span>交易类型：</span>
-        <span :class="{'select':filterPms.type == 'sell'}" @click="filterPms.type = 'sell';getList()">购买</span>
-        <span :class="{'select':filterPms.type  == 'buy'}" @click="filterPms.type  = 'buy';getList()">出售</span>
+        <span>{{$t('legal.tredetype')}}：</span>
+        <span :class="{'select':filterPms.type == 'sell'}" @click="filterPms.type = 'sell';getList()">{{$t('legal.buy')}}</span>
+        <span :class="{'select':filterPms.type  == 'buy'}" @click="filterPms.type  = 'buy';getList()">{{$t('legal.sell')}}</span>
       </div>
       <div>
-        <span>订单状态：</span>
-        <span :class="{'select':filterPms.isSure == 0}" @click="filterPms.isSure = 0;getList()">未完成</span>
-        <span :class="{'select':filterPms.isSure == 1}" @click="filterPms.isSure = 1;getList()">已完成</span>
-        <span :class="{'select':filterPms.isSure == 2}" @click="filterPms.isSure = 2;getList()">已取消</span>
-        <span :class="{'select':filterPms.isSure == 3}" @click="filterPms.isSure = 3;getList()">已付款</span>
+        <span>{{$t('legal.orderstatus')}}：</span>
+        <span :class="{'select':filterPms.isSure == 0}" @click="filterPms.isSure = 0;getList()">{{$t('legal.nofinish')}}</span>
+        <span :class="{'select':filterPms.isSure == 1}" @click="filterPms.isSure = 1;getList()">{{$t('legal.finished')}}</span>
+        <span :class="{'select':filterPms.isSure == 2}" @click="filterPms.isSure = 2;getList()">{{$t('legal.ceiled')}}</span>
+        <span :class="{'select':filterPms.isSure == 3}" @click="filterPms.isSure = 3;getList()">{{$t('legal.payed')}}</span>
       </div>
     </div>
     
@@ -20,38 +20,38 @@
       <li class="bdr-part" v-for="(item,index) in list" :key="index">
         <div class="flex li-t ft14">
           <div>
-            <span v-if="item.type == 'sell'">购买</span>
-            <span v-else>出售</span>
+            <span v-if="item.type == 'sell'">{{$t('legal.buy')}}</span>
+            <span v-else>{{$t('legal.sell')}}</span>
             <span>{{item.currency_name}}</span>
           </div>
           
         </div>
         <div class="flex li-b alcenter">
           <div>
-            <div class="ft14">时间</div>
+            <div class="ft14">{{$t('legal.time')}}</div>
             <div class="ft12">{{item.create_time}}</div>
           </div>
           <div>
-            <div class="ft14">数量</div>
+            <div class="ft14">{{$t('legal.number')}}</div>
             <div class="ft12">{{item.number}}</div>
           </div>
           <div>
-            <div class="ft14">交易总额（{{item.currency_name}})</div>
+            <div class="ft14">{{$t('legal.totalmoney')}}（{{item.currency_name}})</div>
             <div class="ft12">{{item.deal_money}}</div>
           </div>
           <div class="status">
-            <span  @click="gotoNext(item.id,item.type)" v-if="item.is_sure == 0">未完成 ></span>
-            <span  @click="gotoNext(item.id,item.type)" v-else-if="item.is_sure == 1">已完成 ></span>
-            <span  @click="gotoNext(item.id,item.type)" v-else-if="item.is_sure == 2">已取消 ></span>
-            <span  @click="gotoNext(item.id,item.type)"  v-else>已付款 ></span>
+            <span  @click="gotoNext(item.id,item.type)" v-if="item.is_sure == 0">{{$t('legal.nofinish')}} ></span>
+            <span  @click="gotoNext(item.id,item.type)" v-else-if="item.is_sure == 1">{{$t('legal.finished')}} ></span>
+            <span  @click="gotoNext(item.id,item.type)" v-else-if="item.is_sure == 2">{{$t('legal.ceiled')}} ></span>
+            <span  @click="gotoNext(item.id,item.type)"  v-else>{{$t('legal.payed')}} ></span>
           </div>
         </div>
       </li>
       
     </ul>
-    <div class="more bg-part" @click="getList(true)" v-if="list.length">加载更多</div>
+    <div class="more bg-part" @click="getList(true)" v-if="list.length">{{$t('more')}}</div>
    
-    <div v-else class="nomore">暂无更多</div>
+    <div v-else class="nomore">{{$t('nomore')}}</div>
      
   </div>
 </template>
@@ -84,6 +84,7 @@ export default {
       }
     },
     getList(more = false) {
+      var that = this;
       var pms = {};
       if (!more) {
         this.filterPms.page = 1;
@@ -109,7 +110,7 @@ export default {
             if (msg.data.length) {
               this.list = this.list.concat(msg.data);
             } else {
-              layer.msg("暂无更多");
+              layer.msg(that.$t('nomore'));
             }
           } else {
             this.list = msg.data;
@@ -148,6 +149,7 @@ export default {
     }
     .select {
       color: #563bd1;
+      border-bottom: 2px solid #563bd1;
     }
   }
   > ul {

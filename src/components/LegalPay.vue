@@ -2,54 +2,54 @@
   <div id="legal-pay" class="bg-main clr-part">
     
     <div class="title bg-part ft16">
-      <span v-if="msg.is_sure == 0&&msg.type =='buy'">请付款，请向以下账户付款</span>
-      <div v-if="msg.is_sure == 1">订单已完成</div>
-      <div v-if="msg.is_sure == 2">订单已取消</div>
-      <div v-if="msg.is_sure == 3&&msg.type =='buy'">已付款，等待商家确认收款</div>
+      <span v-if="msg.is_sure == 0&&msg.type =='buy'">{{$t('legal.payplease')}}</span>
+      <div v-if="msg.is_sure == 1">{{$t('legal.ordercomplete')}}</div>
+      <div v-if="msg.is_sure == 2">{{$t('legal.orderceiled')}}</div>
+      <div v-if="msg.is_sure == 3&&msg.type =='buy'">{{$t('legal.payedwait')}}</div>
       
       <span v-if="msg.is_sure == 0 && msg.type =='buy'">{{msg.deal_money}}CNY</span>
       
     </div>
     <div class="info bg-part ft14">
       <div class="flex">
-        <span>交易单价：</span>
+        <span>{{$t('legal.tprice')}}：</span>
         <span>{{msg.price}}CNY</span>
       </div>
       <div class="flex">
-        <span>交易数量：</span>
+        <span>{{$t('legal.tnumber')}}：</span>
         <span>{{msg.number}}{{msg.currency_name}}</span>
       </div>
       <div class="flex">
-        <span>下单时间：</span>
+        <span>{{$t('legal.ordertime')}}：</span>
         <span>{{msg.create_time}}</span>
       </div>
       <div class="flex" v-if="msg.is_sure == 0||msg.is_sure == 3&&msg.type =='buy'">
-        <span>银行卡号：</span>
+        <span>{{$t('legal.cardnum')}}：</span>
         <span>{{msg.user_cash_info.bank_name}}:{{msg.user_cash_info.bank_account}}</span>
       </div>
       <div class="flex" v-if="msg.is_sure == 0||msg.is_sure == 3&&msg.type =='buy'">
-        <span>微信：</span>
+        <span>{{$t('legal.wechat')}}：</span>
         <span>{{msg.user_cash_info.wechat_account}}</span>
       </div>
       <div class="flex" v-if="msg.is_sure == 0||msg.is_sure == 3&&msg.type =='buy'">
-        <span>支付宝：</span>
+        <span>{{$t('legal.alipay')}}：</span>
         <span>{{msg.user_cash_info.alipay_account}}</span>
       </div>
       <div class="flex">
-        <span>{{msg.type == 'buy'?'商家':'买家'}}账户：</span>
+        <span>{{msg.type == 'buy'?$t('legal.shoper'):$t('legal.buyer')}} {{$t('legal.account')}}：</span>
         <span v-if="msg.type == 'buy'">{{msg.user_cash_info.real_name}}</span>
       <router-link v-if="msg.type=='buy'" :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span">{{msg.seller_name}}</router-link>
       </div>
       <div class="flex">
-        <span>{{msg.type == 'buy'?'商家':'买家'}}电话：</span>
+        <span>{{msg.type == 'buy'?$t('legal.shoper'):$t('legal.buyer')}} {{$t('legal.phone')}}：</span>
         <span v-if="msg.user_cash_info">{{msg.user_cash_info.account_number}}</span>
       </div>
       
       
       
       <div class="btns flex" v-show="msg.is_sure==0&&msg.type=='buy'">
-        <div class="btn" @click="showCancel = true">取消订单</div>
-        <div class="btn" @click="showConfirm = true">我已付款，点击确认</div>
+        <div class="btn" @click="showCancel = true">{{$t('legal.orderceil')}}</div>
+        <div class="btn" @click="showConfirm = true">{{$t('legal.mypayed')}}</div>
       </div>
       <!-- <div class="btns flex" v-show="msg.is_sure==3&&msg.type=='sell'">
         <div class="btn" @click="">确认收款</div>
@@ -57,26 +57,26 @@
     </div>
     <div class="cancel-box" v-if="showCancel">
       <div class="content">
-        <div>取消交易</div>
-        <div>如您已向卖家付款请千万不要取消交易</div>
+        <div>{{$t('legal.ceilorder')}}</div>
+        <div>{{$t('legal.notceil')}}</div>
         <!-- <div>
           <input type="checkbox" v-model="hasPay" id="haspay">
           <label for="haspay">我还没有付款给对方</label>
         </div> -->
         <div class="yes-no flex">
-          <div @click="showCancel = false">取消</div>
-          <div @click="cancel">确认</div>
+          <div @click="showCancel = false">{{$t('legal.ceil')}}</div>
+          <div @click="cancel">{{$t('legal.confirm')}}</div>
         </div>
       </div>
     </div>
     <div class="confirm-box" v-if="showConfirm">
       <div class="content">
-        <div>付款确认</div>
-        <div>请确认您已向卖家付款</div>
-        <div>恶意点击将直接冻结账户</div>
+        <div>{{$t('legal.paysure')}}</div>
+        <div>{{$t('legal.youpayed')}}</div>
+        <div>{{$t('legal.freeze')}}</div>
         <div class="yes-no flex">
-          <div @click="showConfirm = false">取消</div>
-          <div @click="confirm">确认</div>
+          <div @click="showConfirm = false">{{$t('legal.ceil')}}</div>
+          <div @click="confirm">{{$t('legal.confirm')}}</div>
         </div>
       </div>
     </div>

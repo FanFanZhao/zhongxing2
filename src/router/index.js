@@ -38,6 +38,10 @@ import currencyApply from '@/view/currency_apply'
 import payOpts from '@/view/payOpts'
 import currencyList from '@/view/currency_list'
 import currencyEdit from '@/view/edit_currency'
+import advice from '@/view/advice'
+import aggrement from '@/view/aggrement' //隐私条款
+import entrust from '@/view/entrust'
+import hisentrust from '@/view/hisentrust'
 //收款方式
 
 import ForgetPwd from '@/components/ForgetPwd' //忘记密码
@@ -110,7 +114,22 @@ export default new Router({
 					path:'/shopLegalRecord',
 					component:() => import ('../components/shop_legal_record.vue')
 				},
+				{
+					path: '/aggrement',
+					name: 'aggrement',
+					component: aggrement
+				},
 				
+				{
+					path: '/entrust',
+					name: 'entrust',
+					component: entrust
+				},
+				{
+					path: '/hisentrust',
+					name: 'hisentrust',
+					component: hisentrust
+				},
 				
 				{
 					path: '/dealCenter',
@@ -121,6 +140,11 @@ export default new Router({
 					path: '/HelpCenter',
 					name: 'HelpCenter',
 					component: HelpCenter,
+				},
+				{
+					path: '/advice',
+					name: 'advice',
+					component: advice,
 				},
 			
 				{
@@ -135,7 +159,37 @@ export default new Router({
 				{
 					path: '/c2c',
 					name: 'c2c',
-					component: c2c
+					component: () => import('../view/c2c/c2c.vue'),
+					children:[
+						{
+							path:'',
+							component:() => import('../view/c2c/C2cList.vue')
+						},
+						{
+							path:'publishC2c',
+							component:() => import('../view/c2c/PublishC2c.vue')
+						},
+						{
+							path:'myPublishedC2c',
+							component:() => import('../view/c2c/MyPublishedC2c.vue')
+						},
+						{
+							path:'myTransaction',
+							component:() => import('../view/c2c/MyTransaction.vue')
+						},
+					]
+				},
+				{
+					path:'/orderDetail',
+					component:() => import('../view/c2c/OrderDetail.vue')
+				},
+				{
+					path:'/allRec',
+					component:() => import('../view/accounts/allRec.vue')
+				},
+				{
+					path:'/c2cDetail',
+					component:() => import('../view/c2c/C2cDetail.vue')
 				},
 				{
 					path: '/currencyApply',
@@ -215,7 +269,7 @@ export default new Router({
 							component: legal
 						},
 						{
-							path: '/legalAccount',
+							path: '/legalAccount/:currency_id',
 							name: 'legalAccount',
 							component: legalAccount
 						},
@@ -237,7 +291,7 @@ export default new Router({
 		// 	name:'dealCenter',
 		// 	component:dealCenter
 		// },
-
+         
 		{
 			path: '/components/login',
 			name: 'login',

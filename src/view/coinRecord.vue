@@ -3,7 +3,7 @@
         <div>
             <div class="back-nav fColor1 ft20">
                 充币提币记录
-                <span class="fr fColor2 mouseDefault">&lt;&lt;返回</span>
+                <span class="fr fColor2 mouseDefault">&lt;&lt;{{$t('back')}}</span>
             </div>
             <div class="nav-after"></div>
         </div>

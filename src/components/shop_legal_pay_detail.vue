@@ -1,61 +1,61 @@
 <template>
   <div id="legal-pay-detail" class="clr-part">
     <div class="title bg-part">
-         <span v-if="msg.is_sure == 0">未完成</span>
-      <span v-if="msg.is_sure == 1">已完成</span>
-      <span v-if="msg.is_sure == 2">已取消</span>
-      <span v-if="msg.is_sure == 3">已付款</span>
-       <div v-if="msg.is_sure == 0&&msg.type == 'sell'">请等待买家付款</div>
-        <div v-if="msg.is_sure == 0&&msg.type == 'buy'">请确认，向卖家付款</div>
-      <div v-if="msg.is_sure == 1">订单已完成</div>
-      <div v-if="msg.is_sure == 2">订单已取消</div>
-      <div v-if="msg.is_sure == 3&&msg.type == 'sell'">买家已付款，请核实后确认</div>
-       <div v-if="msg.is_sure == 3&&msg.type == 'buy'">请等待卖家确认</div>
+      <span v-if="msg.is_sure == 0">{{$t('legal.nofinish')}}</span>
+      <span v-if="msg.is_sure == 1">{{$t('legal.finished')}}</span>
+      <span v-if="msg.is_sure == 2">{{$t('legal.ceiled')}}</span>
+      <span v-if="msg.is_sure == 3">{{$t('legal.payed')}}</span>
+      <div v-if="msg.is_sure == 0&&msg.type == 'sell'">{{$t('legal.waitplease')}}</div>
+      <div v-if="msg.is_sure == 0&&msg.type == 'buy'">{{$t('legal.youpayed')}}</div>
+      <div v-if="msg.is_sure == 1">{{$t('shop.ordercom')}}</div>
+      <div v-if="msg.is_sure == 2">{{$t('shop.orderceil')}}</div>
+      <div v-if="msg.is_sure == 3&&msg.type == 'sell'">{{$t('shop.buyerpayed')}}</div>
+       <div v-if="msg.is_sure == 3&&msg.type == 'buy'">{{$t('shop.sellerwait')}}</div>
       <!-- <div class="mt10 ft14" v-if="msg.is_sure == 3&&msg.type == 'sell'">联系方式：{{msg.phone}}</div> -->
     </div>
     <div class="info bg-part ft14">
       <div>
-        <span>交易总额：</span>
+        <span>{{$t('legal.totalmoney')}}：</span>
         <span>￥{{msg.deal_money}}</span>
       </div>
       <div>
-        <span v-if="msg.type == 'buy'">卖家</span>
-        <span v-if="msg.type == 'sell'">买家</span>
+        <span v-if="msg.type == 'buy'">{{$t('legal.seller')}}</span>
+        <span v-if="msg.type == 'sell'">{{$t('legal.buyer')}}</span>
         <span>{{msg.user_cash_info.real_name}}</span>
         <!-- <span v-if="msg.type == 'buy'">{{msg.hes_realname}}</span>
         <span v-if="msg.type == 'sell'">{{msg.seller_name}}</span> -->
       </div>
       <div>
-        <span>单价：</span>
+        <span>{{$t('price')}}：</span>
         <span>{{msg.price}}CNY</span>
       </div>
       <div>
-        <span>数量：</span>
+        <span>{{$t('number')}}：</span>
         <span>{{msg.number}}{{msg.currency_name}}</span>
       </div>
       <div>
-        <span>下单时间：</span>
+        <span>{{$t('legal.ordertime')}}：</span>
         <span>{{msg.create_time}}</span>
       </div>
         <div  v-if="(msg.is_sure == 0||msg.is_sure == 3)&&msg.type == 'buy'">
-        <span>银行卡：</span>
+        <span>{{$t('bankcard')}}：</span>
         <span>{{msg.user_cash_info.bank_name}}:{{msg.user_cash_info.bank_account}}</span>
       </div>
       <div  v-if="(msg.is_sure == 0||msg.is_sure == 3)&&msg.type == 'buy'">
-        <span>微信：</span>
+        <span>{{$t('wechat')}}：</span>
         <span>{{msg.user_cash_info.wechat_account}}</span>
       </div>
       <div  v-if="(msg.is_sure == 0||msg.is_sure == 3)&&msg.type == 'buy'">
-        <span>支付宝：</span>
+        <span>{{$t('alipay.')}}：</span>
         <span>{{msg.user_cash_info.alipay_account}}</span>
       </div>
       <div>
-        <span>联系方式：</span>
-        <span v-if="msg.type == 'buy'">{{msg.user_cash_info.account_number ||"无"}}</span>
-        <span v-if="msg.type == 'sell'">{{msg.phone ||"无"}}</span>
+        <span>{{$t('legal.contact')}}：</span>
+        <span v-if="msg.type == 'buy'">{{msg.user_cash_info.account_number ||$t('center.nothing')}}</span>
+        <span v-if="msg.type == 'sell'">{{msg.phone ||$t('center.nothing')}}</span>
       </div>
       <div>
-        <span>参考号：</span>
+        <span>{{$t('legal.reference')}}：</span>
         <span>{{msg.id}}</span>
       </div>
       <!-- <div >
@@ -63,43 +63,43 @@
         <router-link :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span" class="light_blue seller">{{msg.seller_name}}</router-link>
       </div> -->
       <div class="btns">
-        <div class="btn" @click="showCancel = true" v-if="msg.is_sure == 0">取消订单</div>
-        <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 0 && msg.type =='buy'">我已付款，点击确认</div>
-        <div class="btn" @click="showConfirm = true" v-if="(msg.is_sure == 3) && (msg.type =='sell')">确认已收款</div>
+        <div class="btn" @click="showCancel = true" v-if="msg.is_sure == 0">{{$t('legal.orderceil')}}</div>
+        <div class="btn" @click="hasPay = true" v-if="msg.is_sure == 0 && msg.type =='buy'">{{$t('legal.mypayed')}}</div>
+        <div class="btn" @click="showConfirm = true" v-if="(msg.is_sure == 3) && (msg.type =='sell')">{{$t('legal.surepay')}}</div>
       </div>
     </div>
     <div class="cancel-box" v-if="showCancel">
       <div class="content">
-        <div>取消交易</div>
-        <div>如果买家已向您付款请千万不要取消交易</div>
+        <div>{{$t('legal.ceilorder')}}</div>
+        <div>{{$t('legal.ceilnot')}}</div>
         <!-- <div>
           <input type="checkbox" v-model="hasPay" id="haspay">
           <label for="haspay">我还没有付款给对方</label>
         </div> -->
         <div class="yes-no flex">
-          <div @click="showCancel = false">取消</div>
-          <div @click="cancel">确认</div>
+          <div @click="showCancel = false">{{$t('legal.ceil')}}</div>
+          <div @click="cancel">{{$t('legal.confirm')}}</div>
         </div>
       </div>
     </div>
     <div class="confirm-box" v-if="hasPay">
       <div class="content">
-        <div>付款确认</div>
-        <div>请确认您已向卖家付款</div>
-        <div>恶意点击将直接冻结账户</div>
+        <div>{{$t('legal.paysure')}}</div>
+        <div>{{$t('legal.youpayed')}}</div>
+        <div>{{$t('legal.freeze')}}</div>
         <div class="yes-no flex">
-          <div @click="hasPay = false">取消</div>
-          <div @click="confirm">确认</div>
+          <div @click="hasPay = false">{{$t('legal.ceil')}}</div>
+          <div @click="confirm">{{$t('legal.confirm')}}</div>
         </div>
       </div>
     </div>
     <div class="confirm-box" v-if="showConfirm">
       <div class="content">
-        <div>确认收款</div>
-        <div>请确认您已收到买家付款</div>
+        <div>{{$t('legal.surepay')}}</div>
+        <div>{{$t('legal.otherpay')}}</div>
         <div class="yes-no flex">
-          <div @click="showConfirm = false">取消</div>
-          <div @click="confirm_receive">确认</div>
+          <div @click="showConfirm = false">{{$t('legal.ceil')}}</div>
+          <div @click="confirm_receive">{{$t('legal.confirm')}}</div>
         </div>
       </div>
     </div>
@@ -244,7 +244,7 @@ export default {
       display: flex;
     }
     span:first-child{
-      width:140px;
+      width:150px;
     }
     >.btns{
       padding: 20px 0;

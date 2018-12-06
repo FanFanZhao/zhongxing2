@@ -60,7 +60,7 @@ export default {
       });
     },
     transfer(){
-        var load = layer.load();
+        
         if(this.number == ''){
             layer.msg('请输入划转数量');return;
         } else {
@@ -69,7 +69,7 @@ export default {
             data.type = this.types[0] == '交易账户'?2:1;
             data.currency_id = this.coins[this.coinIndex].currency;
             // console.log(data);return;
-            
+            var load = layer.load();
             this.$http({
                 url:'/api/wallet/change',
                 method:'post',
@@ -82,7 +82,7 @@ export default {
                         layer.msg(res.data.message)
 
                     setTimeout(() => {
-                        this.$router.push({path:'/legalAccount',name:'legalAccount',params:{currency_id:this.coins[this.coinIndex].currency}})
+                        // this.$router.push({path:'/legalAccount',name:'legalAccount',params:{currency_id:this.coins[this.coinIndex].currency}})
                     },2000)
             
                     

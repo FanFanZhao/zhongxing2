@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="bg-main">
+    {{$i18n.value}}
     <router-view></router-view>
     <index-footer></index-footer>
   </div>

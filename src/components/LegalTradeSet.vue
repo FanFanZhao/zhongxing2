@@ -9,13 +9,17 @@
                         <span class="register-item">昵称</span>
                         <input type="text" class="input-main input-content" maxlength="20" v-model="nickname" id="account">
                     </div>
-                     <div class="register-input">
+                     <div class="register-input pass-box">
                         <span class="register-item">法币资金密码（6-20位，由数字与字母组成）</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="pwd" id="pwd">
+                        <input :type="showpass?'text':'password'" class="input-main input-content" maxlength="16" v-model="pwd" id="pwd">
+                        <img src="../assets/images/showpass.png" alt="" v-if="showpass" @click="showpass = false">
+                        <img src="../assets/images/hidepass.png" alt="" v-if="!showpass" @click="showpass = true">
                     </div>
-                     <div class="register-input">
+                     <div class="register-input pass-box">
                         <span class="register-item">确认法币资金密码（6-20位，由数字与字母组成）</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="rePwd">
+                        <input :type="showrepass?'text':'password'" class="input-main input-content" maxlength="16" v-model="rePwd">
+                        <img src="../assets/images/showpass.png" alt="" v-if="showrepass" @click="showrepass = false">
+                        <img src="../assets/images/hidepass.png" alt="" v-if="!showrepass" @click="showrepass = true">
                     </div>
                      
                     <div style="margin-top: 10px;">
@@ -39,7 +43,9 @@ export default {
     return {
       nickname: "",
       pwd: "",
-      rePwd: ""
+      rePwd: "",
+      showpass:false,
+      showrepass:false
     };
   },
 

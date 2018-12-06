@@ -103,10 +103,10 @@
 				console.log('socket')
 				that.$socket.emit("login", this.$makeSocketId());
 				that.$socket.on("kline", msg => {
-                    // console.log(msg)
+                    console.log(msg)
 					let obj={}
 
-					if(that.$store.state.symbol==msg.symbol){
+					if(that.$store.state.symbol==msg.sybmol){
 						obj.open=Number(msg.open)
 						obj.low=Number(msg.low)
 						obj.high=Number(msg.high)
@@ -141,7 +141,7 @@
 						// height: 516,
 						drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
 						disabled_features: [  //  禁用的功能
-							'left_toolbar', 'header_saveload', 'compare_symbol', 'display_market_status',
+							 'header_saveload', 'compare_symbol', 'display_market_status',
 							'go_to_date', 'header_chart_type', 'header_compare', 'header_interval_dialog_button',
 							'header_resolutions', 'header_screenshot', 'header_symbol_search', 'header_undo_redo',
 							'legend_context_menu', 'show_hide_button_in_legend', 'show_interval_dialog_on_key_press',
@@ -175,45 +175,47 @@
 							{
 								value: "1min",
 								period: "1",
-								text: "分时",
+								text: _this.$t('center.realtime'),
 								chartType: 3
 							},
 							{
 								value: "1",
 								period: "1m",
-								text: "1分钟",
+								text: "1min",
 								chartType:1
 							},
 							{
 								value: "5",
 								period: "5m",
-								text: "5分钟",
+								text: "5min",
 								chartType: 1
 							},
 							{
 								value: "15",
 								period: "15m",
-								text: "15分钟",
+								text: "15min",
 								chartType: 1
 							},
 							{
 								value: "30",
 								period: "30m",
-								text: "30分钟",
+								text: "30min",
 								chartType:1
 							},
 							{
 								value: "60",
 								period: "60分钟",
-								text: "1小时",
+								text: "1hour",
 								chartType: 1
 							},
 							{
 								value: "1D",
 								period: "1D",
-								text: "1天",
+								text: "1day",
 								chartType: 1
 							}
+
+							
 							// {
 							// 	value: "1W",
 							// 	period: "1W",
@@ -235,7 +237,7 @@
 								.addClass("my2")
 								.text(v.text)
 
-							if(v.text=='1分钟'){
+							if(v.text=='1min'){
 								button.css({"background-color":"#9194a4",'color':'#fff'})
 								localStorage.setItem('tim','1')  //默认为1分钟
 							}

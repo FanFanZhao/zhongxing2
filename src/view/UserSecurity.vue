@@ -5,69 +5,68 @@
                 <img  src="@/assets/images/account_security.png"/>
                 </div>
             <div  class="fl ml30">
-                <p  class="ft16 ">您的账号安全等级 :
+                <p  class="ft16 ">{{$t('security.lever')}}
                     <span  class="ml10">{{lever}}</span>
                 </p>
                 <div  class="bar-bottom">
                     <div  class="bar-top" :style="widthBar"></div>
                 </div>
                 <p  class="fColor2 ft14">
-                    您的账号安全等级 {{lever}}，完善更多资料，保证账号安全</p>
+                    {{$t('security.lever')}} {{lever}}，{{$t('security.wan')}}</p>
                 <p  class="fColor2 ft14" style="display: none;">
                     您的账号安全等级 低，恭喜您!</p>
             </div>
         </div>
         <ul >
             <li class="bdr-part"><img  src="@/assets/images/success.png" >
-                <span  class="ml20">我的邀请码</span>
+                <span  class="ml20">{{$t('security.invite')}}</span>
                 <p  class="fl">
                     <span class="">{{extension_code}}</span>
                 </p>
                 <span  class="fr red ml25 mouseDefault"></span>
-                <span  class="fr red mouseDefault" id="copy" @click="copy">复制邀请码</span>
+                <span  class="fr red mouseDefault" id="copy" @click="copy">{{$t('security.copy')}}</span>
             </li>
             <li class="bdr-part"><img  :src="psrc" >
-                <span  class="ml20">绑定手机</span>
+                <span  class="ml20">{{$t('security.phone')}}</span>
                 <p  class="fl">
                     <span class="">{{account}}</span>
                 </p>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <span  class="fr red mouseDefault"></span>
-                <router-link class="fr red" to="/components/bindPhone" v-if="account == '未绑定'">去绑定</router-link>
-                <span class="fr" v-else>已绑定</span>
+                <router-link class="fr red" to="/components/bindPhone" v-if="account == '未绑定'">{{$t('security.gobind')}}</router-link>
+                <span class="fr" v-else>{{$t('security.havebind')}}</span>
             </li>
             <li class="bdr-part">
                 <img  :src="esrc">
-                <span  class="ml20">绑定邮箱</span>
+                <span  class="ml20">{{$t('security.email')}}</span>
                 <p  class="fl">
                   <span>{{email}}</span>
                 </p>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <span  class="fr red mouseDefault"></span>
-                <router-link class="fr red" to="/components/bindEmail" v-if="email == '未绑定'">去绑定</router-link>
-                <span class="fr" v-else>已绑定</span>
+                <router-link class="fr red" to="/components/bindEmail" v-if="email == '未绑定'">{{$t('security.gobind')}}</router-link>
+                <span class="fr" v-else>{{$t('security.havebind')}}</span>
             </li>
-            <!-- <li class="bdr-part"><img  src="@/assets/images/success.png">
-                <span  class="ml20">登录密码</span>
-                <p  class="fl">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</p>
-                <span  class="fr red ml25 mouseDefault"></span>
-                <router-link to="/components/resetPwd" class="fr red">修改</router-link>
-            </li> -->
             <li class="bdr-part"><img  src="@/assets/images/success.png">
-                <span  class="ml20">法币资金密码</span>
-                <p  class="fl">互联网账号存在被盗风险，建议您定期更改密码以保护账户安全。</p>
+                <span  class="ml20">{{$t('security.logpwd')}}</span>
+                <p  class="fl">{{$t('security.suggest')}}</p>
+                <span  class="fr red ml25 mouseDefault"></span>
+                <router-link to="/components/resetPwd" class="fr red">{{$t('security.set')}}</router-link>
+            </li>
+            <li class="bdr-part"><img  src="@/assets/images/success.png">
+                <span  class="ml20">{{$t('security.zipwd')}}</span>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <!-- <span  class="fr red mouseDefault"  @click="goPwd()">修改</span> -->
-                <router-link to="/components/resetLegalPwd" class="fr red">{{isfPwd==0?'去设置':'修改'}}</router-link>
+                <router-link to="/components/resetLegalPwd" class="fr red" v-if="isfPwd==0">{{$t('security.goset')}}</router-link>
+                <router-link to="/components/resetLegalPwd" class="fr red" v-else>{{$t('security.set')}}</router-link>
             </li>
             <li class="bdr-part"><img  :src="asrc">
-                <span  class="ml20">身份认证</span>
-                <p  class="fl">互联网账号存在被盗风险，进行身份认证以保护账户安全。</p>
+                <span  class="ml20">{{$t('security.idcard')}}</span>
                 <span  class="fr red ml25 mouseDefault"></span>
-                <router-link to="/components/authentication" class="fr red" v-if="authen==0">去认证</router-link>
-                <router-link to="/components/authentication" class="fr red" v-if="authen==3">已拒绝(请重新认证)</router-link>
-                <span class="fr red"  v-if="authen==2">已认证</span>   
-                <span class="fr red"  v-if="authen==1">审核中</span>       
+                <router-link to="/components/authentication" class="fr red" v-if="authen==0">{{$t('security.goau')}}</router-link>
+                <router-link to="/components/authentication" class="fr red" v-if="authen==3">{{$t('security.reau')}}</router-link>
+                <span class="fr red"  v-if="authen==2">{{$t('security.haveau')}}</span>   
+                <span class="fr red"  v-if="authen==1">{{$t('security.auing')}}</span>       
             </li>
             <li class="hide"><img  src="@/assets/images/icon_error.png">
                 <span  class="ml20">提币密码</span>
@@ -177,11 +176,11 @@ export default {
             }
             console.log(this.bar)
             if(this.bar==50){
-              this.lever='中';
+              this.lever=this.$t('lay.intermediate');
             }else if(this.bar==75){
-              this.lever='高'; 
+              this.lever=this.$t('lay.high'); 
             }else if(this.bar==100){
-              this.lever='强';
+              this.lever=this.$t('lay.strong');
             }
             this.widthBar='width:'+this.bar+'%';
           }
@@ -201,11 +200,11 @@ export default {
       });
       clipboard.on("success", function(e) {
         that.flags = true;
-        layer.msg("复制成功");
+        layer.msg(that.$t('lay.copys'));
       });
       clipboard.on("error", function(e) {
         that.flags = false;
-        layer.msg("请重新复制");
+        layer.msg(that.$t('lay.recopy'));
       });
     }
   }

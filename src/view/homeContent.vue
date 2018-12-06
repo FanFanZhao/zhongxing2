@@ -12,16 +12,10 @@
         <!-- <home-login></home-login> -->
         <div class="swiper-container banner_wrap swiper-container-horizontal">
             <div class="swiper-wrapper">
-               <div class="swiper-slide sliders">
-                   <a href="">
-                   <img src="../../static/imgs/banner01.png" />
-                   </a>
+               <div class="swiper-slide sliders" v-for="(item,index) in pics" :key="index">
+                   <img :src="item.pic" alt="">
                </div>
-               <div class="swiper-slide sliders">
-                   <a href="">
-                   <img src="../../static/imgs/banner00.jpg" />
-                   </a>
-               </div>
+              
             </div>
              <div class="swiper-pagination swiper-pagination02"></div>
         </div>
@@ -48,58 +42,30 @@
      
         <div class="notice">
            <ul class="flex alcenter center notice_ul">
-               <li v-for="item in noticeList" :key="item.id" class="fl notice_li"><a class="notice_a ft14" :data-id='item.id'>{{item.name}}</a></li>
+               <li v-for="item in noticeList" :key="item.id" class="fl notice_li" @click="$router.push({path:'components/noticeDetail',query:{id:item.id}})"><a class="notice_a ft14" :data-id='item.id'>{{item.title}}</a></li>
            </ul>
         </div>
-        <!-- <div class="active-data clearfix">
-            <div class="data high">
-                <div class="name">最高价</div>
-                <div class="content">{{coinKline.hight}}</div>
-            </div>
-            <div class="data high">
-                <div class="name">最低价</div>
-                <div class="content">{{coinKline.low}}</div>
-            </div>
-             <div class="data high">
-                <div class="name">开盘价</div>
-                <div class="content">{{coinKline.open}}</div>
-            </div>
-            <div class="data high">
-                <div class="name">收盘价</div>
-                <div class="content">{{coinKline.close}}</div>
-            </div>
-            <div class="data range">
-                <div class="name">涨跌幅</div>
-                <div class="content">-{{Math.floor(((coinKline.close-coinKline.open)/coinKline.open) * 100)/100 || 0}}%</div>
-            </div>
-            <div class="data vol">
-                <div class="name">成交量</div>
-                <div class="content">{{coinKline.volume}}</div>
-            </div>
-            <div class="time">24H</div>
-        </div> -->
-        <!-- <div id="chart" _echarts_instance_="ec_1533699609264" style="width: 100%; height: 320px; -webkit-tap-highlight-color: transparent; user-select: none; position: relative; background: transparent;">
-            
-        </div> -->
+      
           <div class="coin-tab">
             <ul class="coins">
-              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">对{{coin.name}}交易区<span class='' v-if="nowCoin == coin.name"></span></li>
+              <li v-for="(coin,index) in quotation" :key="index" @click="nowCoin = coin.name" :class="{activeCoin:nowCoin == coin.name}">{{$t('home.with')}}{{coin.name}}  {{$t('home.markets')}}<span class='' v-if="nowCoin == coin.name"></span></li>
+              <li :class="{activeCoin:nowCoin == '自选'}" @click="nowCoin ='自选'">{{$t('home.myMarkets')}}</li>
             </ul>
           </div>
         <div class="coins-list">
           <div class="list-title">
-            <span>币种对{{nowCoin}}</span>
-            <span>价格({{nowCoin}})</span>
-             <span>涨跌</span>
-              <span>最高价</span>
-               <span>最低价</span>
-            <span>交易量({{nowCoin}})</span>
+            <span>{{$t('home.pair')}}</span>
+            <span>{{$t('home.price')}}({{nowCoin}})</span>
+             <span>{{$t('home.change')}}</span>
+              <span>{{$t('home.high')}}</span>
+               <span>{{$t('home.min')}}</span>
+            <span>{{$t('home.volume')}}</span>
             
-            <!-- <span>操作</span> -->
+            <span>{{$t('home.trade')}}</span>
           </div>
           
-          <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index" v-if="nowCoin == item.name">
-            <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='li.currency_name+"/"+li.legal_name'>
+          <ul class="list-con scroll" v-for="(item,index) in quotation" :key="index">
+            <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='li.currency_id+"/"+li.legal_id' v-if="(li.added&&nowCoin == $t('home.myMarkets')) ||li.legal_name == nowCoin">
               <div class="two-coin">
                 <img :src="li.logo" alt="" style="width:30px;">
                 <span style="font-weight:bold"><span class="high_blue">{{li.currency_name}}</span><span class="low_blue">/{{li.legal_name}}</span></span>
@@ -110,16 +76,21 @@
               </div>
               <div class="yes-toa">
                 <!-- <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.change == null?'+0.000':li.change}}%</span> -->
-                <span :class="setColor(li.change)" class="bold">{{(li.change>0?'+':'')+(li.change-0).toFixed(2)}}%</span>
+                <span :class="setColor(li.change)" class="bold change">{{(li.change>0?'+':'')+(li.change-0).toFixed(2)}}%</span>
               </div>
               <div>
-                <span class="high_blue bold">{{li.high_price}}</span>
+                <span class="high_blue bold high_price">{{li.high_price}}</span>
               </div>
               <div>
-                <span class="high_blue bold">{{li.low_price}}</span>
+                <span class="high_blue bold low_price">{{li.low_price}}</span>
               </div>
-              <div class="count high_blue bold">{{li.volume == null?'0':li.volume}}</div>
-              
+              <div class="count high_blue bold volume">{{li.volume == null?'0':li.volume}}</div>
+              <div class=""  style="color:#563BD1;">
+                <span class=" fr el-icon-star-on" v-if="li.added" @click="addDelete('delete',li.currency_match_id)" style="line-height:30px;margin-left:20px"></span>
+                <span class=" fr el-icon-star-off" v-if="!li.added" style="line-height:30px;margin-left:20px" @click="addDelete('add',li.currency_match_id)"></span>
+                <span class="fr" @click="setCurrent(index,inde)">{{$t('home.trade')}}</span>
+                <!-- <span :hah='testMy(li.currency_id,li.legal_id)'>{{li.currency_id +''+li.legal_id}}</span> -->
+              </div>
               <!-- <div>
                 <span @click="setData({currency_id:item.id,legal_id:li.currency_id,currency_name:item.name,leg_name:li.name,isShow:index})">交易 </span>
               </div> -->
@@ -185,57 +156,57 @@
             </div>
         </div>
         <!--图文内容-->
-        <div id="content01" class="content01 flex alcenter   center" style="background:#fff;">
+        <div id="content01" class="content01 flex alcenter   center" style="background:#f3f3f3;">
             <div class="text01 mr100 left01 animated">
-              <h1 class="ft26 bold mb30">全球化的数字资产配置及交易服务</h1>
-              <p class="ft16 bold mb10">遍布全球的项目拓展及运营管理体系</p>
-               <p class="ft16 bold mb10">在多个国家设有本地交易服务中心</p>
-                <p class="ft16 bold mb10">服务超过130个国家的数百万用户</p>
+              <h1 class="ft26 bold mb30">{{$t('home.c1')}}</h1>
+              <p class="ft16 bold mb10">{{$t('home.c2')}}</p>
+               <p class="ft16 bold mb10">{{$t('home.c3')}}</p>
+                <p class="ft16 bold mb10">{{$t('home.c4')}}</p>
             </div>
             <img class="imgs01" src="../assets/images/imgs01.png" />
         </div>
         <div class="content01 flex alcenter center ">
           <img class="imgs02" src="../assets/images/imgs02.png" />
             <div class="text01 ml100">
-              <h1 class="ft26 bold mb30">SMART-Chain资产评估模型</h1>
-              <p class="ft16 bold mb10">独立专业的区块链资产研究评估体系</p>
-               <p class="ft16 bold mb10">长期跟踪产业链并提供最权威中立的资产分析</p>
-                <p class="ft16 bold mb10">一站式的项目进度跟踪及信息披露系统</p>
+              <h1 class="ft26 bold mb30">{{$t('home.c5')}}</h1>
+              <p class="ft16 bold mb10">{{$t('home.c6')}}</p>
+               <p class="ft16 bold mb10">{{$t('home.c7')}}</p>
+                <p class="ft16 bold mb10">{{$t('home.c8')}}</p>
             </div>
             
         </div>
-        <div class="content01 flex alcenter grayBg center" style="background:#fff;">
+        <div class="content01 flex alcenter grayBg center" style="background:#f3f3f3;">
             <div class="text01 mr100">
-              <h1 class="ft26 bold mb30">依托4年的数字资产安全风控经验</h1>
-              <p class="ft16 bold mb10">安全稳定运营数字资产交易所超过四年</p>
-               <p class="ft16 bold mb10">管理资产规模超过10亿美金，服务数百万用户</p>
-                <p class="ft16 bold mb10">专业分布式架构和防DDOS攻击系统</p>
-                 <p class="ft16 bold mb10">98%数字资产存储多重签名冷钱包</p>
+              <h1 class="ft26 bold mb30">{{$t('home.c9')}}</h1>
+              <p class="ft16 bold mb10">{{$t('home.c10')}}</p>
+               <p class="ft16 bold mb10">{{$t('home.c11')}}</p>
+                <p class="ft16 bold mb10">{{$t('home.c12')}}</p>
+                 <p class="ft16 bold mb10">{{$t('home.c13')}}</p>
             </div>
             <img class="imgs03" src="../assets/images/imgs03.png" />
         </div>
         <div class="content01 flex alcenter center bg01   ">
           <img class="imgs04" src="../assets/images/imgs04.png" />
             <div class="text01 ml100">
-              <h1 class="ft26 bold gray9 mb30">香港  首尔  新加坡  东京</h1>
-              <p class="ft16 bold mb10 tr">遍布世界各地的服务中心</p>
+              <h1 class="ft26 bold gray9 mb30">{{$t('home.c14')}}</h1>
+              <p class="ft16 bold mb10 tr">{{$t('home.c15')}}</p>
             </div>
             
         </div>
         <div class="content01 flex alcenter grayBg center bg02">
-            <div class="text01 mr100">
+            <!-- <div class="text01 mr100">
               <h1 class="ft26 bold mb30">多平台终端接入</h1>
               <p class="ft16 bold mb10">覆盖IOS、Android、Windows多个平台，支持全业务功能</p>
-            </div>
-            <img class="imgs05" src="../assets/images/imgs05.png" />
+            </div> -->
+            <img class="imgs05" src="../assets/images/content.jpg" />
         </div>
         <!--马上交易-->
         <div class="go_transfer">
-           <h1 class="bold ft24 mb30 tc">马上交易</h1>
-           <p class="ft14 mb30 tc">注册一个一带一路交易中心账号，开启交易旅程</p>
+           <h1 class="bold ft24 mb30 tc">{{$t('home.c16')}}</h1>
+           <p class="ft14 mb30 tc">{{$t('home.c17')}}</p>
            <div class="login_register flex alcenter center" v-if="!account_number.length">
-             <div class="login_btn mr60 bdr-part" @click="go_login">登录</div>
-             <div class="register_btn white" @click="go_register">注册</div>
+             <div class="login_btn mr60 bdr-part" @click="go_login">{{$t('logins')}}</div>
+             <div class="register_btn white" @click="go_register">{{$t('registers')}}</div>
            </div>
         </div>
         <!--底部-->
@@ -260,13 +231,14 @@ import "@/assets/style/index.css";
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
 import indexHeader from "@/view/indexHeader";
-import homeLogin from "@/view/homeLogin";
+import homeLogin from "@/view/homeLogin"; 
 // var echarts = require("echarts");
 export default {
   name: "homeContent",
   components: { indexHeader, homeLogin },
   data() {
     return {
+      pics:[],
       quotation: [],
       nowCoin: "",
       //   banner_imgs:[
@@ -274,7 +246,7 @@ export default {
       //       {href:'',img:'../assets/images/bg2.png'},
       //       {href:'',img:'../assets/images/bg2.png'}
       //   ],
-      noticeList:'',
+      noticeList: "",
       curSwiper: 0,
       curCoinTab: 0,
       coinTabList: [{ title: "USDT行情" }, { title: "BTC行情" }],
@@ -283,18 +255,29 @@ export default {
       swiperList: [],
       coinList: [],
       coin_list: [],
-      account_number:''
+      account_number: "",
+      token:'',
+      myAdd:[]
     };
   },
   created() {
+    // this.getMyAdd();
     // this.init(this.initKline);
+    this.token = window.localStorage.getItem('token') || '';
+    if(this.token){
+      this.getMyAdd()
+    } else {
+      this.getQuotation()
+    }
     this.account_number = window.localStorage.getItem("accountNum") || "";
-    this.getQuotation();
-    eventBus.$on('loginSuccess',function(){
-       location.reload();
-    })
+    
+    eventBus.$on("loginSuccess", function() {
+      location.reload();
+    });
   },
   mounted() {
+    this.getSwiper();
+    
     var mySwiper = new Swiper(".swiper-container01", {
       // 如果需要分页器
       pagination: ".swiper-pagination01",
@@ -306,33 +289,28 @@ export default {
       observer: true, //修改swiper自己或子元素时，自动初始化swiper
       observeParents: true //修改swiper的父元素时，自动初始化swiper
     });
-    var mySwiper02 = new Swiper(".banner_wrap", {
-      // direction: 'vertical',
-      loop: true,
-      autoplay: 2000,
-      // 如果需要分页器
-      pagination: ".swiper-pagination02",
-      paginationClickable: true,
-      observer: true, //修改swiper自己或子元素时，自动初始化swiper
-      observeParents: true //修改swiper的父元素时，自动初始化swiper
-    });
+    
     // this.setChart();
-    // this.$http({
-    //   url: '/api/' + "news/help",
-    //   method: "get",
-    //   data: {}
-    // })
-    //   .then(res => {
-    //     console.log(res);
-    //     if (res.status === 200) {
-    //       this.noticeList = res.data.message;
-    //     } else {
-    //       layer.msg(res.message);
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    this.$http({
+      url: '/api/' + "news/list",
+      method: "post",
+      data: {
+        language:this.$i18n.locale == 'zh'?1:2
+      }
+    })
+      .then(res => {
+        console.log(res);
+        if (res.data.type == 'ok') {
+          var list = res.data.message.list;
+          if(list.length>4){
+
+            this.noticeList = list.slice(0,4)
+          } else {
+            this.noticeList = list;
+          }
+        }
+      })
+     
     //  eventBus.$on('toNew', function (data) {
     //   console.log(data);
     //   if(data){
@@ -344,57 +322,147 @@ export default {
     //     }
     // });
     this.connect();
-   
   },
   methods: {
-    
+    getMyAdd(){
+      if(this.token){
+
+        this.$http({
+        url:'/api/user_match/list',
+       
+        headers: { Authorization: this.token}
+      }).then(res => {
+        if(res.data.type == 'ok'){
+          var list = res.data.message;
+            this.myAdd = list;
+            
+            this.getQuotation();
+        }
+      })
+      } else {
+        if(this.$i18n.locale == 'zh'){
+
+          layer.msg('请先登录') 
+        } else {
+          layer.msg('Please sign in')
+        }
+      }
+    },
+    testMy(c,l){
+      if(this.myAdd.length){
+        var cid  = c;
+        var lid = l;
+        var s = this.myAdd.filter(function(item){
+          return (item.currencyId == cid&&item.legalId == lid);
+        })
+        if(s.length){
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    },
+    addDelete(url,id){
+      if(this.token){
+
+          this.$http({
+          url:'/api/user_match/'+url,
+          method:'post',
+          data:{id:id},
+          headers: { Authorization: this.token}
+        }).then(res => {
+          layer.msg(res.data.message);
+          this.getMyAdd()
+        })
+      } else {
+        layer.msg('请先登录')
+      }
+    },
+    getSwiper(){
+      this.$http({
+        url:'/api/news/pcPic'
+      }).then(res => {
+        console.log(res);
+        this.pics = res.data.message;
+        var mySwiper02 = new Swiper(".banner_wrap", {
+      // direction: 'vertical',
+      loop: true,
+      autoplay: 2000,
+      // 如果需要分页器
+      pagination: ".swiper-pagination02",
+      paginationClickable: true,
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true //修改swiper的父元素时，自动初始化swiper
+    });
+      })
+    },
     setData(obj) {
       window.localStorage.setItem("tradeData", JSON.stringify(obj));
       this.$router.push("/dealCenter");
     },
     //登录
-    go_login(){
-       this.$router.push('/components/login')
+    go_login() {
+      this.$router.push("/components/login");
     },
     //注册
-    go_register(){
-       this.$router.push('/components/register')
+    go_register() {
+      this.$router.push("/components/register");
     },
     connect() {
       var that = this;
       console.log("socket");
       that.$socket.emit("login", this.$makeSocketId());
-      that.$socket.on("transaction", msg => {
+      that.$socket.on("daymarket", msg => {
         console.log(msg);
-        var cname = msg.token;
-        var yesprice = msg.yesterday;
-        var toprice = msg.today;
-        console.log(cname);
-        var zf = 0;
-        if (toprice - yesprice == 0) {
-          zf = "0%";
-        } else if (toprice == 0) {
-          zf = "-100";
-        } else if (yesprice) {
-          zf = "+100%";
-        } else {
-          zf = ((toprice - yesprice) / yesprice / 100).toFixed(2);
-          if (zf > 0) {
-            zf = "+" + zf + "%";
-          } else {
-            zf = zf + "%";
-          }
+        var cname = msg.currency_id+'/'+msg.legal_id;
+        var now_price = msg.now_price;
+        var change = (msg.change-0).toFixed(2);
+        if(change<0){
+          $("li[data-name='" + cname + "']")
+          .find(".yes-toa span")
+          .css("color", "#ff6e42")
+          .html(change+'%');
+        }else{
+          $("li[data-name='" + cname + "']")
+          .find(".yes-toa span")
+          .css("color", "#459e80")
+          .html('+'+change+'%');
         }
-        var zf = toprice - yesprice;
+        console.log(cname);
+        // var zf = 0;
+        // if (toprice - yesprice == 0) {
+        //   zf = "0%";
+        // } else if (toprice == 0) {
+        //   zf = "-100";
+        // } else if (yesprice) {
+        //   zf = "+100%";
+        // } else {
+        //   zf = ((toprice - yesprice) / yesprice / 100).toFixed(2);
+        //   if (zf > 0) {
+        //     zf = "+" + zf + "%";
+        //   } else {
+        //     zf = zf + "%";
+        //   }
+        // }
+        // var zf = toprice - yesprice;
         $("li[data-name='" + cname + "']")
           .find(".yester span")
-          .html(yesprice);
-        $("li[data-name='" + cname + "']")
-          .find(".today span")
-          .html(toprice);
-        $("li[data-name='" + cname + "']")
-          .find(".yes-toa span")
-          .html(zf);
+          .html((now_price-0).toFixed(8));
+        // $("li[data-name='" + cname + "']")
+        //   .find(".today span")
+        //   .html(toprice);
+        
+          $("li[data-name='" + cname + "']")
+          .find(".high_price")
+          .html((msg.high_price-0).toFixed(8));
+          $("li[data-name='" + cname + "']")
+          .find(".low_price")
+          .html((msg.low_price-0).toFixed(8));
+           $("li[data-name='" + cname + "']")
+          .find(".volume")
+          .html((msg.volume-0).toFixed(5));
       });
     },
     setColor(c) {
@@ -406,13 +474,42 @@ export default {
         return "";
       }
     },
+    setCurrent(index, inde) {
+      
+      let msg = this.quotation[index];
+      let quo = msg.quotation[inde];
+      var tradeData = {
+        currency_id: quo.currency_id,
+        legal_id: quo.legal_id,
+        currency_name: quo.currency_name,
+        legal_name: quo.legal_name,
+        isShow: index
+      };
+      window.localStorage.setItem("tradeData", JSON.stringify(tradeData));
+      this.$router.push('/dealCenter');
+    },
     getQuotation() {
+      var i = layer.load();
       this.$http({
         url: "/api/currency/quotation",
         method: "get"
       }).then(res => {
+        layer.close(i);
         console.log(res.data);
         if (res.data.type == "ok" && res.data.message.length != 0) {
+          var msg = res.data.message;
+          if(this.myAdd.length){
+
+            msg.forEach((item,index) => {
+              this.myAdd.forEach((ite,ind) => {
+                if(item.id == ite.legalId){
+                  item.quotation.find((c) => {
+                    return c.currency_id == ite.currencyId;
+                  }).added = true
+                }
+              })
+            })
+          }
           this.quotation = res.data.message;
           this.nowCoin = this.quotation[0].name;
           let msg = res.data.message[0];
@@ -422,10 +519,10 @@ export default {
             legal_id: quo.legal_id,
             currency_name: quo.currency_name,
             legal_name: quo.legal_name,
-            isShow:0
+            isShow: 0
           };
-          if(!window.localStorage.getItem('tradeData')){
-             window.localStorage.setItem('tradeData',JSON.stringify(tradeData))
+          if (!window.localStorage.getItem("tradeData")) {
+            window.localStorage.setItem("tradeData", JSON.stringify(tradeData));
           }
         }
       });
@@ -437,7 +534,7 @@ export default {
       this.curSwiper = index;
     },
     init(callback) {
-      this.$http.post('/api/' + "quotation").then(res => {
+      this.$http.post("/api/" + "quotation").then(res => {
         if (res.data.type == "ok") {
           this.coinList = res.data.message.coin_list;
           this.swiperList = res.data.message.coin_list;
@@ -448,7 +545,7 @@ export default {
       });
     },
     initKline() {
-      this.$http.post('/api/' + "historical_data").then(res => {
+      this.$http.post("/api/" + "historical_data").then(res => {
         if (res.data.type == "ok") {
           if (res.data.message.day.length > 0) {
             this.coinKline = res.data.message.day[0].data;
@@ -581,9 +678,12 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-
 .swiper-container {
   // height: 310px;
+}
+.swiper-slide>img{
+  width: 100%;
+  height: 590px;
 }
 .swiper-container a {
   display: block;
@@ -599,7 +699,7 @@ export default {
   margin: 0 auto;
   line-height: 52px;
   height: 52px;
-  background: #563BD1;
+  background: #563bd1;
   // color: #c7cce6;
   display: flex;
   > ul {
@@ -625,11 +725,11 @@ export default {
   line-height: 51px;
   text-align: center;
   margin-top: 0;
-
+  border: 1px solid #563bd1;
   .list-title {
     display: flex;
     padding: 0 30px;
-    background: #563BD1;
+    background: #563bd1;
     > span {
       flex: 1;
 
@@ -646,18 +746,22 @@ export default {
     }
   }
   .list-con {
-    background: #F0F0F0;
+    background: #f0f0f0;
     max-height: 400px;
-    overflow: scroll;
-    border:1px solid #563BD1;
+    overflow-y: scroll;
+    // border: 1px solid #563bd1;
     border-top: none;
 
     li {
+      cursor: pointer;
       display: flex;
       // border-top: 1px solid #ddd;
       padding: 10px 30px;
       line-height: 30px;
       // color: #c7cce6;
+      &:hover{
+        background: #fff;
+      }
       .high_blue{
           color:#563BD1; 
         }
@@ -670,7 +774,6 @@ export default {
       > div {
         flex: 1;
         text-align: center;
-        
       }
       > div:first-child {
         text-align: left;
@@ -679,7 +782,7 @@ export default {
         text-align: right;
       }
     }
-    li:last-child{
+    li:last-child {
       // border-bottom: 1px solid #ddd;
     }
   }
@@ -713,12 +816,12 @@ export default {
 }
 .notice_li {
   // flex: 1;
-  
+
   text-align: center;
 }
-.notice_li a{
-   padding: 0 25px;
-   letter-spacing: 5px;
+.notice_li a {
+  padding: 0 25px;
+  letter-spacing: 5px;
 }
 .notice_li::after {
   content: "/";
@@ -729,7 +832,7 @@ export default {
   color: #6b80ae;
 }
 .notice_a:hover {
-  color: #563BD1;
+  color: #563bd1;
   cursor: pointer;
 }
 .coins li {
@@ -750,53 +853,54 @@ export default {
   cursor: pointer;
   // background: #303e4c;
 }
-.content01{
+.content01 {
   padding: 40px 0;
-  background: #f3f3f3;
-  .imgs01{
-      width: 250px;
+  background: #fff;
+  .imgs01 {
+    width: 250px;
   }
-  .imgs02{
+  .imgs02 {
     width: 500px;
   }
-  .imgs03{
+  .imgs03 {
     width: 300px;
   }
-  .imgs04{
+  .imgs04 {
     width: 500px;
   }
-  .imgs05{
-    width: 150px;
+  .imgs05 {
+    width: 100%;
   }
 }
-.bg01{
-  background: url('../assets/images/content_bg01.png') center no-repeat;
+.bg01 {
+  background: url("../assets/images/content_bg01.png") center no-repeat;
   width: 100%;
   // height: 300px;
   background-size: cover;
   padding: 150px 0;
 }
-.bg02{
-  background: url('../assets/images/content_bg02.png') center no-repeat;
+.bg02 {
+  background: url("../assets/images/content_bg02.png") center no-repeat;
   width: 100%;
   background-size: cover;
+  padding: 0!important;
 }
-.login_btn{
+.login_btn {
   padding: 15px 80px;
-  border:1px solid rgba(0,0,0,1);
-  border-radius:5px;
+  border: 1px solid rgba(0, 0, 0, 1);
+  border-radius: 5px;
   cursor: pointer;
 }
-.register_btn{
+.register_btn {
   padding: 15px 80px;
-  background:#563BD1;
-  border-radius:5px;
+  background: #563bd1;
+  border-radius: 5px;
   cursor: pointer;
 }
-.go_transfer{
+.go_transfer {
   padding: 50px 0;
 }
-.foot{
+.foot {
   padding: 50px 0;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="legal-record" class="clr-part">
-    <div class="title bg-part">订单记录</div>
+    <div class="title bg-part">{{$t('legal.record')}}</div>
     <!-- <div class="filter-box">
       <div>
         <span>交易类型：</span>
@@ -19,42 +19,42 @@
       <li v-for="(item,index) in list" :key="index" class="bdr-part">
         <div class="flex li-t">
           <div>
-            <span v-if="item.type == 'sell'">购买</span>
-            <span v-else>出售</span>
+            <span v-if="item.type == 'sell'">{{$t('legal.buy')}}</span>
+            <span v-else>{{$t('legal.sell')}}</span>
             <span>{{item.currency_name}}</span>
           </div>
           <div class="status">
-            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-if="item.is_sure == 0">未完成 ></router-link>
-            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 1">已完成 ></router-link>
-            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 2">已取消 ></router-link>
-            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else>已付款 ></router-link>
+            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-if="item.is_sure == 0">{{$t('legal.nofinish')}} ></router-link>
+            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 1">{{$t('legal.finished')}} ></router-link>
+            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 2">{{$t('legal.ceiled')}} ></router-link>
+            <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else>{{$t('legal.payed')}} ></router-link>
           </div>
         </div>
         <div class="flex li-b">
           <div>
-            <div class="tl">时间</div>
+            <div class="tl">{{$t('time')}}</div>
             <div class="tc">{{item.create_time}}</div>
           </div>
           <div>
-            <div class="tc" v-if="item.type == 'sell'">买家</div>
-            <div class="tc" v-else>卖家</div>
+            <div class="tc" v-if="item.type == 'sell'">{{$t('legal.buyer')}}</div>
+            <div class="tc" v-else>{{$t('legal.seller')}}</div>
             <div class="tc">{{item.user_realname}}</div>
           </div>
           <div>
-            <div class="tc">数量</div>
+            <div class="tc">{{$t('number')}}</div>
             <div class="tc">{{item.number}}</div>
           </div>
           <div>
-            <div class="tc">交易总额(CNY)</div>
+            <div class="tc">{{$t('legal.totalmoney')}}(CNY)</div>
             <div class="tc">{{item.deal_money}}</div>
           </div>
         </div>
       </li>
       
     </ul>
-    <div class="more bg-part" @click="getList(true)" v-if="list.length">加载更多</div>
+    <div class="more bg-part" @click="getList(true)" v-if="list.length">{{$t('more')}}</div>
    
-    <div v-else class="nomore">暂无更多</div>
+    <div v-else class="nomore">{{$t('nomore')}}</div>
      
   </div>
 </template>
@@ -78,6 +78,7 @@ export default {
   methods: {
     
     getList(more = false) {
+      var that = this;
       var pms = {};
       if (!more) {
         this.filterPms.page = 1;
@@ -104,7 +105,7 @@ export default {
             if (msg.data.length) {
               this.list = this.list.concat(msg.data);
             } else {
-              layer.msg("暂无更多");
+              layer.msg(that.$t('nomore'));
             }
           } else {
             this.list = msg.data;

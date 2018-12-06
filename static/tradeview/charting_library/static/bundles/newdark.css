@@ -29,6 +29,9 @@
   .header-group-fullscreen{
     float: right;
   }
+  .layout__area--left{
+    display: block!important;
+  }
   
   .apply-overflow-tooltip{
     /*color: #fff !important;*/

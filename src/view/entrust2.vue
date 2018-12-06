@@ -10,48 +10,68 @@
         </div>
         <div class="content" v-show="isUrl==0" >
             <ul class="list-title fColor2 ft12 clear bdr-part">
-                <li class="fl w20">时间</li>
-                <li class="fl w12">交易对</li>
-                <li class="fl w12">方向</li>
-                <li class="fl w12">价格</li>
-                <li class="fl w14">数量</li>
-                <li class="fl w20">委托总额</li>
-                <li class="fl w8 tr">操作</li>
+                <li class="fl w20">{{$t('time')}}</li>
+                <li class="fl w12">{{$t('center.pairs')}}</li>
+                <li class="fl w12">{{$t('center.direction')}}</li>
+                <li class="fl w12">{{$t('price')}}</li>
+                <li class="fl w14">{{$t('number')}}</li>
+                <li class="fl w20">{{$t('center.dealtotal')}}</li>
+                <li class="fl w8 tr">{{$t('do')}}</li>
             </ul>
-            <div class="container scroll" v-if="enList.length>0">
-                <ul class="list-item ft12">
-                    <li v-for="item in enList" class="clear">
+            <div class="container scroll" >
+                <ul class="list-item ft12" v-if="flags01&&enList01.length>0">
+                    <li v-for="item in enList01" class="clear">
                         <span class="fl w20">{{item.create_time}}</span>
                         <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
-                        <span class="fl w12" :class="{'green': item.typeInfo == 'in'}">{{item.typeInfo=='in'?'买入':'卖出'}}</span>
+                        <span class="fl w12" :class="{'green': item.typeInfo == 'in'}">{{item.typeInfo=='in'?$t('center.inbuy'):$t('center.outsell')}}</span>
                         <span class="fl w12">{{item.price}}</span>
                         <span class="fl w14">{{item.number}}</span>
-                        <span class="fl w20">{{item.price * item.number}}</span>
-                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id)">撤销</span>
+                        <span class="fl w20">{{item.total_price}}</span>
+                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id)">{{$t('revoke')}}</span>
                     </li>
                 </ul>
-                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && enList.length>9">{{more}}</div>
+                <ul class="list-item ft12" v-if="flags02&&enList02.length>0">
+                    <li v-for="item in enList02" class="clear">
+                        <span class="fl w20">{{item.create_time}}</span>
+                        <span class="fl w12">{{item.currency_name}}/{{item.legal_name}}</span>
+                        <span class="fl w12" :class="{'green': item.typeInfo == 'in'}">{{item.typeInfo=='in'?$t('center.inbuy'):$t('center.outsell')}}</span>
+                        <span class="fl w12">{{item.price}}</span>
+                        <span class="fl w14">{{item.number}}</span>
+                        <span class="fl w20">{{item.total_price}}</span>
+                        <span class="fl w8 tr curPer ceilColor" @click="revoke(item.id)">{{$t('revoke')}}</span>
+                    </li>
+                </ul>
+                <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore" v-if="!loading && enList01.length>9||enList02.length>9">{{more}}</div>
                 <div class="tc" v-if="loading">
                     <img src="@/assets/images/loading.gif" alt=""  class="lodw20">
-                    <p class="ft12 baseColor">加载中...</p>
+                    <p class="ft12 baseColor">{{$t('loading')}}...</p>
                 </div>
-            </div>
-            <div class="no_data tc" v-if="enList.length<=0">
+                <div class="no_data tc" v-if="flags01==true && enList01.length<=0">
                 <img src="@/assets/images/nodata.png" alt="">
-                <p class="fColor2 ft18">暂无数据</p> 
+                <p class="fColor2 ft18">{{$t('nodata')}}</p> 
             </div>
+            <div class="no_data tc" v-if="flags02==true && enList02.length<=0">
+                <img src="@/assets/images/nodata.png" alt="">
+                <p class="fColor2 ft18">{{$t('nodata')}}</p> 
+            </div>
+            <div class="no_data tc" v-if="enList01.length<=0 && enList02.length<=0 && flags01==false&&flags02 == false">
+                <img src="@/assets/images/nodata.png" alt="">
+                <p class="fColor2 ft18">{{$t('nodata')}}</p> 
+            </div>
+            </div>
+            
         </div>
         <div class="content" v-show="isUrl==1">
             <ul class="list-title fColor2 ft12 clear bdr-part">
-                <li class="fl w20">时间</li>
-                <li class="fl w10">交易对</li>
-                <li class="fl w8">数量</li>
-                <li class="fl w10">价格</li>
-                <li class="fl w8">委托总额</li>
-                <li class="fl w10">成交均价</li>
-                <li class="fl w10">状态</li>
-                <li class="fl w10">手续费</li>
-                <li class="fl w8 tr">方向</li>
+                <li class="fl w20">{{$t('time')}}</li>
+                <li class="fl w10">{{$t('center.pairs')}}</li>
+                <li class="fl w8">{{$t('number')}}</li>
+                <li class="fl w10">{{$t('price')}}</li>
+                <li class="fl w8">{{$t('center.dealtotal')}}</li>
+                <li class="fl w10">{{$t('center.tprice')}}</li>
+                <li class="fl w10">{{$t('status')}}</li>
+                <li class="fl w10">{{$t('rate')}}</li>
+                <li class="fl w8 tr">{{$t('center.direction')}}</li>
             </ul>
             <div class="container scroll" v-if="hisList.length>0">
                 <ul class="list-item ft12">
@@ -62,20 +82,20 @@
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w8">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w10">{{item.price}}</span>
-                        <span class="fl w10">已成交</span>
-                        <span class="fl w10">{{item.type=='in'? item.in_fee||'无':item.out_fee||'无'}}</span>
-                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
+                        <span class="fl w10">{{$t('center.contran')}}</span>
+                        <span class="fl w10">{{item.type=='in'? item.in_fee||$t('center.nothing'):item.out_fee||$t('center.nothing')}}</span>
+                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?$t('center.inbuy'):$t('center.outsell')}}</span>
                     </li>
                 </ul>
                 <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore01" v-if="!loading && hisList.length>9">{{more01}}</div>
                 <div class="tc" v-if="loading">
                     <img src="@/assets/images/loading.gif" alt="" class="lodw20">
-                    <p class="ft12 baseColor">加载中...</p>
+                    <p class="ft12 baseColor">{{$t('loading')}}...</p>
                 </div>
             </div>
             <div class="no_data tc" v-if="hisList.length<=0">
                 <img src="@/assets/images/nodata.png" alt="">
-                <p class="fColor2 ft18">暂无数据</p>   
+                <p class="fColor2 ft18">{{$t('nodata')}}</p>   
             </div>
         </div>
     </div>
@@ -92,18 +112,22 @@ export default {
       page01: 1,
       url: "entrust",
       type: "in",
-      more: "加载更多",
-      more01: "加载更多",
+      more: this.$t('more'),
+      more01: this.$t('more'),
       loading: false,
       urlList: [
-        { title: "当前委托", url: "transaction_in" },
-        { title: "历史委托", url: "transaction_complete" }
+        { title: this.$t('center.cdel'), url: "transaction_in" },
+        { title: this.$t('center.hdeal'), url: "transaction_complete" }
       ],
-      wayList: [{ title: "买入", type: "in" }, { title: "卖出", type: "out" }],
+      wayList: [{ title: this.$t('center.inbuy'), type: "in" }, { title: this.$t('center.outsell'), type: "out" }, { title: this.$t('center.all'), type: "all" }],
       enList: [],
+      enList01: [],
+      enList02: [],
       hisList: [],
       urls: "transaction_in",
-      types: "in"
+      types: "in",
+      flags01:true,
+      flags02:false
     };
   },
   created() {
@@ -116,7 +140,7 @@ export default {
       this.isUrl = index;
       this.url = url;
       this.page = 1;
-      this.more = "加载更多";
+      this.more = this.$t('more');
       if (index == 0) {
         this.getdata(this.urls, this.types);
       } else if (index == 1) {
@@ -127,24 +151,43 @@ export default {
       var that = this;
       this.page = 1;
       // this.type = type;
-      this.more = "加载更多";
+      this.more = this.$t('more');
       this.isChoosed = index;
       if (index == 1) {
+        this.flags02 = true;
+        this.flags01 = false;
         this.urls = "transaction_out";
         this.types = "out";
         this.getdata(this.urls, this.types);
       } else if (index == 0) {
+        this.flags02 = false;
+        this.flags01 = true;
         this.urls = "transaction_in";
         this.types = "in";
         this.getdata(this.urls, this.types);
+      }else if(index == 2){
+        if(this.enList02.length>0){
+          this.flags02 = true;
+        }else{
+           this.flags02 = false;
+        }
+        if(this.enList01.length>0){
+          this.flags01 = true;
+        }else{
+           this.flags01 = false;
+        }
+         this.getdata("transaction_in", "in");
+         this.getdata("transaction_out", "out");
       }
     },
     getMore() {
       this.page = ++this.page;
       this.loading = true;
-      console.log(this.page);
-      console.log(this.types);
-      this.getdata(this.urls, this.types);
+      // console.log(this.page);
+      // console.log(this.types);
+      // this.getdata(this.urls, this.types);
+        this.getdata("transaction_in", "in");
+         this.getdata("transaction_out", "out");
     },
     getMore01() {
       this.page01 = ++this.page01;
@@ -156,7 +199,7 @@ export default {
         return;
       }
       var that = this;
-      layer.confirm("确认要撤单吗？", ["确定", "取消"], () => {
+      layer.confirm(that.revoke, [that.sure, that.ceil], () => {
         // var id = id;
         that
           .$http({
@@ -171,7 +214,7 @@ export default {
           })
           .then(res => {
             res = res.data;
-            console.log(res);
+            // console.log(res);
             if (res.type === "ok") {
               layer.msg(res.message);
               that.getdata(that.urls, that.types);
@@ -186,7 +229,8 @@ export default {
     },
 
     getdata(url, type) {
-      console.log(type);
+      // console.log(type);
+      var that = this;
       var page = this.page;
       if(!this.token){
         return;
@@ -200,7 +244,7 @@ export default {
         headers: { Authorization: this.token }
       })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           res = res.data;
           this.loading = false;
           let mlist = [];
@@ -211,41 +255,45 @@ export default {
             //  page = 1;
             //  this.enList = []
             if (page == 1) {
-              console.log("-----------------");
-              this.enList = mlist;
+              // console.log("-----------------");
+              this.enList01 = mlist;
             } else {
               var newEist = mlist;
-              console.log();
+              console.log(newEist.length);
               if (newEist.length <= 0) {
-                this.more = "没有更多数据了...";
+                this.more = that.$t('nomore');
                 return;
               } else {
-                this.enList = this.enList.concat(newEist);
+                this.enList01 = this.enList01.concat(newEist);
               }
               // conaole.log(this.enList)
             }
-            for (var i in this.enList) {
-              this.enList[i].typeInfo = type;
+            for (var i in this.enList01) {
+              this.enList01[i].typeInfo = type;
             }
-            console.log(this.enList);
-          } else {
+            // console.log(this.enList);
+          } else if(url == "transaction_out"){
+            var newEist = mlist;
             //  page = 1;
             //  this.enList = [];
             //    console.log(res.message.data.data);
             if (page == 1) {
-              this.enList = mlist;
+              this.enList02 = mlist;
             } else {
+              console.log('kkkkkkkk')
+              console.log(newEist)
+              console.log(newEist.length)
               var newEist = mlist;
               if (newEist.length <= 0) {
-                this.more = "没有更多数据了...";
+                this.more = that.$t('nomore');
                 return;
               } else {
-                this.enList = this.enList.concat(newEist);
+                this.enList02 = this.enList02.concat(newEist);
               }
               //   console.log(this.hisList)
             }
             for (var i in this.newEist) {
-              this.enList[i].typeInfo = type;
+              this.enList02[i].typeInfo = type;
             }
           }
         })
@@ -279,7 +327,7 @@ export default {
           } else {
             var newhist = mlist;
             if (newhist.length <= 0) {
-              this.more = "没有更多数据了...";
+              this.more = that.$t('nomore');
               return;
             } else {
               this.hisList = this.hisList.concat(newhist);
@@ -294,7 +342,7 @@ export default {
   },
   mounted() {
     var that = this;
-    console.log('entrust2')
+    // console.log('entrust2')
     if (this.token != "") {
       that.getdata(this.urls, this.types);
       // eventBus.$on("toTrade", function() {
@@ -333,18 +381,19 @@ export default {
 }
 .content {
   padding: 0 40px 0 30px;
-  height: 300px;
+  height: 500px;
 }
 .list-title {
   line-height: 40px;
   border-bottom: 1px solid #ccc;
   height: 40px;
+  overflow: hidden;
 }
 .no_data {
   padding: 50px 0;
 }
 .container {
-  height: 260px;
+  height: 90%;
   overflow: auto;
 }
 .list-item li {

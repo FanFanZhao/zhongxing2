@@ -8,7 +8,7 @@
                 <span v-for="(way,index) in wayList" :class="{'active': index == isChoosed}" @click="wayChoose(index,way.url)">{{way.title}}</span>
             </div> -->
         </div>
-        <div class="content" style="border:1px solid #ccc;overflow:hidden">
+        <div class="content">
             <ul class="list-title color ft12 clear">
                 <li class="fl w20">时间</li>
                 <li class="fl w10">交易对</li>
@@ -146,23 +146,32 @@ export default {
 }
 </script>
 <style scoped>
+.entrust{
+    width: 80%;
+    background: #fff;
+    margin: 50px auto;
+}
 .title{height: 48px;line-height: 46px;padding: 0 40px 0 30px;}
 .tab_title{display: inline-block;line-height: 46px;height: 46px;}
 .tab_title span{cursor: pointer;}
 .tab_title span:not(:last-child) {margin-right: 40px;}
-.content{padding: 0 40px 0 30px;height: 300px;}
+/* .content{padding: 0 40px 0 30px;height: 300px;} */
+.content{
+    padding: 0 30px;
+    min-height: 600px;
+}
 .list-title{line-height: 40px; border-bottom: 1px solid #ccc;height: 40px;}
 .no_data{padding: 50px 0;}
-.containers{height: 260px;overflow: auto;}
+/* .containers{height: 260px;overflow: auto;} */
 .list-item li{line-height: 30px;}
 .list-item li span{display: inline-block;float: left;height: 30px;}
 /* .list-item li span:nth-child(3){color:#cc4951;} */
 .list-item li:hover{background-color: #eee; color: #de5959;}
 .list-item li span.green{color: #55a067}
 .pdb20{padding-bottom: 20px;}
-.containers{
+/* .containers{
     border-bottom: 1px solid #ccc;
-}
+} */
 .containers span{
     margin-left: 0;
 }

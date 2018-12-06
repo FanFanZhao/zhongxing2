@@ -1,23 +1,23 @@
 <template>
     <div class="account-box wrap fColor1 bg-part clr-part">
         <div class="title">
-                 身份认证
-                <span class="fr  curPer" @click="goBefore">&lt;&lt;返回</span>  
+                {{$t('auth.auth')}}
+                <span class="fr  curPer" @click="goBefore">&lt;&lt;{{$t('auth.back')}}</span>  
         </div>
         <div class="main-content mt20">
-            <div class="tc mt10" v-if="review_status==3">拒绝理由：{{reply}}</div>
+            <div class="tc mt10" v-if="review_status==3">{{$t('auth.refause')}}：{{reply}}</div>
             <div v-show="review_status==0||review_status==3">
                 <div class="main-input">
                     <div class="flex alcenter center">
-                        <span>姓名：</span>
-                        <input type="text" placeholder="请输入真实姓名" id="name" v-model="name">
+                        <span>{{$t('auth.name')}}：</span>
+                        <input type="text" :placeholder="$t('auth.truename')" id="name" v-model="name">
                     </div>
                     <div class="flex alcenter center mt20">
-                        <span>证件号：</span>
-                        <input type="text" placeholder="请输入证件号" id="card" v-model="card_id">
+                        <span>{{$t('auth.idnum')}}：</span>
+                        <input type="text" :placeholder="$t('auth.truenum')" id="card" v-model="card_id">
                     </div>
                 </div>
-                <div class="mt40 fColor1 ft14 tc">请上传证件的正反面及手持证件的正面照。</div>
+                <div class="mt40 fColor1 ft14 tc">{{$t('auth.img')}}</div>
                 <div class="idimg flex center mt40">
                     <div>
                         <img :src="src01" alt="">
@@ -33,17 +33,17 @@
                     </div>
                 </div>
                 <div class="updata tc">
-                    <input type="button" class="redBg curPer" value="提交" @click="updata">
+                    <input type="button" class="redBg curPer" :value="$t('auth.up')" @click="updata">
                 </div>
             </div>
             <div  v-show="review_status==1">
                 <div class="tc ft30 au-statue">
-                    审核中...  
+                    {{$t('auth.ising')}} 
                 </div> 
             </div>
             <div v-show="review_status==2">
                 <div class="tc ft30 au-statue">
-                    已认证!
+                    {{$t('auth.ised')}}
                 </div>
             </div>
             
@@ -164,11 +164,11 @@ export default {
             let card_id = this.$utils.trim(that.card_id);
             // var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
             if(this.name.length == ''){
-                layer.tips('请输入姓名!', '#name');
+                layer.tips(that.$t('lay.nameplease'), '#name');
                 return;
             }
             if(this.card_id.length == ''){
-                layer.tips('请输入证件号!', '#card');
+                layer.tips(that.$t('lay.idplease'), '#card');
                 return;
             }
             // if(!reg.test(card_id)){
@@ -176,7 +176,7 @@ export default {
             //     return;
             // }
             if((that.src1==''||that.src2=='')||(that.src3=='')){
-                layer.msg('请上传完整的证件!')
+                layer.msg(that.$t('lay.comid'))
                 return;
             }
             var i= layer.load();

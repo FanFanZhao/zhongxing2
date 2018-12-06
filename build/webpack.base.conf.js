@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+vueLoaderConfig.loaders.i18n = '@kazupon/vue-i18n-loader';
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }

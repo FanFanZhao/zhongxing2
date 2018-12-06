@@ -6,56 +6,56 @@
 				<p class="status-text">{{statusText}}</p>
 			</div>
 			<div class="content-header-right">
-				<p class="contact-text">联系方式: {{datas.user_cash_info.account_number}}</p>
+				<p class="contact-text">{{$t('legal.contact')}}: {{datas.user_cash_info.account_number}}</p>
 			</div>
 		</div>
 		<div class="total">
-			<p class="total-text">交易总额：<span>{{datas.deal_money}}CNY</span></p>
+			<p class="total-text">{{$t('legal.totalmoney')}}：<span>{{datas.deal_money}}CNY</span></p>
 		</div>
 		<ul class="list">
 			<li>
-				<p class="left">买家</p>
+				<p class="left">{{$t('legal.buyer')}}</p>
 				<p class="right">{{datas.user_cash_info.real_name}}</p>
 			</li>
 			<li>
-				<p class="left">单价</p>
+				<p class="left">{{$t('legal.price')}}</p>
 				<p class="right">{{datas.price}}CNY</p>
 			</li>
 			<li>
-				<p class="left">数量</p>
+				<p class="left">{{$t('legal.number')}}</p>
 				<p class="right">{{datas.number}}{{datas.currency_name}}</p>
 			</li>
 			<li>
-				<p class="left">下单时间</p>
+				<p class="left">{{$t('legal.ordertime')}}</p>
 				<p class="right">{{datas.create_time}}</p>
 			</li>
 			<li>
-				<p class="left">参考号</p>
+				<p class="left">{{$t('legal.reference')}}</p>
 				<p class="right">{{datas.id}}</p>
 			</li>
 			<li>
-				<button class="right" v-show="datas.is_sure == 0" type="button" @click="cannel()">取消交易</button>
-				<button class="right" v-show="comfirmBtn" type="button" @click="comfirm();">确认已收款</button>
+				<button class="right" v-show="datas.is_sure == 0" type="button" @click="cannel()">{{$t('legal.ceilorder')}}</button>
+				<button class="right" v-show="comfirmBtn" type="button" @click="comfirm();">{{$t('legal.surepay')}}</button>
 			</li>
 		</ul>
 		<!-- 取消订单弹窗 -->
 		<div class="cannel-order" v-show="cannelBtn">
 			<div class="cannel-order-modal">
-				<div class="title">确认取消交易？</div>
+				<div class="title">{{$t('legal.confirmceil')}}？</div>
 				<div class="btns">
-					<button type="button" @click="cannelBtns()">取消</button>
-					<button class="comfirms" type="button" @click="cannelPay()">确认</button>
+					<button type="button" @click="cannelBtns()">{{$t('legal.ceil')}}</button>
+					<button class="comfirms" type="button" @click="cannelPay()">{{$t('legal.confirm')}}</button>
 				</div>
 			</div>
 		</div>
 		<!-- 确认订单弹窗 -->
 		<div class="cannel-order" v-show="comfirmOrder">
 			<div class="cannel-order-modal">
-				<div class="title">付款确认</div>
-				<div class="content tc">请确认买家已向您付款</div>
+				<div class="title">{{$t('legal.paysure')}}</div>
+				<div class="content tc">{{$t('legal.otherpay')}}</div>
 				<div class="btns">
-					<button type="button"  @click="cannelBtns()">取消</button>
-					<button class="comfirms" type="button" @click="comfirmPay()">确认</button>
+					<button type="button"  @click="cannelBtns()">{{$t('legal.ceil')}}</button>
+					<button class="comfirms" type="button" @click="comfirmPay()">{{$t('legal.confirm')}}</button>
 				</div>
 			</div>
 		</div>
@@ -104,17 +104,17 @@
 					if (res.data.type == 'ok') {
 						_this.datas = res.data.message;
 						if (_this.datas.is_sure == 0) {
-							_this.status = '待付款';
-							_this.statusText = '请等待买家付款';
+							_this.status = _this.$t('legal.paywait');
+							_this.statusText = _this.$t('legal.waitplease');
 						} else if (_this.datas.is_sure == 1) {
-							_this.status = '已完成';
-							_this.statusText = "订单已完成";
+							_this.status = _this.$t('legal.finished');
+							_this.statusText = _this.$t('legal.ordercomplete');
 						} else if (_this.datas.is_sure == 2) {
-							_this.status = '已取消';
-							_this.statusText = "订单已取消";
+							_this.status = _this.$t('legal.ceiled');
+							_this.statusText = _this.$t('legal.orderceiled');
 						} else if (_this.datas.is_sure == 3) {
-							_this.status = '已付款';
-							_this.statusText = "买家已付款，请核实后确认";
+							_this.status = _this.$t('legal.payed');
+							_this.statusText = _this.$t('legal.otherpay');
 						}
 
 						if (_this.datas.is_sure == 0) {
@@ -170,7 +170,7 @@
 					_this.cannelOrder = false;
 					_this.comfirmOrder = false;
 					setTimeout(() => {
-						// location.reload();
+						location.reload();
 					}, 1000);
 				});
 			},
@@ -195,9 +195,10 @@
 					layer.msg(res.data.message);
 					if (res.data.type == 'ok') {
 						setInterval(function() {
-							_this.$router.push({
-								path: '/LegalRecord'
-							});
+							// _this.$router.push({
+							// 	path: '/LegalRecord'
+							// });
+							location.reload();
 						}, 500)
 					} else {
 						_this.cannelOrder = false;

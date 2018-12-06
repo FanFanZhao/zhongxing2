@@ -1,31 +1,36 @@
 <template>
     <div id="pay-opts">
+      <p>{{$t('set.msgcer')}}</p>
+      <div class="tips">
+        <p>{{$t('account.notice')}}：</p>
+        <p class="ft14 msg">{{$t('set.turemsg')}}</p>
+      </div>
         <div class="inp-item">
-            <div>真实姓名</div>
+            <div>{{$t('set.tname')}}</div>
             <input type="text" class="请输入真实姓名" v-model="name">
         </div>
         <div class="inp-item">
-            <div>开户行名称</div>
+            <div>{{$t('set.kanme')}}</div>
             <input type="text" class="请输入开户行名称" v-model="bankName">
         </div>
         <div class="inp-item">
-            <div>银行卡号</div>
+            <div>{{$t('set.cnum')}}</div>
             <input type="number" class="请输入银行卡号" v-model="bankNum">
         </div>
         <div class="inp-item">
-            <div>支付宝账号</div>
+            <div>{{$t('set.alipay')}}</div>
             <input type="text" class="请输入支付宝账号" v-model="ali">
         </div>
         <div class="inp-item">
-            <div>微信昵称</div>
+            <div>{{$t('set.wename')}}</div>
             <input type="text" class="请输入微信昵称" v-model="weChatName">
         </div>
         <div class="inp-item">
-            <div>微信账号</div>
+            <div>{{$t('set.wenum')}}</div>
             <input type="text" class="微信账号" v-model="weChatAccount">
         </div>
         <div class="btn bgRed" @click="add">
-            确认
+            {{$t('confirm')}}
         </div>
     </div>
 </template>
@@ -75,7 +80,7 @@ export default {
     },
     add() {
         if(this.name == ''){
-            layer.mag('真实姓名必须填写');return;
+            layer.mag(this.$t('lay.truename'));return;
         }
       this.$http({
         url: "/api/user/cash_save",
@@ -98,8 +103,9 @@ export default {
 </script>
 
 <style lang='scss'>
+
 #pay-opts {
-  width: 600px;
+  width: 620px;
   margin: 0 auto;
   > .inp-item {
     position: relative;
@@ -130,9 +136,18 @@ export default {
     width: 200px;
     line-height: 40px;
     text-align: center;
-    background: #d45858;
+    background: #563BD1;
     color: #fff;
     cursor: pointer;
+  }
+  .tips{
+    padding: 18px 15px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    background: #F9FCFF;
+  }
+  .msg{
+    line-height: 45px;
   }
 }
 </style>

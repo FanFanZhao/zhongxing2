@@ -86,11 +86,12 @@ export default {
     getCoins() {
       this.token = localStorage.getItem("token") || "";
       console.log(this.token);
-
+    var  i = layer.load();
       this.$http({
         url: "/api/wallet/currencylist",
         headers: { Authorization: this.token }
       }).then(res => {
+          layer.close(i);
         console.log(res);
         if(res.data.type == 'ok'&&res.data.message.length != 0){
             this.coins = res.data.message;
@@ -107,14 +108,14 @@ export default {
     },
     getList() {
         this.token = localStorage.getItem("token") || "";
-        
-
+        var i = layer.load();
         this.$http({
             url: "/api/wallet/get_address",
             method:'post',
             data:{currency:this.addId},
             headers: { Authorization: this.token }
         }).then(res => {
+            layer.close(i);
             console.log(res);
             if(res.data.type == 'ok'){
                 this.list = res.data.message;

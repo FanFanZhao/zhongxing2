@@ -5,62 +5,62 @@
         <div class="logo">k</div>
         <div>
           <div>{{info.name}}</div>
-          <div>注册时间：{{info.create_time}}</div>
+          <div>{{$t('shop.retime')}}：{{info.create_time}}</div>
         </div>
       </div>
       <div class="top-b flex">
         <div>
           <div>{{info.total}}</div>
-          <div>总成单</div>
+          <div>{{$t('shop.allorder')}}</div>
         </div>
         <div>
           <div>{{info.thirtyDays}}</div>
-          <div>30日成单</div>
+          <div>{{$t('shop.dayorder')}}</div>
         </div>
         <div>
           <div>{{info.done}}</div>
-          <div>完成单</div>
+          <div>{{$t('shop.comorder')}}</div>
         </div>
         <div>
           <div>100%</div>
-          <div>完成率</div>
+          <div>{{$t('shop.comrate')}}</div>
         </div>
       </div>
     </div>
     <div class="md flex bg-part ft14">
       <div>
-        <span>邮箱认证</span>
+        <span>{{$t('shop.email')}}</span>
         <img v-if="info.prove_email == 1" src="../assets/images/success.png" alt="">
         <img v-else src="../assets/images/icon_error.png" alt="">
       </div>
       <div>
-        <span>手机</span>
+        <span>{{$t('shop.phone')}}</span>
         <img v-if="info.prove_mobile == 1" src="../assets/images/success.png" alt="">
         <img v-else src="../assets/images/icon_error.png" alt="">
       </div>
       <div>
-        <span>实名认证</span>
+        <span>{{$t('shop.truename')}}</span>
         <img v-if="info.prove_real == 1" src="../assets/images/success.png" alt="">
         <img v-else src="../assets/images/icon_error.png" alt="">
       </div>
       <div>
-        <span>高级认证</span>
+        <span>{{$t('shop.high')}}</span>
         <img v-if="info.prove_level == 1" src="../assets/images/success.png" alt="">
         <img v-else src="../assets/images/icon_error.png" alt="">
       </div>
     </div>
     <div class="list bg-part ft14">
       <div class="tab">
-        <span  :class="{'now':showWhich == 'sell'}" @click="showWhich = showWhich == 'sell'?'none':'sell'">在线出售</span>
-        <span :class="{'now':showWhich == 'buy'}" @click="showWhich = showWhich == 'buy'?'none':'buy'">在线购买</span>
+        <span  :class="{'now':showWhich == 'sell'}" @click="showWhich = showWhich == 'sell'?'none':'sell'">{{$t('shop.onsell')}}</span>
+        <span :class="{'now':showWhich == 'buy'}" @click="showWhich = showWhich == 'buy'?'none':'buy'">{{$t('shop.onbuy')}}</span>
       </div>
       <div class="ul-head flex">
-        <div>币种</div>
-        <div>数量</div>
-        <div>限额</div>
-        <div>单价</div>
-        <div>支付方式</div>
-        <div>操作</div>
+        <div>{{$t('market.currency')}}</div>
+        <div>{{$t('number')}}</div>
+        <div>{{$t('legal.limit')}}</div>
+        <div>{{$t('price')}}</div>
+        <div>{{$t('legal.pay')}}</div>
+        <div>{{$t('do')}}</div>
       </div>
       <ul :class="[showWhich+'-box']">
         <li v-for="(item,index) in info.lists.data" :key="index" :class="[item.type == 'buy'?'buy-item':'sell-item']">
@@ -70,48 +70,48 @@
           <div>{{item.price}}</div>
           <div>{{item.way_name}}</div>
           <div>
-            <span v-if="item.type == 'buy'" @click="setDetail(item)">出售</span>
-            <span v-else @click="setDetail(item)">购买</span>
+            <span v-if="item.type == 'buy'" @click="setDetail(item)">{{$t('legal.sell')}}</span>
+            <span v-else @click="setDetail(item)">{{$t('legal.buy')}}</span>
           </div>
         </li>
       </ul>
-      <div class="more" @click="getSellerInfo(true)">加载更多</div>
+      <div class="more" @click="getSellerInfo(true)">{{$t('more')}}</div>
     </div>
     <div class="buy-sell-box" v-if="showDetail">
       <div class="content">
 
         <div class="flex">
-          <span>{{detail.type == 'buy'?'出售':'购买'}}</span><span>{{detail.currency_name}}</span>
+          <span>{{detail.type == 'buy'?$t('legal.sell'):$t('legal.buy')}}</span><span>{{detail.currency_name}}</span>
         </div>
         <div class="flex">
-          <span>单价：</span><span>{{detail.price}}</span>
+          <span>{{$t('price')}}：</span><span>{{detail.price}}</span>
         </div>
         <div class="flex">
-          <span>限额：</span><span>{{detail.limitation.min}}-{{detail.limitation.max}}</span>
+          <span>{{$t('legal.limit')}}：</span><span>{{detail.limitation.min}}-{{detail.limitation.max}}</span>
         </div>
         <div class="flex">
-          <span>数量：</span><span>{{detail.surplus_number}}</span>
+          <span>{{$t('number')}}：</span><span>{{detail.surplus_number}}</span>
         </div>
         <div class="tab">
-          <span :class="{'selected':detail.which == 'money'}" @click="detail.which = 'money'">CNY交易</span>
-          <span :class="{'selected':detail.which == 'number'}" @click="detail.which = 'number'">{{detail.type == 'buy'?'卖出':'买入'}}数量</span>
+          <span :class="{'selected':detail.which == 'money'}" @click="detail.which = 'money'">CNY{{$t('account.trade')}}</span>
+          <span :class="{'selected':detail.which == 'number'}" @click="detail.which = 'number'">{{detail.type == 'buy'?$t('center.outsell'):$t('center.inbuy')}}{{$t('number')}}</span>
         </div>
         <div class="inp" v-if="detail.which == 'money'">
-          <input type="number" :placeholder="'请输入欲'+detail.type == 'buy'?'出售':'购买'+'法币总额'" v-model="detail.money">
+          <input type="number" :placeholder="$t('legal.inwant')+detail.type == 'buy'?$t('legal.sell'):$t('legal.buy')+$t('shop.fatotal')" v-model="detail.money">
           <span>CNY</span>
-          <span class="all" @click="detail.money = detail.limitation.max">全部{{detail.type == 'buy'?'卖出':'买入'}}</span>
+          <span class="all" @click="detail.money = detail.limitation.max">{{$t('center.all')}}{{detail.type == 'buy'?$t('center.outsell'):$t('center.inbuy')}}</span>
         </div>
         <div class="inp" v-if="detail.which == 'number'">
-          <input type="number" :placeholder="'请输入欲'+detail.type == 'buy'?'出售':'购买'+'数量'" v-model="detail.num">
+          <input type="number" :placeholder="$t('legal.inwant')+detail.type == 'buy'?$t('legal.sell'):$t('legal.buy')+$t('number')" v-model="detail.num">
           <span>{{detail.currency_name}}</span>
-          <span class="all" @click="detail.num = detail.surplus_number">全部{{detail.type == 'buy'?'卖出':'买入'}}</span>
+          <span class="all" @click="detail.num = detail.surplus_number">{{$t('center.all')}}{{detail.type == 'buy'?$t('center.outsell'):$t('center.inbuy')}}</span>
         </div>
-        <div class="tip">请在24小时内联系商家付款，超出24小时将自动取消</div>
+        <div class="tip">{{$t('legal.conactceil')}}</div>
         <div class="btns flex">
           <div class="cancel" @click="cancel">
-            <span ref="remainTime">60</span><span>秒后自动取消</span></div>
-          <div class="ok" @click="buySell('buy')" v-if="detail.type == 'sell'">下单</div>
-          <div class="ok" @click="buySell('sell')" v-if="detail.type == 'buy'">下单</div>
+            <span ref="remainTime">60</span><span>{{$t('shop.sceil')}}</span></div>
+          <div class="ok" @click="buySell('buy')" v-if="detail.type == 'sell'">{{$t('legal.placeorder')}}</div>
+          <div class="ok" @click="buySell('sell')" v-if="detail.type == 'buy'">{{$t('legal.placeorder')}}</div>
         </div>
       </div>
     </div>
@@ -141,6 +141,7 @@ export default {
   },
   methods: {
     getSellerInfo(more) {
+      var that = this;
       this.showWhich = "none";
       if (!more) {
         this.page = 1;
@@ -166,7 +167,7 @@ export default {
             if (newlist.length) {
               this.info.lists.data = newlist.concat(oldlist);
             } else {
-              layer.msg("没有更多数据");
+              layer.msg(that.$t('nomore'));
             }
           } else {
             this.info = Object.assign({}, res.data.message);
@@ -191,16 +192,17 @@ export default {
     buySell() {
       // this.detail = Object.assign({which:'money'},item)
       // var value = this.detail.which == 'money'?detail.money:detail.num;
+      var that = this;
       var value = "";
       if (this.detail.which == "money") {
         value = this.detail.money;
         if (value == "") {
           return;
         } else if ((value -0 - this.detail.limitation.min)<0) {
-          layer.msg("不能低于最低限额");
+          layer.msg(that.$t('shop.nomin'));
           return;
         } else if ((value -0 - this.detail.limitation.max) > 0) {
-          layer.msg("不能超出最大限额");
+          layer.msg(that.$t('shop.nomax'));
           return;
         }
       } else {
@@ -208,7 +210,7 @@ export default {
         if(value == ''){
           return;
         } else if(value>this.detail.surplus_number){
-          layer.msg('不能超出最大数量');return;
+          layer.msg(that.$t('shop.nomaxnum'));return;
         }
       }
       this.$http({

@@ -2,44 +2,48 @@
 	<div id="legaltrade-box" class="clr-part">
 		<div class="buy-sell flex bg-part">
 			<div class="buy-box bdr-part">
-				<div class="title">购买</div>
+				<div class="title">{{$t('legal.buy')}}</div>
 				<ul :class="['flex',{'now':type == 'sell'}]">
 					<li v-for="(coin,index) in legals" :key="index" :class="{'current':coin.id == id}" @click="changeClassify(coin.id,1,coin.name)">{{coin.name}}</li>
 				</ul>
 			</div>
 			<div class="sell-box">
-				<div class="title">出售</div>
+				<div class="title">{{$t('legal.sell')}}</div>
 				<ul :class="['flex',{'now':type=='buy'}]">
 					<li v-for="(coin,index) in legals" :key="index" :class="{'current':coin.id == id}" @click="changeClassify(coin.id,2,coin.name)">{{coin.name}}</li>
 				</ul>
 			</div>
-			<div class="record light_blue" @click="recordList()">订单记录</div>
+			<span class="record light_blue" @click="recordList()">{{$t('legal.record')}}</span>
 		</div>
 		<div class="list-box bg-part">
 			<div class="list-title flex ft14">
-				<div>商家</div>
-				<div>数量</div>
-				<div>限额</div>
-				<div>单价</div>
-				<div>支付方式</div>
-				<div>操作</div>
+				<div>{{$t('legal.shoper')}}</div>
+				<div>{{$t('legal.number')}}</div>
+				<div>{{$t('legal.limit')}}</div>
+				<div>{{$t('legal.price')}}</div>
+				<div>{{$t('legal.pay')}}</div>
+				<div>{{$t('legal.do')}}</div>
 			</div>
 			<ul class="list ft12">
-				<li v-for="(item,index) in list" :key="index" class="flex bdr-part">
+				<li v-for="(item,index) in list" :key="index" class="flex">
 					<div class="flex alcenter">
 						<!-- <img :src="url+'upload/'+item.currency_logo" alt=""> -->
 						<div class="head">{{item.seller_name | formatTime}}</div>
 						<div class="flex column center">
-							<span class="light_blue">{{item.seller_name}}</span>
-						<span>{{item.currency_name}}</span>
+							<span class="light_blue sellerName">{{item.seller_name}}</span>
+						<span class="currencyName">{{item.currency_name}}</span>
 						</div>
 					</div>
 					<div class="flex alcenter">{{item.surplus_number}}</div>
 					<div class="flex alcenter">{{(item.limitation.min-0).toFixed(2)}}-{{(item.limitation.max-0).toFixed(2)}}CNY</div>
 					<div class="flex alcenter">{{item.price}}</div>
-					<div class="flex alcenter">{{item.way_name}}</div>
+					<div class="flex alcenter">
+						<img  src="../assets/images/zfb_icon.png" />
+						<img src="../assets/images/wx_icon.png" />
+						<img src="../assets/images/bank_icon.png" />
+					</div>
 					<div class="flex alcenter end"  @click="buySell(item.price,item.limitation.min,item.limitation.max,item.id,item.type,item.surplus_number)">
-						<button class="btn">{{classify}}{{name}}</button>
+						<button class="btn">{{classify}}</button>
 					</div>
 				</li>
 			</ul>
@@ -52,30 +56,30 @@
 			<div class="mask" @click="closeBtn()"></div>
 			<div class="content">
 				<div class="content-list layerBg">
-					<p class="close light_blue" @click="shows=false">X</p>
+					<p class="close light_blue" @click="close">X</p>
 					<p class="title">{{classify}}{{name}}</p>
-					<p class="price">单价{{prices}}</p>
+					<p class="price">{{$t('legal.price')}}{{prices}}</p>
 					<div class="trade">
-						<p class="cur" :class="['trade-name',{'active':types == 'trade'}]" @click="tabClassify(1)">{{name}}交易</p>
-						<p class="cur" :class="['trade-num',{'active':types == 'num'}]" @click="tabClassify(2)">{{classify}}数量</p>
+						<p class="cur" :class="['trade-name',{'active':types == 'trade'}]" @click="tabClassify(1)">{{name}}{{$t('legal.transaction')}}</p>
+						<p class="cur" :class="['trade-num',{'active':types == 'num'}]" @click="tabClassify(2)">{{classify}}{{$t('legal.number')}}</p>
 					</div>
 					<div class="totals-num bdr-part">
-						<input v-if=" types == 'trade' " class="number" type="number" :placeholder='"请输入欲"+money_type+"总额"' v-model="nums">
-						<input v-else class="number" type="number" :placeholder='"请输入要"+money_type+"数量"' v-model="nums">
-						<button class="all clr-part" type="button" v-if=" type== 'buy' " @click="allMoney();">全部卖出</button>
-						<button class="all clr-part" type="button" v-else @click="allMoney();">全部买入</button>
+						<input v-if=" types == 'trade' " class="number" type="number" :placeholder='$t("legal.inwant")+money_type+$t("legal.total")' v-model="nums">
+						<input v-else class="number" type="number" :placeholder='$t("legal.inwant")+money_type+$t("legal.number")' v-model="nums">
+						<button class="all clr-part" type="button" v-if=" type== 'buy' " @click="allMoney();">{{$t('legal.sellall')}}</button>
+						<button class="all clr-part" type="button" v-else @click="allMoney();">{{$t('legal.buyall')}}</button>
 						<span class="name">{{name01}}</span>
 					</div>
-					<div class="maxnum">限额{{(minNum-0).toFixed(2)}}-{{(maxNum-0).toFixed(2)}}</div>
+					<div class="maxnum">{{$t('legal.limit')}}{{(minNum-0).toFixed(2)}}-{{(maxNum-0).toFixed(2)}}</div>
 					<div class="trade-totals">
-						<p class="total-price">交易总额</p>
+						<p class="total-price">{{$t('legal.totalmoney')}}</p>
 						<p class="prices" v-if=" types == 'trade' ">￥{{nums | toFixeds}}</p>
 						<p class="prices" v-else>￥{{nums * prices | toFixeds}}</p>
 					</div>
-					<p class="tip">请在24小时内联系商家付款，超出24小时将自动取消</p>
+					<p class="tip">{{$t('legal.conactceil')}}</p>
 					<div class="btns">
-						<p class="cannel">{{time}}s自动取消</p>
-						<button class="comfirm" type="button" @click="buyOrder()">下单</button>
+						<p class="cannel">{{time}}s{{$t('legal.autoceil')}}</p>
+						<button class="comfirm" type="button" @click="buyOrder()">{{$t('legal.placeorder')}}</button>
 					</div>
 				</div>
 			</div>
@@ -100,7 +104,7 @@
 				type: 'sell',
 				id: 0,
 				page: 1,
-				classify: '购买',
+				classify: this.$t('legal.buy'),
 				name: 'CNY',
 				pages: 0,
 				prices: 0,
@@ -118,7 +122,8 @@
 				name01:'CNY',
 				numbers:'',
 				allnum:'',
-				idx:1
+				idx:1,
+				timer:''
 			};
 		},
 
@@ -138,10 +143,17 @@
 			}
 		},
 		methods: {
+			//关闭弹框
+			close(){
+			   this.shows = false;
+			    clearInterval(this.timer); //弹框关闭清除定时器
+			},
 			getCoins() {
+				var i = layer.load();
 				this.$http({
 					url: "/api/currency/list"
 				}).then(res => {
+					layer.close(i);
 					if (res.data.type == "ok") {
 						var list = res.data.message.legal;
 						if (list.length) {
@@ -192,10 +204,10 @@
 				_this.id = ids;
 				if (type == 1) {
 					_this.type = 'sell';
-					_this.classify = '购买'
+					_this.classify = _this.$t('legal.buy')
 				} else {
 					_this.type = 'buy';
-					_this.classify = '出售'
+					_this.classify = _this.$t('legal.sell')
 				}
 				_this.name = names;
 				_this.getList(_this.type, ids, 1)
@@ -215,9 +227,11 @@
 				// this.numbers = '';
 				console.log(type)
 				if(type == 'sell'){
-					this.money_type = '购买'
+					// this.money_type = '购买'
+					this.money_type=this.$t('legal.buy');
 				}else if(type == 'buy'){
-					this.money_type = '出售'
+					// this.money_type = '出售'
+					this.money_type=this.$t('legal.sell');
 				}
 				let _this = this;
 				_this.shows = true;
@@ -228,13 +242,13 @@
 				_this.minNum = min;
 				_this.maxNum = max;
 				_this.allnum = allnum;
-			      var t1 = setInterval(function() {
+			      _this.timer = setInterval(function() {
 					_this.time--;
 					if (_this.time <= 0) {
 						_this.shows = false;
 						document.body.removeAttribute("class", "body");
 						//清除定时器
-						clearInterval(t1);
+						clearInterval(_this.timer);
 					}
 				}, 1000)
 			},
@@ -276,16 +290,16 @@
 					if(_this.nums<=0){
 						if(this.type == 'sell' ){
 							if (_this.types == 'trade') {
-								return	layer.msg('请输入欲购买总额');
+								return	layer.msg(_this.$t('lay.buymoney'));
 							}else{
-								return layer.msg('请输入欲购买数量');
+								return layer.msg(_this.$t('lay.buynum'));
 							}
 						}else {
 							if (_this.types == 'trade') {
 							
-								return layer.msg('请输入欲出售总额');
+								return layer.msg(_this.$t('lay.sellmoney'));
 							}else{
-							    return layer.msg('请输入欲出售数量');
+							    return layer.msg(_this.$t('lay.sellnum'));
 							}
 						}
 					}
@@ -297,7 +311,8 @@
 						value: _this.nums
 					};
 					//获取实名认证状态
-					var review_status;
+					var review_status; //是否实名认证
+					var is_Billing; //是否设置收款方式 1 已设置 0 未设置
 					var load = layer.load();
 					this.$http({
 								url:'/api/user/info',
@@ -309,10 +324,19 @@
 								console.log(res)
 								if(res.data.type == 'ok'){
 									review_status = res.data.message.review_status;
+									is_Billing =  res.data.message.is_Billing;
 									if(review_status!=2){
-									layer.msg('请先进行实名认证再下单');
+									layer.msg(_this.$t('lay.tname'));
 									return false;
-								}else{
+								}else if(is_Billing == 0){
+									layer.msg(_this.$t('lay.payset'));
+									setTimeout(() => {
+										 this.$router.push('/userSetting');
+									}, 1000);
+								  
+								   return;
+								}
+								else{
 									_this.buyHttp('/api/do_legal_deal', datas, function(res) {
 									
 									if(res.data.type == 'ok'){
@@ -401,6 +425,12 @@
 	.number{
 		background: #acafc3;
 	}
+	.sellerName,.currencyName{
+		line-height: normal;
+	}
+	.sellerName{
+		margin-bottom: 5px;
+	}
   
 	#legaltrade-box {
 		width: 1200px;
@@ -427,19 +457,15 @@
 					margin-top: 20px;
 
 					li {
-						margin-right: 16px;
+						margin-right: 20px;
 						cursor: pointer;
-						    padding: 2px 6px;
 					}
 				}
 
 				>.now {
 					>.current {
-						// color: $purple;
-						// border-bottom: 2px solid $purple;
-						background: #563BD1;
-						color: #fff;
-						padding: 2px 6px;
+						border-bottom: 2px solid #563BD1;
+						color: #563BD1;
 					}
 				}
 			}
@@ -454,11 +480,12 @@
 		}
 
 		>.list-box {
-			margin-top: 20px;
 			padding: 20px;
 			border-radius: 3px;
-
+            min-height: 600px;
 			>.list-title {
+				    padding-bottom: 8px;
+                    border-bottom: 1px solid #eee;
 				>div {
 					flex: 1;
 				}
@@ -481,16 +508,14 @@
 							height: 36px;
 							border-radius: 50%;
 							margin-right: 10px;
-							background: #563BD1;
+							background: #5D8CC2;
 							color: #fff;
 							text-align: center;
 							font-size: 14px;
 						}
 						>img {
-							width: 36px;
-							height: 36px;
-							border-radius: 50%;
-							margin-right: 10px;
+							width: 20px;
+							margin: 0 6px;
 						}
 
 						>span {
@@ -506,10 +531,9 @@
 
 						>button {
 							background-color: $purple;
-							padding: 5px 15px;
+							padding: 8px 20px;
 							color: #fff;
-							border-radius: 8px;
-							line-height: 36px;
+							border-radius: 4px;
 						}
 					}
 				}

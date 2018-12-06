@@ -34,6 +34,34 @@
   /*color: #fff !important;*/
   /*font-size: 19px !important;*/
 }
+.layout__area--left{
+  display: block!important;
+  width: 40px!important;
+  left:-5px!important;
+}
+.drawingToolbar-2CoOuCv8-{
+  background: none!important;
+}
+.layout__area--center{
+  /* width: 605px!important; */
+  left: 40px!important;
+}
+/* .chart-container{
+  width: 594px!important;
+}
+.chart-widget{
+  width: 594px!important;
+}  */
+.chart-markup-table{
+  width: 95%!important;
+}
+.pane{
+  width: 794px!important;
+}
+.header-chart-panel{
+  width: 95%!important;
+  left: 40px!important;
+}
 
 /*.header-chart-panel .group:nth-child(2){*/
 /*background: red !important;*/

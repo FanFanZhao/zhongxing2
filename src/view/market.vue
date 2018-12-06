@@ -1,11 +1,8 @@
 <template>
     <div class="market clr-part">
-		<div class="m_title  clear">
-            <span class=" fl">市场</span>
-            <div class="m_search fr hide">
-               <input type="text" >
-               <img src="../assets/images/search.png" alt="">
-            </div>
+		<div class="m_title  flex" style="padding:20px 0 ">
+            <span style="width:100px">{{$t('market.market')}}</span>
+            <el-input v-model="keyword" size="mini" clearable :placeholder="$t('inpCur')"></el-input>
         </div>
         <div class="m_filter">
             <div class="tabtitle ft14 curPer flex around">
@@ -14,30 +11,51 @@
                 <!-- <span class="active">USDT</span>
                 <span>JNB</span>
                 <span>JNB</span> -->
-                <span v-for="(tab,index) in tabList " :key="index" :class="['bdr-part',{'active': (index == isShow)}]" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
+                <span v-for="(tab,index) in tabList" :key="index" :class="['bdr-part',{'active': (index == isShow&&!showAdd)}]" @click="changeType(index,tab.name,tab.id)">{{tab.name}}</span>
+                <span @click="showAdd=true" :class="['bdr-part',{'active': showAdd}]">{{$t('home.myMarkets')}}</span>
             </div>
         </div>
         <div class="coin-title clear clr-part">
             <div>
-                <span>币种</span>
-                <img src="../assets/images/select0.png" alt="">
+                <div class="flex tc" @click="arrSort('at')">
+                  <span>{{$t('market.currency')}}</span>
+                  <div class="down-up">
+                    <div :class="['el-icon-caret-top curPer',{bold:sortKey == 'at'&&directions == 'up'}]" @click="directions = 'up';arrSort('at','up')"></div>
+                    <div :class="['el-icon-caret-bottom curPer',{bold:sortKey == 'at'&&directions == 'down'}]" @click="directions = 'down';arrSort('at','down')"></div>
+                  </div>
+                </div>
+                <!-- <img src="../assets/images/select0.png" alt=""> -->
             </div>
             <div>
-                <span>最新价</span>
-                <img src="../assets/images/select0.png" alt="">
+                <div class="flex tc" @click="arrSort('now_price')">
+                  <span>{{$t('market.lastprice')}}</span>
+                  <div class="down-up">
+                    <div :class="['el-icon-caret-top curPer',{bold:sortKey == 'now_price'&&directions == 'up'}]" @click="directions = 'up';arrSort('now_price','up')"></div>
+                    <div :class="['el-icon-caret-bottom curPer',{bold:sortKey == 'now_price'&&directions == 'down'}]" @click="directions = 'down';arrSort('now_price','down')"></div>
+                  </div>
+                </div>
+                <!-- <img src="../assets/images/select0.png" alt=""> -->
             </div>
             <div>
-                 <span>涨幅</span>
-                <img src="../assets/images/select0.png" alt="">
+                 <div class="flex tc" @click="arrSort('change')">
+                   <span>{{$t('market.change')}}</span>
+                   <div class="down-up">
+                     <div :class="['el-icon-caret-top curPer',{bold:sortKey == 'change'&&directions == 'up'}]" @click="directions = 'up';arrSort('change')"></div>
+                     <div :class="['el-icon-caret-bottom curPer',{bold:sortKey == 'change'&&directions == 'down'}]" @click="directions = 'down';arrSort('change')"></div>
+                   </div>
+                 </div>
+                <!-- <img src="../assets/images/select0.png" alt=""> -->
             </div>
         </div>
         <!-- <div class="line"></div> -->
         <ul class="coin-wrap scroll">
-          <li v-for="(market,index) in marketList " :key="index" v-show="(index == isShow )" >
-            <p v-for="(itm,idx) in market"  :key="itm.id" :class="{'bg-hov':true,'bg-even':idx%2 !=0,'bg-sel':(idx===ids)||(currency_index==itm.currency_name&&legal_index==itm.legal_name)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.legal_id,itm.currency_name,itm.legal_name,itm,index,market)">
+          <li v-for="(market,index) in marketList " :key="index" >
+            <p v-for="(itm,idx) in market"  :key="itm.id" v-if="search(itm.currency_name)&&testItem(itm.legal_name,itm.added)" :class="{'bg-hov':true,'bg-even':idx%2 !=0,'bg-sel':(idx===ids)||(currency_index==itm.currency_name&&legal_index==itm.legal_name)}" :data-id='itm.id' :data-index='idx' @click="quota_shift(idx,itm.currency_id,itm.legal_id,itm.currency_name,itm.legal_name,itm,index,market,itm.now_price,$event)">
               <span class="w36"><img :src="itm.logo" alt=""><i><em class="deep_blue bold">{{itm.currency_name}}</em><em class="light_blue bold">/{{itm.legal_name}}</em></i></span>
-              <span class="w30 tr deep_blue bold" :data-name='itm.currency_name+"/"+itm.legal_name'>${{itm.now_price || 0}}</span>
+              <span class="w30 tr deep_blue bold nowPrice" :data-name='itm.currency_id+"/"+itm.legal_id'>{{itm.now_price || 0}}</span>
               <span :class="{'green':itm.change>=0}" class="bold">{{(itm.change>0?'+':'')+(itm.change-0).toFixed(2)}}%</span>
+              <span class="  el-icon-star-on star" v-if="itm.added" @click="addDelete('delete',itm.currency_match_id)" ></span>
+                <span class="  el-icon-star-off star" v-if="!itm.added"  @click="addDelete('add',itm.currency_match_id)"></span>
             </p>
           </li>
         </ul>
@@ -54,20 +72,104 @@ export default {
       tabList: [],
       marketList: [],
       newData: ["HQ", "$0.076128", "-1.11%"],
-      legal_index: '',
-      currency_index: '',
+      legal_index: "",
+      currency_index: "",
       tradeDatas: "",
       exName: "",
       currency_name: "",
-      legal_name:""
+      legal_name: "",
+      directions:'',
+      sortKey:'none',
+      myAdd:[],
+      token:'',
+      nowLegal:'',
+      showAdd:false,
+      keyword:''
     };
   },
   created: function() {
     // this.init();
     this.token = localStorage.getItem("token") || "";
     //法币列表
-    var load = layer.load();
-    this.$http({
+    if(this.token){
+      this.getMyAdd()
+    } else {
+      this.getList()
+    }
+    
+  },
+  mounted() {
+    var that = this;
+  },
+  methods: {
+    search(name){
+      var l = this.keyword.length;
+      if(l){
+        if(l>name.length){
+          return false;
+        } else {
+          if(name.slice(0,l) == this.keyword){
+            return true;
+          } else {
+            return false;
+          }
+        }
+      } else {
+        return true;
+      }
+      
+    },
+    testItem(name,added){
+      
+      if(this.showAdd){
+        return added
+      } else {
+        return name == this.nowLegal
+      }
+    },
+    getMyAdd(){
+      if(this.token){
+
+          this.$http({
+          url:'/api/user_match/list',
+        
+          headers: { Authorization: this.token}
+        }).then(res => {
+          if(res.data.type == 'ok'){
+            var list = res.data.message;
+              this.myAdd = list;
+              
+              this.getList();
+          }
+        })
+      } else {
+        layer.msg('请先登录')
+      }
+    },
+    addDelete(url,id){
+      if(this.token){
+
+          this.$http({
+          url:'/api/user_match/'+url,
+          method:'post',
+          data:{id:id},
+          headers: { Authorization: this.token}
+        }).then(res => {
+          layer.msg(res.data.message);
+          this.getMyAdd()
+        })
+      } else {
+        if(this.$i18n.locale == 'zh'){
+
+          layer.msg('请先登录')
+        } else {
+          layer.msg('Please sign in')
+        }
+      }
+    },
+    getList(){
+      var load = layer.load();
+      this.$http({
       url: "/api/" + "currency/quotation",
       method: "get",
       data: {}
@@ -75,14 +177,26 @@ export default {
       layer.close(load);
       // console.log(res);
       if (res.data.type == "ok") {
-        this.tabList = res.data.message; 
+        this.tabList = res.data.message;
         var msg = res.data.message;
+        if(this.myAdd.length){
+
+            msg.forEach((item,index) => {
+              this.myAdd.forEach((ite,ind) => {
+                if(item.id == ite.legalId){
+                  item.quotation.find((c) => {
+                    return c.currency_id == ite.currencyId;
+                  }).added = true
+                }
+              })
+            })
+          }
         var arr_quota = [];
         for (var i = 0; i < msg.length; i++) {
           arr_quota[i] = msg[i].quotation;
         }
         this.marketList = arr_quota;
-        console.log(this.marketList)
+        console.log(this.marketList);
         // this.$store.state.priceScale = Math.pow(
         //   10,
         //   this.marketList[0][0].now_price
@@ -93,34 +207,42 @@ export default {
           this.exName = this.tabList[0].name;
         }
         this.currency_name = msg[0].name;
+        // this.nowLegal = msg[0].name;
         this.$store.state.priceScale = 100000;
-        
+
         //默认法币id和name和行情交易对
-        if(!window.localStorage.getItem('tradeData')){
-          this.$store.state.symbol = arr_quota[0][0].currency_name + "/" + arr_quota[0][0].legal_name;
+        if (!window.localStorage.getItem("tradeData")) {
+          this.$store.state.symbol =
+            arr_quota[0][0].currency_name + "/" + arr_quota[0][0].legal_name;
           var legal_id = arr_quota[0][0].legal_id;
           var currency_id = arr_quota[0][0].currency_id;
           var legal_name = arr_quota[0][0].legal_name;
+          this.nowLegal = arr_quota[0][0].legal_name;
           var currency_name = arr_quota[0][0].currency_name;
+           var now_price = arr_quota[0][0].now_price;
           var tradeDatas = {
             currency_id: currency_id,
             legal_id: legal_id,
             currency_name: currency_name,
-            legal_name: legal_name
+            legal_name: legal_name,
+            now_price:now_price
           };
-        }else{
-          var localData=JSON.parse(window.localStorage.getItem('tradeData'))
-          this.$store.state.symbol = localData.currency_name + "/" + localData.legal_name;
+        } else {
+          var localData = JSON.parse(window.localStorage.getItem("tradeData"));
+          this.$store.state.symbol =
+            localData.currency_name + "/" + localData.legal_name;
+            this.nowLegal = localData.legal_name;
           var tradeDatas = {
             currency_id: localData.currency_id,
             legal_id: localData.legal_id,
             currency_name: localData.currency_name,
-            legal_name: localData.legal_name
+            legal_name: localData.legal_name,
+             now_price:arr_quota[0][0].now_price
           };
-          this.ids='a';
-          this.isShow=localData.isShow;
-          this.legal_index=localData.legal_name;
-          this.currency_index= localData.currency_name;
+          this.ids = "a";
+          this.isShow = localData.isShow;
+          this.legal_index = localData.legal_name;
+          this.currency_index = localData.currency_name;
         }
 
         //组件间传值
@@ -134,11 +256,34 @@ export default {
         this.connect();
       }
     });
-  },
-  mounted() {
-    var that = this;
-  },
-  methods: {
+    },
+    arrSort(k,d){
+      console.log(d);
+      d = this.directions;
+      
+      this.sortKey = k;
+      this.marketList[this.isShow].sort(function(a,b){
+        if(k == 'at'){
+          if(d == 'up'){
+
+            return a.currency_name.charCodeAt() - b.currency_name.charCodeAt()
+          } else {
+            return b.currency_name.charCodeAt() - a.currency_name.charCodeAt()
+
+          }
+          
+        } else {
+          if(d == 'up'){
+
+            return a[k] - b[k];
+          } else {
+            return b[k] - a[k];
+          }
+          
+        }
+      })
+      
+    },
     // socket封装
     connect() {
       var that = this;
@@ -147,25 +292,33 @@ export default {
       that.$socket.on("daymarket", msg => {
         // console.log(msg);
         if (msg.type == "daymarket") {
-          var cname = msg.currency_name + "/" + msg.legal_name;
-          var newprice = msg.now_price;
-          var newup = msg.change;
-          // console.log(cname)
-          if (newup < 0) {
-            newup = newup + "%";
-            $("span[data-name='" + cname + "']")
-              .next()
-              .css("color", "#cc4951");
-          } else {
-            newup = newup + "%";
-            $("span[data-name='" + cname + "']")
-              .next()
-              .css("color", "#55a067");
+          console.log(msg);
+          let lists = that.marketList;
+          for (let i in lists) {
+            if (lists[i].currency_id == msg.currency_id&&lists[i].legal_id == msg.legal_id) {
+              that.marketList[i].now_price = msg.now_price;
+              that.marketList[i].change = (msg.change-0).toFixed(2);;
+            }
           }
-          $("span[data-name='" + cname + "']")
-            .html("$" + newprice)
-            .next()
-            .html(newup);
+          // var cname = msg.currency_id + "/" + msg.legal_id;
+          // var newprice = msg.now_price;
+          // var newup = (msg.change-0).toFixed(2);
+          // // console.log(cname)
+          // if (newup < 0) {
+          //   newup = newup + "%";
+          //   $("span[data-name='" + cname + "']")
+          //     .next()
+          //     .css("color", "#ff6e42");
+          // } else {
+          //   newup = '+'+newup + "%";
+          //   $("span[data-name='" + cname + "']")
+          //     .next()
+          //     .css("color", "#459e80");
+          // }
+          // $("span[data-name='" + cname + "']")
+          //   .html(newprice)
+          //   .next()
+          //   .html(newup);
         }
       });
     },
@@ -181,6 +334,10 @@ export default {
       //	this.$store.state.symbol=list.name+'/'+this.exName
     },
     changeType(index, legal_name, currency_id) {
+      this.nowLegal = legal_name;
+      this.showAdd = false;
+      this.directions = '';
+      this.sortKey = '';
       this.isShow = index;
       // this.legal_index='';
       this.ids = "a";
@@ -230,7 +387,7 @@ export default {
           if (res.data.type == "ok") {
             this.getSymbols(() => {
               this.marketList = res.data.message.coin_list;
-              console.log(this.marketList)
+              console.log(this.marketList);
               for (var i in this.dataList) {
                 for (var j in this.marketList) {
                   // console.log(this.dataList[i].name,this.marketList[j].symbol,this.dataList[i].name==this.marketList[j].symbol)
@@ -255,36 +412,61 @@ export default {
     },
     //币种切换
 
-    quota_shift(idx,currency_id,legal_id,currency_name,legal_name,list,index,market) {
+    quota_shift(
+      idx,
+      currency_id,
+      legal_id,
+      currency_name,
+      legal_name,
+      list,
+      index,
+      market,
+      now_price,
+      event
+    ) {
+      console.log($('.coin-wrap').children().eq(index).children().eq(idx).children().eq(1).text());
+      $('.coin-wrap').children().eq(index).children().eq(idx).children().eq(1).text();
       // idx,currency_id,legal_id,currency_name,legal_name,list,index,market
-      console.log(market)
+      console.log(market);
       this.ids = idx;
-      this.legal_index='';
-      this.currency_index='';
-      if (list.now_price == null) {
+      this.legal_index = "";
+      this.currency_index = "";
+      if (list.now_price == null || list.now_price == "0") {
         list.now_price = "0.0";
       }
-      let arr = (list.now_price+'').split(".")[1];
+      console.log(list);
+      let arr = (list.now_price + "").split(".")[1];
+      console.log(arr);
       this.$store.state.priceScale = Math.pow(10, arr.length); //根据最新价小数点后几位改变价格精度
       this.$store.state.symbol = currency_name + "/" + legal_name; //交易对
+      console.log( this.$store.state.symbol);
       var tradeDatas = {
         currency_id: currency_id,
         legal_id: legal_id,
-        currency_name:currency_name,
+        currency_name: currency_name,
         legal_name: legal_name,
-        isShow:this.isShow,
+        isShow: this.isShow,
+        now_price:now_price
       };
+      
+      console.log($('.coin-wrap').children().eq(index).children().eq(idx).children().eq(1).text());
+      var sco_price = $('.coin-wrap').children().eq(index).children().eq(idx).children().eq(1).text()
+      //向exchange组件传最新价
+      eventBus.$emit("toexchangeNowprice",sco_price);
       //向兄弟组件传数据
       eventBus.$emit("toTrade", tradeDatas);
       eventBus.$emit("toExchange", tradeDatas);
       // 存本地
-      window.localStorage.setItem('tradeData',JSON.stringify(tradeDatas))
+      window.localStorage.setItem("tradeData", JSON.stringify(tradeDatas));
     }
   }
 };
 </script>
 
 <style scoped>
+.coin-wrap li span.star{
+  width:12%;line-height:30px;font-size: 14px;
+}
 .m_title {
   line-height: 30px;
   padding: 0 20px;
@@ -310,7 +492,7 @@ export default {
   padding: 10px 0 15px;
 }
 .tabtitle {
-  padding: 0 20px;
+  padding: 0 14px;
 }
 .tabtitle span {
   flex: 1;
@@ -322,7 +504,10 @@ export default {
   border: 1px solid #ccc;
   border-bottom: none;
 }
-.coin-title div {
+.coin-title .flex{
+  justify-content: center;
+}
+.coin-title>div {
   width: 33.3%;
   height: 36px;
   line-height: 36px;
@@ -330,9 +515,17 @@ export default {
   float: left;
   font-size: 12px;
 }
-.coin-title img {
-  vertical-align: middle;
-  margin-top: -3px;
+.down-up{
+  padding-top: 4px;
+  font-size: 14px;
+}
+.down-up div{
+  color: #ccc;
+  display: block;
+}
+.down-up .bold{
+  font-weight: bold;
+  color: #000;
 }
 .line {
   width: 90%;
@@ -350,7 +543,7 @@ export default {
   /* background: #eee; */
 }
 .coin-wrap li {
-  height: 30px;
+  /* height: 30px; */
   line-height: 30px;
   cursor: pointer;
   font-size: 12px;
@@ -363,17 +556,17 @@ export default {
   height: 30px;
 }
 .coin-wrap li span.w36 {
-  width: 36%;
+  width: 30%;
 }
 .coin-wrap li span.w36 i {
   padding-left: 5px;
 }
 .coin-wrap li span.w30 {
-  width: 30%;
+  width: 24%;
   text-align: right;
 }
 .coin-wrap li span:first-child {
-  padding-left: 18px;
+  /* padding-left: 18px; */
   text-align: left;
   /* display: flex; */
 }

@@ -6,7 +6,7 @@
                 <div >
                     <div class="back-nav fColor1 ft20">
                         设置提币密码
-                        <span class="fr fColor2 mouseDefault" @click="goBack">&lt;&lt;返回</span>
+                        <span class="fr fColor2 mouseDefault" @click="goBack">&lt;&lt;{{$t('back')}}</span>
                     </div>
                     <div class="nav-after"></div>
                 </div>
@@ -37,77 +37,77 @@ export default {
   components: {
     indexHeader
   },
-  methods:{
-      goBack(){
-        this.$router.back(-1);
-      }
+  methods: {
+    goBack() {
+      this.$router.back(-1);
+    }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-$navBack:#181b2a;	
-$base:#5697f4;
-$line:#303b4b;
-$fColor2:#637085;
+$navBack: #181b2a;
+$base: #5697f4;
+$line: #303b4b;
+$fColor2: #637085;
 .account-main {
-    padding-left: 34px;
-    padding-right: 34px;
-    padding-top: 34px;
-    .bar-bottom {
-      width: 320px;
-      height: 8px;
-      border-radius: 4px;
-      background-color: $navBack;
-      margin: 22px 0 12px 0;
-      overflow: hidden;
-      .bar-top {
-        background-color: $base;
-        height: 100%;
-      }
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 34px;
+  .bar-bottom {
+    width: 320px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: $navBack;
+    margin: 22px 0 12px 0;
+    overflow: hidden;
+    .bar-top {
+      background-color: $base;
+      height: 100%;
     }
-    ul {
-      border-top: 1px solid $line;
-      color: $fColor2;
-      font-size: 14px;
-      img {
-        width: 16px;
-        vertical-align: middle;
-      }
-      li {
-        border-bottom: 1px solid $line;
-        line-height: 72px;
-        position: relative;
-        p {
-          position: absolute;
-          left: 300px;
-          top: 0;
-        }
+  }
+  ul {
+    border-top: 1px solid $line;
+    color: $fColor2;
+    font-size: 14px;
+    img {
+      width: 16px;
+      vertical-align: middle;
+    }
+    li {
+      border-bottom: 1px solid $line;
+      line-height: 72px;
+      position: relative;
+      p {
+        position: absolute;
+        left: 300px;
+        top: 0;
       }
     }
   }
-.main{
-    padding: 208px 0 0 400px;
-    line-height: 48px;
 }
-.main .left{
-    display: inline-block;
-    width: 80px;
-    text-align: right;
+.main {
+  padding: 208px 0 0 400px;
+  line-height: 48px;
+}
+.main .left {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
 }
 .main .main-input {
-    margin-left: 20px;
-    width: 428px;
+  margin-left: 20px;
+  width: 428px;
 }
 .main-input {
-    width: 360px;
-    height: 48px;
-    border: 1px solid #52688c;
-    padding: 0 20px;
-    color: #cdd6e4;
-    font-size: 16px;
-    border-radius: 3px;
-    background-color: #262a42;
+  width: 360px;
+  height: 48px;
+  border: 1px solid #52688c;
+  padding: 0 20px;
+  color: #cdd6e4;
+  font-size: 16px;
+  border-radius: 3px;
+  background-color: #262a42;
 }
 </style>
 

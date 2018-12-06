@@ -5,7 +5,7 @@
       <ul class="content-l bg-part clr-part">
         <li>
           <!-- <img src="../assets/images/logo.png" alt=""> -->
-          <router-link to="/userCenter">账户设置</router-link>
+          <router-link to="/userCenter">{{$t('security.accountset')}}</router-link>
         </li>
         <!-- <li>
           <img src="../assets/images/logo.png" alt="">

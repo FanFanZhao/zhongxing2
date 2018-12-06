@@ -10,24 +10,28 @@
       </div>
 			</div>
 			<div class="main-r">
-				<div class="chart_wrap flex">
+        <div class="flex">
+				<div class="chart_wrap flex column" style="width:67%;">
           <!-- <chart></chart> -->
           <div style="min-width:67%" class="bg-part">
             <!--<kline></kline>-->
 			      <tv></tv>
           </div>
-          <div class="deadl-wrap part-r bg-part" style="width:33%;margin:0 8px">
-						<exchange></exchange>
-					</div>
-        </div>
-				<div class="parts  flex between" >
-					<div class="trade-wrap part-l bg-part" style="padding-bottom:16px;">
+          <div class="trade-wrap part-l bg-part" style="padding-bottom:16px;">
 						<trade></trade>
 					</div>
-					<div class="deatil_box bg-part" style="width:33%;margin:0 8px">
-          <complete></complete>
+          
         </div>
-				</div>
+        <div class="deadl-wrap part-r" style="width:33%;margin:0 8px">
+						<exchange></exchange>
+					</div>
+          </div>
+				<!-- <div class="parts  flex between" > -->
+					
+					<!-- <div class="deatil_box bg-part" style="width:33%;margin:0 8px">
+          <complete></complete>
+        </div> -->
+				<!-- </div> -->
         <div class="entrust_box bg-part" style="margin:8px 8px 0px 18px">
           <entrust></entrust>
         </div>

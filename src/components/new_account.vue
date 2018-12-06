@@ -3,7 +3,7 @@
         <!-- <indexHeader></indexHeader> -->
         <div class="account">
             <div class="topcontent ft20 bg-part clr-part">
-                <span>资产</span>
+                <span>{{$t('account.assets')}}</span>
             </div>
             <div class="leftcontent contentBK">
                <left></left> 

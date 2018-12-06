@@ -82,13 +82,18 @@ export default {
             console.log('completesocket')
             var that = this;
             that.$socket.emit("login", this.$makeSocketId());
-            that.$socket.on('deal_list',function(msg){
-                if(msg.type == 'deal_list'){
+            that.$socket.on('transaction',function(msg){
+                // console.log(msg);
+                if(msg.type == 'transaction'){
                     var complete = JSON.parse(msg.complete);
-                    console.log(complete);
-                    that.deList = complete;
+                        if(msg.legal_id == that.legal_id && msg.currency_id == that.currency_id){
+                             console.log(complete);
+                                that.deList = complete;
+                                console.log(this.deList)
+                        }
+                    
+                    
                 }
-                console.log(msg);
             })
         }
       },

@@ -5,39 +5,45 @@
         <div class="content-wrap">
             <div class="account">
                 <div class="main">
-                    <p class="main_title">欢迎登录</p>
-                    <div class="register-input">
-                        <span class="register-item">账号</span>
-                         <select name="" v-if="isMb" class="chooseTel" v-model="areaCode" ref="select">
-                        <option :value="item.area_code" v-for="(item,index) in country" :key="index">{{item.area_code}} {{item.name_cn}}</option>
-                      </select>
-                       <input type="text" class="input-main input-content phone" maxlength="20" v-model="account_number" id="account">
+                    <p class="main_title">{{$t('login.welcome')}}</p>
+                    <div class="tab flex" @click="account_number=''">
+                      <span @click="isMb = true" :class="{now:isMb}">{{$t('login.phone')}}</span>
+                      <span @click="isMb = false" :class="{now:!isMb}">{{$t('login.email')}}</span>
                     </div>
-                     <div class="register-input">
-                        <span class="register-item">密码</span>
-                        <input type="password" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
+                    <div class="register-input">
+                        <span class="register-item">{{$t('accounts')}}</span>
+                         <select name="" v-if="isMb" class="chooseTel scroll" v-model="areaCode" ref="select">
+                        <option :value="index" v-for="(item,index) in country" :key="index">{{item.area_code}} {{item.name_cn}}</option>
+                      </select>
+                       <input type="text" class="input-main input-content phone" maxlength="20" v-model="account_number" id="account" :style='{width:isMb?"auto":"520px !important"}'>
+                    </div>
+                     <div class="register-input pass-box">
+                        <span class="register-item">{{$t('pwd')}}</span>
+                        <input :type="showpass?'text':'password'" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
+                        <img src="../assets/images/showpass.png" alt="" v-if="showpass" @click="showpass = false">
+                        <img src="../assets/images/hidepass.png" alt="" v-if="!showpass" @click="showpass = true">
                     </div>
                     <!--验证码-->
                    
                     <div class="register-input bdr-part">
-                        <span class="register-item">验证码</span>
+                        <span class="register-item">{{$t('code')}}</span>
                         <div class="flex">
                     <input type="text" v-model="code" class="codes" id="code">
-                    <button type='button' class="code-btn redBg curPer" @click="sendCode">发送验证码</button>
+                    <button type='button' class="code-btn redBg curPer" @click="sendCode">{{$t('code')}}</button>
                     </div>
                 </div>
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
-                        <button class="register-button curPer redBg " @click="login">登录</button>
+                        <button class="register-button curPer redBg " @click="login">{{$t('header.in')}}</button>
                         <div class="have-account">
-                            <router-link tag="span" class="redColor" to="/forgetPwd" style="cursor:pointer">忘记密码</router-link>
+                            <router-link tag="span" class="redColor" to="/forgetPwd" style="cursor:pointer">{{$t('login.forget')}}</router-link>
                         </div>
                     </div>
                     <div class="right-tip ">
-                        <p>还不是一带一路的用户？</p>
-                        <p>立即注册，在全球领先的数字资产交易平台开始交易。</p>
+                        <p>{{$t('login.dont')}}</p>
+                        <p>{{$t('login.invite')}}</p>
                         <router-link :to="{ name: 'register'}">
-                            <p class="redColor mt20">免费注册</p>
+                            <p class="redColor mt20">{{$t('header.up')}}</p>
                         </router-link>
                     </div>
                 </div>
@@ -61,11 +67,18 @@ export default {
       account_number: "",
       password: "",
       code:'',
+      areaCode:0,
       country:country,
-      areaCode:'+86',
       isMb: true,                  //是否为手机注册
       account: "",                //用户名
+      showpass:false
     };
+  },
+  beforeRouteEnter(to,from,next){
+    if(from.path == '/dealCenter'){
+      window.location.reload();
+    }
+    next()
   },
   created() {
     console.log(this.$utils);
@@ -92,6 +105,8 @@ export default {
     },
     //发送验证码
     sendCode(e){
+      var that = this;
+      console.log(this.country[this.areaCode].area_code)
       var url;
       var emreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
       var i = layer.load();
@@ -106,7 +121,8 @@ export default {
         method: "post",
         data: {
           user_string: account_number,
-          front:this.areaCode
+          front:country[this.areaCode].area_code,
+          type:'login'
         }
       }).then(res=>{
         console.log(res)
@@ -117,10 +133,10 @@ export default {
            var time = 60;
       var timer = null;
       timer = setInterval(function() {
-        e.target.innerHTML = time + "秒";
+        e.target.innerHTML = time + "s";
         e.target.disabled = true;
         if (time == 0) {
-          e.target.innerHTML = "验证码";
+          e.target.innerHTML = that.$t('code');
           e.target.disabled = false;
           clearInterval(timer);
           return;
@@ -135,15 +151,15 @@ export default {
       let account_number = this.$utils.trim(this.account_number);
       let password = this.$utils.trim(this.password);
       if (this.account_number.length == "") {
-        layer.tips("请输入账号!", "#account");
+        layer.tips(this.$t('lay.paccount'), "#account");
         return;
       }
       if (this.password.length < 6) {
-        layer.tips("密码不能小于六位!", "#pwd");
+        layer.tips(this.$t('lay.pwdliu'), "#pwd");
         return;
       }
       if (this.code == '') {
-        layer.tips("验证码不能为空!", "#code");
+        layer.tips(this.$t('lay.notcode'), "#code");
         return;
       }
       var i = layer.load();
@@ -162,7 +178,7 @@ export default {
            layer.close(i);
           res = res.data;
           if (res.type === "ok") {
-            layer.msg('登录成功');
+            layer.msg(this.$t('lay.slogin'));
             localStorage.setItem("token", res.message);
             localStorage.setItem("accountNum", account_number);
             this.$store.commit("setAccountNum");
@@ -184,6 +200,20 @@ export default {
 </script>
 
 <style scoped>
+.tab{
+  margin-top: 20px;
+  width: 230px;
+}
+.tab span{
+  padding-bottom: 5px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+.tab .now{
+  color: #d45858;
+  font-weight: 600;
+  border-bottom: 2px solid #d45858;
+}
 .chooseTel{
     height: 46px;
     width: 160px;
