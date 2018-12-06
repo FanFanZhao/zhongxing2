@@ -68,24 +68,24 @@
             <li v-for="(li,inde) in item.quotation" :key="inde" :data-name='li.currency_id+"/"+li.legal_id' v-if="(li.added&&nowCoin == $t('home.myMarkets')) ||li.legal_name == nowCoin">
               <div class="two-coin">
                 <img :src="li.logo" alt="" style="width:30px;">
-                <span style="font-weight:bold"><span class="high_blue">{{li.currency_name}}</span><span class="low_blue">/{{li.legal_name}}</span></span>
+                <span style="font-weight:bold"><span class="">{{li.currency_name}}</span><span class="gray">/{{li.legal_name}}</span></span>
               </div>
               <div class="yester">
                 <!-- <span :class="setColor(li.change)">{{li.now_price==null?'0':li.now_price}}</span>/ -->
-                <span class="high_blue bold">{{li.now_price==null?'0':li.now_price}}</span>
+                <span class=" bold">{{li.now_price==null?'0':li.now_price}}</span>
               </div>
               <div class="yes-toa">
                 <!-- <span :class="setColor(li.last_price,li.yesterday_last_price)">{{li.change == null?'+0.000':li.change}}%</span> -->
                 <span :class="setColor(li.change)" class="bold change">{{(li.change>0?'+':'')+(li.change-0).toFixed(2)}}%</span>
               </div>
               <div>
-                <span class="high_blue bold high_price">{{li.high_price}}</span>
+                <span class=" bold high_price">{{li.high_price}}</span>
               </div>
               <div>
-                <span class="high_blue bold low_price">{{li.low_price}}</span>
+                <span class=" bold low_price">{{li.low_price}}</span>
               </div>
-              <div class="count high_blue bold volume">{{li.volume == null?'0':li.volume}}</div>
-              <div class=""  style="color:#563BD1;">
+              <div class="count  bold volume">{{li.volume == null?'0':li.volume}}</div>
+              <div class=""  style="color:#194B64;">
                 <span class=" fr el-icon-star-on" v-if="li.added" @click="addDelete('delete',li.currency_match_id)" style="line-height:30px;margin-left:20px"></span>
                 <span class=" fr el-icon-star-off" v-if="!li.added" style="line-height:30px;margin-left:20px" @click="addDelete('add',li.currency_match_id)"></span>
                 <span class="fr" @click="setCurrent(index,inde)">{{$t('home.trade')}}</span>
@@ -156,7 +156,7 @@
             </div>
         </div>
         <!--图文内容-->
-        <div id="content01" class="content01 flex alcenter   center" style="background:#f3f3f3;">
+        <div id="content01" class="content01 flex alcenter   center" style="background:#f3f3f3;padding:50px 0;">
             <div class="text01 mr100 left01 animated">
               <h1 class="ft26 bold mb30">{{$t('home.c1')}}</h1>
               <p class="ft16 bold mb10">{{$t('home.c2')}}</p>
@@ -194,11 +194,11 @@
             
         </div>
         <div class="content01 flex alcenter grayBg center bg02">
-            <!-- <div class="text01 mr100">
+            <div class="text01 mr100">
               <h1 class="ft26 bold mb30">多平台终端接入</h1>
               <p class="ft16 bold mb10">覆盖IOS、Android、Windows多个平台，支持全业务功能</p>
-            </div> -->
-            <img class="imgs05" src="../assets/images/content.jpg" />
+            </div>
+            <img class="imgs05" src="../assets/images/imgs06.png" />
         </div>
         <!--马上交易-->
         <div class="go_transfer">
@@ -206,7 +206,7 @@
            <p class="ft14 mb30 tc">{{$t('home.c17')}}</p>
            <div class="login_register flex alcenter center" v-if="!account_number.length">
              <div class="login_btn mr60 bdr-part" @click="go_login">{{$t('logins')}}</div>
-             <div class="register_btn white" @click="go_register">{{$t('registers')}}</div>
+             <div class="register_btn white blue_bg" @click="go_register">{{$t('registers')}}</div>
            </div>
         </div>
         <!--底部-->
@@ -238,7 +238,7 @@ export default {
   components: { indexHeader, homeLogin },
   data() {
     return {
-      pics:[],
+      pics:[{pic:'../../static/imgs/new_banners.png'}],
       quotation: [],
       nowCoin: "",
       //   banner_imgs:[
@@ -385,7 +385,7 @@ export default {
         url:'/api/news/pcPic'
       }).then(res => {
         console.log(res);
-        this.pics = res.data.message;
+        // this.pics = res.data.message;
         var mySwiper02 = new Swiper(".banner_wrap", {
       // direction: 'vertical',
       loop: true,
@@ -699,7 +699,7 @@ export default {
   margin: 0 auto;
   line-height: 52px;
   height: 52px;
-  background: #563bd1;
+  background: #194B64;
   // color: #c7cce6;
   display: flex;
   > ul {
@@ -725,11 +725,11 @@ export default {
   line-height: 51px;
   text-align: center;
   margin-top: 0;
-  border: 1px solid #563bd1;
+  border: 1px solid #194B64;
   .list-title {
     display: flex;
     padding: 0 30px;
-    background: #563bd1;
+    background: #194B64;
     > span {
       flex: 1;
 
@@ -857,19 +857,19 @@ export default {
   padding: 40px 0;
   background: #fff;
   .imgs01 {
-    width: 250px;
-  }
-  .imgs02 {
-    width: 500px;
-  }
-  .imgs03 {
     width: 300px;
   }
+  .imgs02 {
+    width: 400px;
+  }
+  .imgs03 {
+    width: 450px;
+  }
   .imgs04 {
-    width: 500px;
+    width: 450px;
   }
   .imgs05 {
-    width: 100%;
+    width: 450px;
   }
 }
 .bg01 {
@@ -877,13 +877,14 @@ export default {
   width: 100%;
   // height: 300px;
   background-size: cover;
-  padding: 150px 0;
+  padding: 50px 0;
 }
 .bg02 {
   background: url("../assets/images/content_bg02.png") center no-repeat;
   width: 100%;
   background-size: cover;
-  padding: 0!important;
+  // padding: 0!important;
+  padding: 50px 0;
 }
 .login_btn {
   padding: 15px 80px;

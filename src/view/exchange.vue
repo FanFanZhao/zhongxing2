@@ -36,7 +36,7 @@
             <ul class="list-title fColor2 ft14 clear bdr-part">
                 <li class="fl w12">{{$t('time')}}</li>
                 <li class="fl w12">{{$t('price')}}</li>
-                <li class="fl w12">{{$t('volume')}}</li>
+                <li class="fl w12">{{$t('home.volume')}}</li>
             </ul>
             <div class="containers scroll" v-if="deList.length>0">
                 <ul v-for="itm in deList" class="list-item color ft12">

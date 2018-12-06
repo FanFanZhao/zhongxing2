@@ -2,9 +2,9 @@
   <div id="index-head" class="flex">
     <div class="header-l flex">
       <div class="logo flex alcenter mr20" @click="goHome">
-        <img src="../assets/images/new_logo01.png" alt>
+        <img src="../assets/images/new_logo02.png" alt>
       </div>
-      <span class="mr60 titles" @click="goHome">一带一路</span>
+      <!-- <span class="mr60 titles" @click="goHome">一带一路</span> -->
       <router-link to="/" exact>{{$t('header.home')}}</router-link>
       <router-link to="/legalTrade" v-if="token">{{$t('header.c2c')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.c2c')}}</div>
@@ -264,7 +264,7 @@ export default {
   height: 45px;
   line-height: 45px;
   font-size: 14px;
-  background: #2e1b85;
+  background: #113344;
   color: #ccc;
 
   a:hover,
@@ -279,7 +279,7 @@ export default {
     align-items: center;
     > .logo {
       // border-radius: 50%;
-      width: 40px;
+      width: 100px;
       // height: 30px;
       // background: #fff;
       > img {
