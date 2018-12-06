@@ -1,0 +1,33 @@
+body,
+#footer {
+  color: #aaa;
+  background: #080d13;
+}
+.brcolor {
+  border-right: 1px dashed #2f3440;
+}
+.noticeDetail {
+  background: #131a21;
+}
+body .bg-main {
+  background: #f2f3f8 !important;
+}
+body .clr-part {
+  color: #333 !important;
+}
+body .bg-part {
+  background: #fff !important;
+}
+body .bdr-part {
+  border-color: #ccc !important;
+}
+body .bg-even {
+  background: #f3f3f3 !important;
+}
+body .bg-hov:hover,
+body .bg-sel {
+  background: #ccc !important;
+}
+body .layerBg {
+  background: #fff !important;
+}
