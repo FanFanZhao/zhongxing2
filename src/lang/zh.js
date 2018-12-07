@@ -43,7 +43,8 @@ export default {
     shop:"我的商铺",
     out:'退出登录',
     orders:"订单",
-    center:'个人中心'
+    center:'个人中心',
+    candy:'糖果活动'
   },
   home:{
     with:'对',
@@ -57,6 +58,7 @@ export default {
     min:'最低价',
     volume:'交易量',
     trade:'操作',
+    toTrade:'去交易',
     c1:'全球化的数字资产配置及交易服务',
     c2:'遍布全球的项目拓展及运营管理体系',
     c3:'在多个国家设有本地交易服务中心',

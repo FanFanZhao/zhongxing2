@@ -41,7 +41,8 @@ export default {
     his:"Historical Orders",
     orders:"Orders",
     code:"Invitation code",
-    center:'Personal center'
+    center:'Personal center',
+    candy:'Candy activities'
   },
   home:{
     myMarkets:'My markets',
@@ -55,6 +56,7 @@ export default {
     min:'Minimum Price',
     volume:'Volume',
     trade:'Trade',
+    toTrade:'trade',
     c1:'Global Digital Asset Allocation and Transaction Services',
     c2:'Global Project Development and Operational Management System',
     c3:'There are local trading service centers in many countries',

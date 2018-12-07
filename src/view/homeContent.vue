@@ -88,7 +88,7 @@
               <div class=""  style="color:#194B64;">
                 <span class=" fr el-icon-star-on" v-if="li.added" @click="addDelete('delete',li.currency_match_id)" style="line-height:30px;margin-left:20px"></span>
                 <span class=" fr el-icon-star-off" v-if="!li.added" style="line-height:30px;margin-left:20px" @click="addDelete('add',li.currency_match_id)"></span>
-                <span class="fr" @click="setCurrent(index,inde)">{{$t('home.trade')}}</span>
+                <span class="fr" @click="setCurrent(index,inde)">{{$t('home.toTrade')}}</span>
                 <!-- <span :hah='testMy(li.currency_id,li.legal_id)'>{{li.currency_id +''+li.legal_id}}</span> -->
               </div>
               <!-- <div>
