@@ -33,7 +33,7 @@
                 <span>{{$t('account.huanum')}}：</span>
                 <input type="numer" v-model="transferPms.number">
             </div>
-            <button type="button" :disabled='transferPms.number == ""' @click="transfer">{{$t('account.transfer')}}</button>
+            <button class="blue_bg" type="button" :disabled='transferPms.number == ""' @click="transfer">{{$t('account.transfer')}}</button>
         </div>
         <div class="rec_wrap">
            <p class="rec_title flex between bg-part" style="padding:20px 30px">

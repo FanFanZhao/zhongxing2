@@ -71,7 +71,10 @@ export default {
     c14:'Seoul, Hong Kong, Singapore, Tokyo',
     c15:'Service Centers Around the World',
     c16:'Instant Trading',
-    c17:'Registering an account with one trading center and opening the trading journey',
+    c17:'Welcome to join our team, promote together, always enjoy better self, create better life value',
+    access:'Multi-Platform Terminal Access',
+    cover:'Covering IOS, Android and Windows platforms, supporting full-service functions',
+    cooper:'Cooperative organization'
   },
   login:{
     email:"Email",

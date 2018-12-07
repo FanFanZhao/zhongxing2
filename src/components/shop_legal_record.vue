@@ -23,7 +23,7 @@
             <span v-else>{{$t('legal.sell')}}</span>
             <span>{{item.currency_name}}</span>
           </div>
-          <div class="status">
+          <div class="status blue_bg">
             <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-if="item.is_sure == 0">{{$t('legal.nofinish')}} ></router-link>
             <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 1">{{$t('legal.finished')}} ></router-link>
             <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else-if="item.is_sure == 2">{{$t('legal.ceiled')}} ></router-link>

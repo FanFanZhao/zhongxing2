@@ -31,7 +31,7 @@
                         <!-- <span class="fl w8">{{item.complete_number}}</span>
                         <span class="fl w8">{{item.number}}</span> -->
                         <span class="fl w20">{{item.total_price}}</span>
-                        <span class="fl w10 tr curPer ceilColor remove" @click="revoke(index,item.id)">{{$t('revoke')}}}</span>
+                        <span class="fl w10 tr curPer ceilColor remove" @click="revoke(index,item.id)">{{$t('revoke')}}</span>
                     </li>
                 </ul>
                 <div class="getmore tc gray9 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && inList.length>8">{{more}}</div>

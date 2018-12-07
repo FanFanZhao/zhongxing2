@@ -25,6 +25,7 @@ export default {
   bankcard:'银行卡',
   inpCur:'请输入币种名称',
   minAm:'最小数量',
+  regidters:'注册',
   header:{
     home:'首页',
     c2c:'C2C交易',
@@ -73,6 +74,9 @@ export default {
     c15:'遍布世界各地的服务中心',
     c16:'马上交易',
     c17:'欢迎加入我们的团队，共同提升，常悦更好的自己，创造更好的人生价值',
+    access:'多平台终端接入',
+    cover:'覆盖IOS、Android、Windows多个平台，支持全业务功能',
+    cooper:'合作机构'
   },
   login:{
     email:"邮箱登录",
@@ -87,9 +91,9 @@ export default {
     phone:"手机号注册",
     email:"邮箱注册",
     phonenum:'请输入手机号',
-    emailnum:'请输入有幸',
+    emailnum:'请输入邮箱',
     codenum:'请输入验证码',
-    notice:'(请先查看免责条款，并勾选选项框，才可点击发送验证码)',
+    notice:'请先查看免责条款，并勾选选项框，才可点击发送验证码',
     sendcode:'发送验证码',
     logpwd:'请输入登录密码',
     repwd:'请确认密码',

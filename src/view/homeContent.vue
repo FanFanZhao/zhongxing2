@@ -195,8 +195,8 @@
         </div>
         <div class="content01 flex alcenter grayBg center bg02">
             <div class="text01 mr100">
-              <h1 class="ft26 bold mb30">多平台终端接入</h1>
-              <p class="ft16 bold mb10">覆盖IOS、Android、Windows多个平台，支持全业务功能</p>
+              <h1 class="ft26 bold mb30">{{$t('home.access')}}</h1>
+              <p class="ft16 bold mb10">{{$t('home.cover')}}</p>
             </div>
             <img class="imgs05" src="../assets/images/imgs06.png" />
         </div>
@@ -466,7 +466,7 @@ export default {
       });
     },
     setColor(c) {
-      if (c > 0) {
+      if (c >= 0) {
         return "ceilColor";
       } else if (c < 0) {
         return "redColor";
@@ -832,7 +832,7 @@ export default {
   color: #6b80ae;
 }
 .notice_a:hover {
-  color: #563bd1;
+  color: #194B64;
   cursor: pointer;
 }
 .coins li {

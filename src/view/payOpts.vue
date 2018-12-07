@@ -29,7 +29,7 @@
             <div>{{$t('set.wenum')}}</div>
             <input type="text" class="微信账号" v-model="weChatAccount">
         </div>
-        <div class="btn bgRed" @click="add">
+        <div class="btn bgRed blue_bg" @click="add">
             {{$t('confirm')}}
         </div>
     </div>

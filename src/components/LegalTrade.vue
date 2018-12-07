@@ -43,7 +43,7 @@
 						<img src="../assets/images/bank_icon.png" />
 					</div>
 					<div class="flex alcenter end"  @click="buySell(item.price,item.limitation.min,item.limitation.max,item.id,item.type,item.surplus_number)">
-						<button class="btn">{{classify}}</button>
+						<button class="btn blue_bg">{{classify}}</button>
 					</div>
 				</li>
 			</ul>
@@ -79,7 +79,7 @@
 					<p class="tip">{{$t('legal.conactceil')}}</p>
 					<div class="btns">
 						<p class="cannel">{{time}}s{{$t('legal.autoceil')}}</p>
-						<button class="comfirm" type="button" @click="buyOrder()">{{$t('legal.placeorder')}}</button>
+						<button class="comfirm blue_bg" type="button" @click="buyOrder()">{{$t('legal.placeorder')}}</button>
 					</div>
 				</div>
 			</div>
@@ -410,7 +410,7 @@
 </script>
 
 <style lang='scss'>
-	$purple:#563BD1;
+	$purple:#194B64;
     .cur{
 		cursor: pointer;
 	}
@@ -464,8 +464,8 @@
 
 				>.now {
 					>.current {
-						border-bottom: 2px solid #563BD1;
-						color: #563BD1;
+						border-bottom: 2px solid #194B64;
+						color: #194B64;
 					}
 				}
 			}

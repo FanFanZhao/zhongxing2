@@ -8,11 +8,11 @@
                 <input type="checkbox" id="min" v-model="hideMin" :checked='hideMin' style="margin:0 5px 0 30px">
                 <label for="min" class="ft16">{{$t('account.hideSm')}}</label>
                 <input type="text" v-model="keyword" :placeholder="$t('inpCur')" class='search'>
-                <router-link  class="fr" style="font-size:14px;color:#563BD1;margin-left:50px" to="/allRec">{{$t('account.allRec')}}</router-link>
+                <router-link  class="fr light_blue" style="font-size:14px;color:#563BD1;margin-left:50px" to="/allRec">{{$t('account.allRec')}}</router-link>
             </div>
-            <p class="fr right_text mt20">
+            <p class="fr right_text mt20 light_blue">
                 <!-- <span class="record" @click="record">财务记录</span> -->
-                <span class="address ft14" @click="withdraw_address">{{$t('account.upaddress')}}</span>
+                <span class="address ft14 light_blue" @click="withdraw_address">{{$t('account.upaddress')}}</span>
             </p>
         </div>
         <div class="content  ft12">
@@ -35,16 +35,16 @@
                    <!-- <p class="flex1 tc">{{item.lock_position}}</p> -->
                    <p class="flex1 tc operation">
                        <span v-if="item.is_recharge==0" @click="noopen" class="no_open">{{$t('account.charging')}}</span>
-                       <span v-if="item.is_recharge==1" @click="excharge(index,item.currency)">{{$t('account.charging')}}</span>
+                       <span class="light_blue" v-if="item.is_recharge==1" @click="excharge(index,item.currency)">{{$t('account.charging')}}</span>
                        <span v-if="item.is_pick_up==0" @click="noopen" class="no_open">{{$t('account.withdraw')}}</span>
-                       <span v-if="item.is_pick_up==1" @click="withdraw(index,item.currency,item.currency_name)">{{$t('account.withdraw')}}</span>
-                       <span @click="rec(index,item.currency)">{{$t('account.record')}}</span>
+                       <span class="light_blue" v-if="item.is_pick_up==1" @click="withdraw(index,item.currency,item.currency_name)">{{$t('account.withdraw')}}</span>
+                       <span class="light_blue" @click="rec(index,item.currency)">{{$t('account.record')}}</span>
                    </p>
                    </div>
                    <!--充币区-->
                    <div class="hide_div bdr-part" v-if="index == active">
                        <p class="fColor2 ft12">{{$t('account.cgaddress')}}</p>
-                       <p class="mt50 mb50"><span class="ft18  excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14">{{$t('account.copy')}}</span><span class="ewm_wrap"><span class="ewm ft14" @click="show_ewm">{{$t('account.code')}}</span>
+                       <p class="mt50 mb50"><span class="ft18  excharge_address" :class="{'bg':flags}">{{excharge_address}}</span><span id="copy" @click="copy" class="copy ft14 light_blue">{{$t('account.copy')}}</span><span class="ewm_wrap"><span class="ewm ft14 light_blue" @click="show_ewm">{{$t('account.code')}}</span>
                          <div class="ewm_img" id="code" :class="{'hide':isHide}">
                              
                          </div>

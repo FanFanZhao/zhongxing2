@@ -39,7 +39,7 @@
             <div class="ft14">{{$t('legal.totalmoney')}}（{{item.currency_name}})</div>
             <div class="ft12">{{item.deal_money}}</div>
           </div>
-          <div class="status">
+          <div class="status blue_bg">
             <span  @click="gotoNext(item.id,item.type)" v-if="item.is_sure == 0">{{$t('legal.nofinish')}} ></span>
             <span  @click="gotoNext(item.id,item.type)" v-else-if="item.is_sure == 1">{{$t('legal.finished')}} ></span>
             <span  @click="gotoNext(item.id,item.type)" v-else-if="item.is_sure == 2">{{$t('legal.ceiled')}} ></span>
@@ -148,8 +148,8 @@ export default {
       font-weight: 600;
     }
     .select {
-      color: #563bd1;
-      border-bottom: 2px solid #563bd1;
+      color: #194B64;
+      border-bottom: 2px solid #194B64;
     }
   }
   > ul {

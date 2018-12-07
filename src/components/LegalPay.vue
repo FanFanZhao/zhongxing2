@@ -49,7 +49,7 @@
       
       <div class="btns flex" v-show="msg.is_sure==0&&msg.type=='buy'">
         <div class="btn" @click="showCancel = true">{{$t('legal.orderceil')}}</div>
-        <div class="btn" @click="showConfirm = true">{{$t('legal.mypayed')}}</div>
+        <div class="btn blue_bg" @click="showConfirm = true">{{$t('legal.mypayed')}}</div>
       </div>
       <!-- <div class="btns flex" v-show="msg.is_sure==3&&msg.type=='sell'">
         <div class="btn" @click="">确认收款</div>

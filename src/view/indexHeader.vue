@@ -47,14 +47,14 @@
         </div>-->
         <div class="order">
           <span>{{$t('header.orders')}}</span>
-          <ul class="order_list">
+          <ul class="order_list blue_bg">
             <li class="now" @click="now">{{$t('header.current')}}</li>
             <li class="history" @click="history">{{$t('header.his')}}</li>
           </ul>
         </div>
         <div class="links-box">
           <div class="account_number">{{account_number}} ({{$t('header.code')}} {{extension_code}})</div>
-          <div class="links">
+          <div class="links blue_bg">
             <router-link to="/userCenter">{{$t('header.center')}}</router-link>
             <div @click="signOut">{{$t('header.out')}}</div>
           </div>

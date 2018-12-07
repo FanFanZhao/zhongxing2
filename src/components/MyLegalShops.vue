@@ -13,14 +13,14 @@
       <ul class="list">
         <li class="flex" v-for="(item,index) in list" :key="index">
           <div class="flex">
-            <span class="icon">{{item.name.charAt(0)}}</span>
+            <span class="icon blue_bg">{{item.name.charAt(0)}}</span>
             <span>{{item.name}}</span>
           </div>
           <div>{{item.currency_name}}</div>
           <div>{{item.create_time}}</div>
           <div>{{item.seller_balance}}</div>
           <div>
-            <router-link :to="{path:'/legalShopDetail',query:{id:item.id,min:item.min_ctoc,max:item.max_ctoc}}">{{$t('shop.goshop')}}</router-link>
+            <router-link class="blue_bg" :to="{path:'/legalShopDetail',query:{id:item.id,min:item.min_ctoc,max:item.max_ctoc}}">{{$t('shop.goshop')}}</router-link>
           </div>
         </li>
       </ul>

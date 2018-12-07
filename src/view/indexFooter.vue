@@ -10,7 +10,7 @@
         <p class="">© 2013-2018 环球数贸信息平台</p>
     </div> -->
     <div class="foot flex column alcenter  blue_bg" style="padding:50px 80px;">
-           <h1 class="ft18 mb50">合作机构</h1>
+           <h1 class="ft18 mb50">{{$t('home.cooper')}}</h1>
            <!-- <p class="ft12 mb30">我/们/在/去/中/心/化/的/路/上</p> -->
            <img class="logos" src="../assets/images/footer_bg.png" />
            <!-- <img src="../assets/images/footer.jpg" /> -->

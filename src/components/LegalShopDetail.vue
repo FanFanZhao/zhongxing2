@@ -2,7 +2,7 @@
   <div id="legal-shop-detail">
     <div class="top flex bg-part clr-part ft14" v-if="info.name">
       <div class="top-t flex bdr-part">
-        <div class="logo white">{{info.name.charAt(0)}}</div>
+        <div class="logo white blue_bg">{{info.name.charAt(0)}}</div>
         <div>
           <div>{{info.name}}</div>
           <div>{{$t('shop.retime')}}：{{info.create_time}}</div>
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="submit flex">
-        <div @click="showSubmit = true">{{$t('shop.release')}}</div>
+        <div class="blue_bg" @click="showSubmit = true">{{$t('shop.release')}}</div>
       </div>
     </div>
     <div class="md flex clr-part bg-part ft14">
@@ -103,9 +103,9 @@
           <div class="w10">{{item.way_name}}</div>
           <div class="w10">{{item.wait_confirm}}</div>
           <div>
-            <span @click="changeOrder('error_send',item.id)" v-if="item.is_done!=1">{{$t('shop.abnormal')}}</span>
-            <span @click="changeOrder('back_send',item.id)" v-if="item.is_done!=1">{{$t('revoke')}}</span>
-            <router-link tag="span" :to="{path:'/shopLegalRecord',query:{id:item.id}}">{{$t('shop.seeorder')}}</router-link>
+            <span class="blue_bg" @click="changeOrder('error_send',item.id)" v-if="item.is_done!=1">{{$t('shop.abnormal')}}</span>
+            <span class="blue_bg" @click="changeOrder('back_send',item.id)" v-if="item.is_done!=1">{{$t('revoke')}}</span>
+            <router-link class="blue_bg" tag="span" :to="{path:'/shopLegalRecord',query:{id:item.id}}">{{$t('shop.seeorder')}}</router-link>
           </div>
         </li>
       </ul>
@@ -152,7 +152,7 @@
           <span>{{$t('minAm')}}：</span>
           <input type="number" v-model="submitPms.min_number">
         </div>
-        <div class="btn" @click="legalSend">{{$t('shop.release')}}</div>
+        <div class="btn blue_bg" @click="legalSend">{{$t('shop.release')}}</div>
       </div>
     </div>
   </div>
@@ -410,7 +410,7 @@ export default {
         cursor: pointer;
       }
       .now {
-        color: #8d75f7;
+        color: #194B64;
         font-weight: 600;
       }
     }
@@ -500,8 +500,8 @@ export default {
         .now {
           font-weight: 600;
           padding-bottom: 3px;
-          color: #2e1b85;
-          border-bottom: 2px solid #2e1b85;
+          color: #194B64;
+          border-bottom: 2px solid #194B64;
         }
       }
       > .btn {

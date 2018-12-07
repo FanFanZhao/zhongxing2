@@ -90,7 +90,7 @@
 		}
 	}
 	.active_bg{
-		background: #563BD1;
+		background: #194B64;
 		color: #fff;
 	}
 </style>
