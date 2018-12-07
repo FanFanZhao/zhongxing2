@@ -238,7 +238,7 @@ export default {
   components: { indexHeader, homeLogin },
   data() {
     return {
-      pics:[{pic:'../../static/imgs/new_banners.png'}],
+      pics:[],
       quotation: [],
       nowCoin: "",
       //   banner_imgs:[
@@ -385,7 +385,7 @@ export default {
         url:'/api/news/pcPic'
       }).then(res => {
         console.log(res);
-        // this.pics = res.data.message;
+        this.pics = res.data.message;
         var mySwiper02 = new Swiper(".banner_wrap", {
       // direction: 'vertical',
       loop: true,

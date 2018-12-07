@@ -465,7 +465,7 @@ export default {
 
 <style scoped>
 .coin-wrap li span.star{
-  width:12%;line-height:30px;font-size: 14px;
+  width:10%;line-height:30px;font-size: 14px;
 }
 .m_title {
   line-height: 30px;
@@ -508,7 +508,7 @@ export default {
   justify-content: center;
 }
 .coin-title>div {
-  width: 33.3%;
+  width: 30%;
   height: 36px;
   line-height: 36px;
   text-align: center;
@@ -550,7 +550,7 @@ export default {
 }
 .coin-wrap li span {
   display: inline-block;
-  width: 33%;
+  width: 30%;
   float: left;
   text-align: center;
   height: 30px;
@@ -562,8 +562,8 @@ export default {
   padding-left: 5px;
 }
 .coin-wrap li span.w30 {
-  width: 24%;
-  text-align: right;
+  width: 30%;
+  text-align: center;
 }
 .coin-wrap li span:first-child {
   /* padding-left: 18px; */

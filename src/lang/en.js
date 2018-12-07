@@ -84,7 +84,7 @@ export default {
     welcome:'Login please',
     account:'account',
     forget:"Forget password",
-    dont:"Don't have an account yet?",
+    dont:"Not yet registered?",
     invite:"Sign up now and start trading on the world's leading digital asset trading platform"
   },
   register:{

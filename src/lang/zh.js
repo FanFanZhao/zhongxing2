@@ -86,7 +86,7 @@ export default {
     welcome:'欢迎登录',
     account:'账号',
     forget:"忘记密码",
-    dont:'还不是一带一路的用户',
+    dont:'还未注册？',
     invite:"立即注册，在全球领先的数字资产交易平台开始交易"
   },
   register:{
