@@ -381,8 +381,9 @@ export default {
       }
     },
     getSwiper(){
+      var url = this.$i18n.locale == 'zh'?'/api/news/pcPic':'/api/news/pcEngPic'
       this.$http({
-        url:'/api/news/pcPic'
+        url:url
       }).then(res => {
         console.log(res);
         this.pics = res.data.message;
@@ -390,6 +391,7 @@ export default {
       // direction: 'vertical',
       loop: true,
       autoplay: 2000,
+      autoplayDisableOnInteraction:false, //用户操作swiper之后自动切换不会停止
       // 如果需要分页器
       pagination: ".swiper-pagination02",
       paginationClickable: true,

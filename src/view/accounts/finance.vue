@@ -26,7 +26,7 @@
                <p class="flex1 tc">{{$t('do')}}</p>
            </div>
            <ul class="content_ul">
-               <li v-for="(item,index) in asset_list" :key="index" :hidden='(item.change_balance - 0 -minBalance)<=0&&hideMin&&search(item.currency_name)':style='{display:search(item.currency_name)?"none":"block"}'>
+               <li v-for="(item,index) in asset_list" :key="index" :hidden='((item.change_balance - 0 -minBalance)<=0&&hideMin)||search(item.currency_name)'>
                     <div class="content_li flex alcenter between bdr-part">
                    <p class="flex1 tc">{{item.currency_name}}</p>
                    <p class="flex1 tc">{{item.change_balance}}</p>

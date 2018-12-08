@@ -13,8 +13,8 @@ module.exports = {
     // proxyTable: {},
     proxyTable: {
       '/api': {
-          target: 'http://103.80.19.162:8080/api',//后端接口地址
-          // target: 'https://www.beltandroad.io/api',//后端接口地址
+          // target: 'http://103.80.19.162:8080/api',//后端接口地址
+          target: 'https://bankex.pro/api',//后端接口地址
           changeOrigin: true,//是否允许跨越
           pathRewrite: {
               '^/api': '/',//重写,

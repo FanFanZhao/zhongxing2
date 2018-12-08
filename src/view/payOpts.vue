@@ -10,7 +10,7 @@
             <input type="text" class="请输入真实姓名" v-model="name">
         </div>
         <div class="inp-item">
-            <div>{{$t('set.kanme')}}</div>
+            <div>{{$t('set.kname')}}</div>
             <input type="text" class="请输入开户行名称" v-model="bankName">
         </div>
         <div class="inp-item">
@@ -18,7 +18,7 @@
             <input type="number" class="请输入银行卡号" v-model="bankNum">
         </div>
         <div class="inp-item">
-            <div>{{$t('set.alipay')}}</div>
+            <div>{{$t('set.ailipay')}}</div>
             <input type="text" class="请输入支付宝账号" v-model="ali">
         </div>
         <div class="inp-item">

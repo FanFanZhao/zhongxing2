@@ -347,7 +347,7 @@ export default {
     msgcer:'Information authentication',
     turemsg:'To ensure that your transaction proceeds normally, please fill in your true information',
     tname:'Real name',
-    kname:'Name of opening bank',
+    kname:'Name of bank',
     cnum:'Bank card number',
     ailipay:'Alipay account',
     wename:'WeChat nickname',

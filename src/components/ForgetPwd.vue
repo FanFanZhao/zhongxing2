@@ -71,6 +71,7 @@ export default {
       areaCode:0,
       isMb: true,                  //是否为手机注册
       account: "",                //用户名
+      flag:false
     };
   },
   created() {},
@@ -90,6 +91,9 @@ export default {
         layer.close(i);
         console.log(res);
         layer.msg(res.data.message);
+        if(res.data.type == 'ok'){
+          this.flag = true
+        }
       });
     },
     setTime(e) {
@@ -156,6 +160,11 @@ export default {
       }else{
         data.mobile_code = this.phoneCode;
       }
+      if(this.flag){
+        this.showReset = true;
+      }else{
+        layer.msg('验证码不正确')
+      }
       
       //  else if (isMobile) {
       //   url = "user/check_mobile";
@@ -165,21 +174,21 @@ export default {
       //   return;
       // }
       console.log(data);
-       var i = layer.load();
-      this.$http({
-        url: "/api/" + url,
-        method: "post",
-        data: data
-      }).then(res => {
-        layer.close(i);
-        console.log(res);
-        layer.msg(res.data.message);
-        if (res.data.type == "ok") {
-          this.showReset = true;
-          // window.location.href = "resetpass.html?user_string=" + names + "&" + "code=" + verify;
-          // this.$router.push({path:'/resetPwd',params:{user_string:user_string,code:this.phoneCode}})
-        }
-      });
+      //  var i = layer.load();
+      // this.$http({
+      //   url: "/api/" + url,
+      //   method: "post",
+      //   data: data
+      // }).then(res => {
+      //   layer.close(i);
+      //   console.log(res);
+      //   layer.msg(res.data.message);
+      //   if (res.data.type == "ok") {
+      //     this.showReset = true;
+      //     // window.location.href = "resetpass.html?user_string=" + names + "&" + "code=" + verify;
+      //     // this.$router.push({path:'/resetPwd',params:{user_string:user_string,code:this.phoneCode}})
+      //   }
+      // });
     },
     resetPass() {
       var that = this;
