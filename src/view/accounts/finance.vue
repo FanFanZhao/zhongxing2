@@ -200,7 +200,7 @@ export default {
                 if(l>name.length){
                 return true;
                 } else {
-                if(name.slice(0,l) == this.keyword){
+                if(name.slice(0,l) == this.keyword.toUpperCase()){
                     return false;
                 } else {
                     return true;

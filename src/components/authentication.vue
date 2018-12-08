@@ -87,9 +87,11 @@ export default {
             } 
             var formData = new FormData();
             formData.append("file", event.target.files[0]); 
+            console.log(formData);
             var i= layer.load();
             $.ajax({
                 url: '/api/'+'upload',
+                
                 type: 'post',
                 data: formData,
                 processData: false,

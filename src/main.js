@@ -32,7 +32,7 @@ Vue.use(Dialog)
 Vue.use(Card)
 Vue.use(VueAwesomeSwiper)
 Vue.prototype.$echarts = echarts
-Vue.prototype.url = 'http://47.75.200.255:8080/'
+// Vue.prototype.url = 'http://47.75.200.255:8080/'
 // Vue.prototype.url = 'https://www.beltandroad.io/'
 window.eventBus = new Vue()
 let bus = new Vue()

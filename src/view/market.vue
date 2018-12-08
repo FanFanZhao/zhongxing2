@@ -108,7 +108,7 @@ export default {
         if(l>name.length){
           return false;
         } else {
-          if(name.slice(0,l) == this.keyword){
+          if(name.slice(0,l) == this.keyword.toUpperCase()){
             return true;
           } else {
             return false;
@@ -293,13 +293,19 @@ export default {
         // console.log(msg);
         if (msg.type == "daymarket") {
           console.log(msg);
-          let lists = that.marketList;
-          for (let i in lists) {
-            if (lists[i].currency_id == msg.currency_id&&lists[i].legal_id == msg.legal_id) {
-              that.marketList[i].now_price = msg.now_price;
-              that.marketList[i].change = (msg.change-0).toFixed(2);;
+          var lists = that.marketList;
+          console.log(lists.length);
+          that.marketList.forEach(function(item,index){
+            var i = item.findIndex(function(ite,inde){
+              return ite.currency_id == msg.currency_id&&ite.legal_id == msg.legal_id;
+            })
+            if(i != -1){
+              item[i].now_price = msg.now_price;
+              item[i].change = (msg.change-0).toFixed(2);
             }
-          }
+          })
+          
+
           // var cname = msg.currency_id + "/" + msg.legal_id;
           // var newprice = msg.now_price;
           // var newup = (msg.change-0).toFixed(2);

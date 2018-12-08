@@ -227,6 +227,7 @@ export default {
     total:'Total money',
     ceilnot:'If the buyer has paid you, please do not cancel the transaction.',
     shopaccount:'Merchant account',
+    bankName:'bank name'
   },
   shop:{
     myshop:'My shops',

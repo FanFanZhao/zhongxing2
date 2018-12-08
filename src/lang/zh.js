@@ -231,6 +231,7 @@ export default {
     total:'总额',
     ceilnot:'如果买家已向您付款请千万不要取消交易',
     shopaccount:'商家账户',
+    bankName:'开户行'
     
 
   },

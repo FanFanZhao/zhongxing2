@@ -86,3 +86,6 @@
 .pane-legend-item-value-wrap .pane-legend-item-value:first-child{
 	display: none;
 }
+.pane-legend-wrap .main{
+  color: #333!important
+}

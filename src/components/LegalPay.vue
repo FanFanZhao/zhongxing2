@@ -28,6 +28,10 @@
         <span>{{msg.user_cash_info.bank_name}}:{{msg.user_cash_info.bank_account}}</span>
       </div>
       <div class="flex" v-if="msg.is_sure == 0||msg.is_sure == 3&&msg.type =='buy'">
+        <span>{{$t('legal.bankName')}}：</span>
+        <span>{{msg.bank_address}}</span>
+      </div>
+      <div class="flex" v-if="msg.is_sure == 0||msg.is_sure == 3&&msg.type =='buy'">
         <span>{{$t('legal.wechat')}}：</span>
         <span>{{msg.user_cash_info.wechat_account}}</span>
       </div>
@@ -37,7 +41,7 @@
       </div>
       <div class="flex">
         <span>{{msg.type == 'buy'?$t('legal.shoper'):$t('legal.buyer')}} {{$t('legal.account')}}：</span>
-        <span v-if="msg.type == 'buy'">{{msg.user_cash_info.real_name}}</span>
+        <span v-if="msg.type == 'buy'">{{msg.user_cash_info.real_name || '无'}}</span>
       <router-link v-if="msg.type=='buy'" :to="{path:'/legalSeller',query:{sellerId:msg.seller_id}}" tag="span">{{msg.seller_name}}</router-link>
       </div>
       <div class="flex">

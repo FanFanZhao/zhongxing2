@@ -14,9 +14,8 @@
       <router-link to="/myLegalShops" v-if="isShow">{{$t('header.shop')}}</router-link>
       <router-link to="/finance" v-if="token">{{$t('header.assets')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.assets')}}</div>
-      <router-link to="/userSetting" v-if="token">{{$t('header.setting')}}</router-link>
-      <div v-else @click="goLogin()">{{$t('header.setting')}}</div>
-      <router-link to="/helpcenter">{{$t('header.help')}}</router-link>
+      
+       <router-link to="/helpcenter">{{$t('header.help')}}</router-link>
       <router-link v-if="token" to="/advice">{{$t('header.complaint')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.complaint')}}</div>
       <div @click="candy">{{$t('header.candy')}}</div>
@@ -57,6 +56,8 @@
           <div class="account_number">{{account_number}} ({{$t('header.code')}} {{extension_code}})</div>
           <div class="links blue_bg">
             <router-link to="/userCenter">{{$t('header.center')}}</router-link>
+            <router-link to="/userSetting" v-if="token">{{$t('header.setting')}}</router-link>
+            <div v-else @click="goLogin()">{{$t('header.setting')}}</div>
             <div @click="signOut">{{$t('header.out')}}</div>
           </div>
         </div>
@@ -120,7 +121,7 @@ export default {
   },
   methods: {
     candy(){ 
-       layer.msg('暂未开放')   
+       layer.msg(this.$t('lay.notopen'))   
     },
     getNotice(){
       this.$http({
@@ -224,7 +225,7 @@ export default {
   }
 }
 .lang-box{
-  margin-left: 20px;
+  margin-left: 10px;
   span{
     margin-left: 20px;
     cursor: pointer;
@@ -292,7 +293,7 @@ export default {
     }
     > a,
     > div {
-      margin-right: 30px;
+      margin-right: 20px;
       height: 45px;
       cursor: pointer;
 
