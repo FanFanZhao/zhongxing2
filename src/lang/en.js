@@ -42,7 +42,9 @@ export default {
     orders:"Orders",
     code:"Invitation code",
     center:'Personal center',
-    candy:'Candy activities'
+    candy:'Candy activities',
+    coin:'Coin currency',
+    show:'demonstrat'
   },
   home:{
     myMarkets:'My markets',

@@ -35,13 +35,15 @@
         <div class="content" style="overflow:hidden">
             <ul class="list-title fColor2 ft14 clear bdr-part">
                 <li class="fl w12">{{$t('time')}}</li>
+                <li class="fl w12">{{$t('center.direction')}}</li>
                 <li class="fl w12">{{$t('price')}}</li>
                 <li class="fl w12">{{$t('home.volume')}}</li>
             </ul>
             <div class="containers scroll" v-if="deList.length>0">
                 <ul v-for="itm in deList" class="list-item color ft12">
-                    <li class="clear flex clr-part bg-hov">
+                    <li class="clear flex clr-part bg-hov alcenter">
                         <span class=" ">{{itm.time}}</span>
+                        <span :class="itm.way == 1?'red':'green'">{{itm.way == 1?$t('center.outsell'):$t('center.inbuy')}}</span>
                         <span class="green">{{itm.price}}</span>
                         <span class="">{{itm.number}}</span>
                     </li>
@@ -289,7 +291,7 @@ export default {
 .content{padding: 0 10px;height: 370px;}
 .list-title{line-height: 40px; border-bottom: 1px solid #ccc;height: 40px;}
 .list-title li{
-    width: 33%;
+    width: 25%;
     text-align: center;
 }
 .no_data{padding: 50px 0;}

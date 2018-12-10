@@ -44,7 +44,9 @@ export default {
     out:'退出登录',
     orders:"订单",
     center:'个人中心',
-    candy:'糖果活动'
+    candy:'糖果活动',
+    coin:'币生币',
+    show:'演示间'
   },
   home:{
     with:'对',

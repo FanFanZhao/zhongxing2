@@ -485,7 +485,8 @@ export default {
         legal_id: quo.legal_id,
         currency_name: quo.currency_name,
         legal_name: quo.legal_name,
-        isShow: index
+        isShow: index,
+        change:quo.change
       };
       window.localStorage.setItem("tradeData", JSON.stringify(tradeData));
       this.$router.push('/dealCenter');
@@ -521,7 +522,8 @@ export default {
             legal_id: quo.legal_id,
             currency_name: quo.currency_name,
             legal_name: quo.legal_name,
-            isShow: 0
+            isShow: 0,
+            change:quo.change
           };
           if (!window.localStorage.getItem("tradeData")) {
             window.localStorage.setItem("tradeData", JSON.stringify(tradeData));
