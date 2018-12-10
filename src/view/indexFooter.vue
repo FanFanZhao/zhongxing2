@@ -11,9 +11,14 @@
     </div> -->
     <div class="foot flex column alcenter  blue_bg" style="padding:50px 80px;">
            <h1 class="ft18 mb50">{{$t('home.cooper')}}</h1>
-           <!-- <p class="ft12 mb30">我/们/在/去/中/心/化/的/路/上</p> -->
-           <img class="logos" src="../assets/images/footer_bg.png" />
-           <!-- <img src="../assets/images/footer.jpg" /> -->
+           <div class="flex alcenter logos_wrap">
+           <img class="logos" src="../assets/images/cooper01.png" />
+            <img class="logos" src="../assets/images/cooper02.png" />
+             <img class="logos" src="../assets/images/cooper03.png" />
+              <img class="logos" src="../assets/images/cooper04.png" />
+               <img class="logos" src="../assets/images/cooper05.png" />
+                <img class="logos" src="../assets/images/cooper06.png" />
+                </div>
         </div>
 </template>
 
@@ -25,13 +30,19 @@ export default {
 
 <style lang='scss'>
 .foot{
-//   padding: 50px 0;
   img:last-child{
-      width: 100%;
+    //   width: 100%;
   }
 }
+.logos_wrap{
+    width: 100%;
+   justify-content: center;
+}
+.logos:last-child{
+    margin-right: 0;
+}
 .logos{
-    margin-bottom: 30px;
+    margin-right: 80px;
 }
 // #footer{
    
