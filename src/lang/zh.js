@@ -32,7 +32,7 @@ export default {
     currency:'币币交易',
     assets:'我的资产',
     setting:'安全设置',
-    help:'帮助',
+    help:'帮助中心',
     complaint:'投诉留言',
     in:"登录",
     shop:"我的商铺",
@@ -47,6 +47,20 @@ export default {
     candy:'糖果活动',
     coin:'币生币',
     show:'演示间'
+  },
+  footer:{
+    legalTrade:'法币交易',
+     tool:'工具',
+     teach:'教学区',
+     about:'关于',
+     join:'加入我们',
+     connect:'联系我们',
+     download:'客户端下载',
+     explain:'条款说明',
+     xieyi:'用户协议',
+     yinsi:'隐私条款',
+     legal:'法律声明',
+     feilv:'费率'
   },
   home:{
     with:'对',

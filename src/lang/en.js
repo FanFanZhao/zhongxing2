@@ -46,6 +46,20 @@ export default {
     coin:'Coin currency',
     show:'demonstrat'
   },
+  footer:{
+    legalTrade:'legal trade',
+     tool:'Tool',
+     teach:'Teaching area',
+     about:'About',
+     join:'join us',
+     connect:'contact us',
+     download:'Client download',
+     explain:'Clause description',
+     xieyi:'User agreement',
+     yinsi:'Privacy clause',
+     legal:'Legal statement',
+     feilv:'rate'
+  },
   home:{
     myMarkets:'My markets',
     with:'',
