@@ -44,7 +44,7 @@
                     <li class="clear flex clr-part bg-hov alcenter">
                         <span class=" ">{{itm.time}}</span>
                         <span :class="itm.way == 1?'red':'green'">{{itm.way == 1?$t('center.outsell'):$t('center.inbuy')}}</span>
-                        <span class="green">{{itm.price}}</span>
+                        <span :class="itm.way == 1?'red':'green'">{{itm.price}}</span>
                         <span class="">{{itm.number}}</span>
                     </li>
                 </ul>

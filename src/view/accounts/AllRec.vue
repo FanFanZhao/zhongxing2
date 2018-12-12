@@ -49,7 +49,7 @@ export default {
           if(res.data.type == 'ok'){
             var list = res.data.message.list;
             if(list.length){
-              this.list = list.concat(this.list);
+              this.list = this.list.concat(list);
               this.page+=1;
             }
           }
