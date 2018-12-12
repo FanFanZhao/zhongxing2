@@ -22,41 +22,36 @@
                 <ul class="mr120 ft12 foot_ul">
                     <li class="mb15">{{$t('footer.tool')}}</li>
                     <li class="mb15">
-                        <router-link  :to="{path:''}" class="mr15" tag="span">{{$t('footer.legalTrade')}}</router-link>
+                        <router-link v-if="token" :to="{path:'/legalTrade'}" class="mr15" tag="span">{{$t('header.c2c')}}</router-link>
+                        <router-link v-else :to="{path:'/components/login'}" class="mr15" tag="span">{{$t('header.c2c')}}</router-link>
                         <router-link :to="{path:'/dealCenter'}" tag="span">{{$t('header.currency')}}</router-link>
                     </li>
                      <li class="mb15">
-                        <router-link v-if="token" :to="{path:'/legalTrade'}" class="mr15" tag="span">{{$t('header.c2c')}}</router-link>
-                        <router-link v-else :to="{path:''}" class="mr15" tag="span">{{$t('header.c2c')}}</router-link>
-                        <router-link :to="{path:''}" tag="span">{{$t('header.candy')}}</router-link>
-                    </li>
-                     <li class="mb15">
+                        <router-link :to="{path:''}" tag="span"  class="mr15" >{{$t('header.candy')}}</router-link>
                         <router-link :to="{path:''}" tag="span">{{$t('footer.teach')}}</router-link>
                     </li>
                 </ul>
                 <ul class="mr120 ft12 foot_ul">
                     <li class="mb15">{{$t('footer.about')}}</li>
                     <li class="mb15">
-                        <router-link :to="{path:'/'}" class="mr15" tag="span">BANKEX</router-link>
-                        <router-link :to="{path:'/components/login'}" tag="span">{{$t('footer.join')}}</router-link>
-                    </li>
-                     <li class="mb15">
-                        <router-link :to="{path:''}" class="mr15" tag="span">{{$t('footer.connect')}}</router-link>
-                        <router-link :to="{path:'/helpcenter'}" tag="span">{{$t('header.help')}}</router-link>
-                    </li>
-                     <li class="mb15">
+                        <router-link :to="{path:'/components/noticeDetail',query:{id:46}}" class="mr15" tag="span">BANKEX</router-link>
                         <router-link :to="{path:''}" tag="span">{{$t('footer.download')}}</router-link>
+                    </li>
+                     <li class="mb15">
+                        <router-link :to="{path:'/components/noticeDetail',query:{id:47}}" class="mr15" tag="span">{{$t('footer.connect')}}</router-link>
+                        <router-link :to="{path:'/helpcenter'}" tag="span">{{$t('header.help')}}</router-link>
                     </li>
                 </ul>
                 <ul class="ft12 foot_ul">
                     <li class="mb15">{{$t('footer.explain')}}</li>
                     <li class="mb15">
-                        <router-link :to="{path:''}" class="mr15" tag="span">{{$t('footer.xieyi')}}</router-link>
-                        <router-link :to="{path:'/aggrement'}" tag="span">{{$t('footer.yinsi')}}</router-link>
+                        <router-link :to="{path:'/components/noticeDetail',query:{id:34}}" class="mr15" tag="span">{{$t('footer.xieyi')}}</router-link>
+                    </li>
+                    <li class="mb15">
+                        <router-link :to="{path:'/components/noticeDetail',query:{id:44}}" tag="span">{{$t('footer.yinsi')}}</router-link>
                     </li>
                      <li class="mb15">
-                        <router-link :to="{path:''}" class="mr15" tag="span">{{$t('footer.legal')}}</router-link>
-                        <router-link :to="{path:''}" tag="span">{{$t('footer.feilv')}}</router-link>
+                        <router-link :to="{path:'/components/noticeDetail',query:{id:45}}" tag="span">{{$t('footer.feilv')}}</router-link>
                     </li>
                      
                 </ul>

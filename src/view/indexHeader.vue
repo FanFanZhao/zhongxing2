@@ -65,10 +65,10 @@
         </div>
         
       </div>
-      <div class="flex notice" @mouseover="showNot = true;getNotice()" @mouseleave="showNot = false">
-        <img src="../assets/images/not.png" alt="">
+      <div class="flex notice" @mouseover="showNot = true" @mouseleave="showNot = false">
+        <img src="../assets/images/not.png" @mouseover="getNotice();" alt="">
         <p :class="['scroll',{showNot:showNot}]">
-          <router-link :to="{path:'components/noticeDetail',query:{id:item.id}}" v-for="(item,index) in noticeList" :key="index">{{item.title}}</router-link>
+          <span @click="$router.push({path:'/components/noticeDetail',query:{id:item.id}})" v-for="(item,index) in noticeList" :key="index">{{item.title}}</span>
         </p>
       </div>
       <div class="flex lang-box">
@@ -129,7 +129,7 @@ export default {
       this.$http({
         url:  '/api/news/list',
         method:'post',
-        data:{language:this.$i18n.locale == 'zh'?1:2}
+        data:{language:this.$i18n.locale == 'zh'?1:2,c_id:21}
       }).then(res => {
         this.noticeList = res.data.message.list;
       })
@@ -217,12 +217,16 @@ export default {
     transition: all .3s;
     height: 0;
     overflow: hidden;
-    a{
+    span{
+      margin: 0 10px;
       display: block;
       font-size: 12px;
       line-height: 32px;
       color: #333;
       border-bottom: 1px dashed #eee;
+      &:hover{
+        color: #d45858;
+      }
     }
   }
 }

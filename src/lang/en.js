@@ -27,7 +27,7 @@ export default {
   minAm:"Minimum amount",
   header:{
     home:'Home',
-    c2c:'C2C Transaction',
+    c2c:'Legal Transaction',
     currency:'Currency Transaction',
     assets:'My Assets',
     setting:'Security settin',
@@ -48,7 +48,7 @@ export default {
   },
   footer:{
     legalTrade:'legal trade',
-     tool:'Tool',
+     tool:'Link',
      teach:'Teaching area',
      about:'About',
      join:'join us',
@@ -58,7 +58,7 @@ export default {
      xieyi:'User agreement',
      yinsi:'Privacy clause',
      legal:'Legal statement',
-     feilv:'rate'
+     feilv:'transaction rate'
   },
   home:{
     myMarkets:'My markets',

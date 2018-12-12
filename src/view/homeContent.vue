@@ -295,19 +295,21 @@ export default {
       url: '/api/' + "news/list",
       method: "post",
       data: {
-        language:this.$i18n.locale == 'zh'?1:2
+        language:this.$i18n.locale == 'zh'?1:2,
+        c_id:21
       }
     })
       .then(res => {
         console.log(res);
         if (res.data.type == 'ok') {
           var list = res.data.message.list;
-          if(list.length>4){
+          this.noticeList = list;
+          // if(list.length>4){
 
-            this.noticeList = list.slice(0,4)
-          } else {
-            this.noticeList = list;
-          }
+          //   this.noticeList = list.slice(0,4)
+          // } else {
+          //   this.noticeList = list;
+          // }
         }
       })
      

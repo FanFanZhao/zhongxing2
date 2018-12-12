@@ -45,8 +45,34 @@ export default {
         this.id = this.$route.query.id;
         var locale = window.localStorage.getItem('locale');
         var id = this.id;
-        this.$http({
-            url:  '/api/news/detail?'+'id='+id,
+        this.getData();
+    },
+    mounted(){
+        // var tags=this.$refs.con.getElementsByTagName('p');
+        // console.log(tags)
+        // for(var i=0;i<tags.length;i++){
+        //     console.log(tags)
+        //     console.log(tags[i])
+        //     tags[i].style.background='transparent'
+        // }
+    },
+    watch:{
+       $route(){
+           if(this.$route.query.id != this.id){
+               this.id = this.$route.query.id;
+               this.$nextTick(()=>{
+                   this.getData();
+               })
+           }
+       }
+    },
+    methods:{
+        goBefore(){
+            this.$router.back(-1);
+        },
+        getData(){
+            this.$http({
+            url:  '/api/news/detail?'+'id='+this.id,
             method:'post',
             headers: { 'Authorization': window.localStorage.getItem('token') }
         }).then(res=>{
@@ -69,20 +95,6 @@ export default {
         }).catch(error=>{
             console.log(error)
         })
-
-    },
-    mounted(){
-        // var tags=this.$refs.con.getElementsByTagName('p');
-        // console.log(tags)
-        // for(var i=0;i<tags.length;i++){
-        //     console.log(tags)
-        //     console.log(tags[i])
-        //     tags[i].style.background='transparent'
-        // }
-    },
-    methods:{
-        goBefore(){
-            this.$router.back(-1);
         },
     //    setProperty(){
     //         var tags=document.getElementsByTagName('p');

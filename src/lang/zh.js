@@ -28,7 +28,7 @@ export default {
   regidters:'注册',
   header:{
     home:'首页',
-    c2c:'C2C交易',
+    c2c:'法币交易',
     currency:'币币交易',
     assets:'我的资产',
     setting:'安全设置',
@@ -50,7 +50,7 @@ export default {
   },
   footer:{
     legalTrade:'法币交易',
-     tool:'工具',
+     tool:'链接',
      teach:'教学区',
      about:'关于',
      join:'加入我们',
@@ -60,7 +60,7 @@ export default {
      xieyi:'用户协议',
      yinsi:'隐私条款',
      legal:'法律声明',
-     feilv:'费率'
+     feilv:'交易费率'
   },
   home:{
     with:'对',
