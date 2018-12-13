@@ -28,6 +28,7 @@ export default {
   regidters:'注册',
   header:{
     home:'首页',
+    c2cTransfer:'C2C交易',
     c2c:'法币交易',
     currency:'币币交易',
     assets:'我的资产',
@@ -60,7 +61,8 @@ export default {
      xieyi:'用户协议',
      yinsi:'隐私条款',
      legal:'法律声明',
-     feilv:'交易费率'
+     feilv:'交易费率',
+     gonggao:'网站公告'
   },
   home:{
     with:'对',
@@ -442,17 +444,55 @@ export default {
     lessnum:'最小数量不能小于',
     morenum:'数量不能超出',
     notnum:'数量不能大于总数量'
-
-
-
-
-    
-
-
-
-
-    
-
+  },
+  c2c:{
+    myTc2c:'我交易的C2C',
+    pc2c:'发布C2C',
+    mypc2c:'我发布的C2C',
+    timer:'时间',
+    type:'类型',
+    price:'价格',
+    num:'数量',
+    minNums:'最小数量',
+    payType:'支付方式',
+    cancelp:'取消发布',
+    buy:'购买',
+    sell:'出售',
+    currency:'币种',
+    onePrice:'单价',
+    minTime:'最小时间',
+    pTime:'发布时间',
+    opera:'操作',
+    money:'金额',
+    enter:'请输入',
+    numIs:'数量在',
+    rangeL:'之间',
+    moneyIs:'金额在',
+    cancel:'取消',
+    maxNum:'数量不能超出',
+    minNum:'数量不能少于',
+    maxMoney:'金额不能超出',
+    minMoney:'金额不能少于' ,
+    notMore:'暂无更多',
+    state:'状态',
+    cancelOrder:'取消订单',
+    conPay:'确认付款',
+    conReceive:'确认收款',
+    payed:'已付款',
+    completed:'已完成',
+    canceled:'已取消',
+    detail:'详情',
+    payAccount:'支付账户',
+    selCu:'请选择币种',
+    ailipay:'支付宝',
+    wx:'微信',
+    bankcard:'银行卡',
+    pBuy:'发布求购',
+    pSell:'发布出售',
+    enterPrice:'请输入价格',
+    enterNum:'请输入数量',
+    enterMinnum:'请输入最小数量',
+    tips:'最小数量不能大于总数量'
   }
 
 

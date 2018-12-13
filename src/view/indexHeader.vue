@@ -8,16 +8,16 @@
       <router-link to="/" exact>{{$t('header.home')}}</router-link>
       <router-link to="/legalTrade" v-if="token">{{$t('header.c2c')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.c2c')}}</div>
-      <!-- <router-link v-if="token" to="/c2c">C2C交易</router-link> -->
-      <!-- <div v-else @click="goLogin()">C2C交易</div> -->
+      <router-link v-if="token" to="/c2c">{{$t('header.c2cTransfer')}}</router-link>
+      <div v-else @click="goLogin()">{{$t('header.c2cTransfer')}}</div>
       <router-link to="/dealCenter">{{$t('header.currency')}}</router-link>
       <router-link to="/myLegalShops" v-if="isShow">{{$t('header.shop')}}</router-link>
       <router-link to="/finance" v-if="token">{{$t('header.assets')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.assets')}}</div>
       
-       <router-link to="/helpcenter">{{$t('header.help')}}</router-link>
+       <!-- <router-link to="/helpcenter">{{$t('header.help')}}</router-link>
       <router-link v-if="token" to="/advice">{{$t('header.complaint')}}</router-link>
-      <div v-else @click="goLogin()">{{$t('header.complaint')}}</div>
+      <div v-else @click="goLogin()">{{$t('header.complaint')}}</div> -->
       <div @click="candy">{{$t('header.candy')}}</div>
        <div @click="candy">{{$t('header.coin')}}</div>
         <div @click="candy">{{$t('header.show')}}</div>

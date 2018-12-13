@@ -30,7 +30,7 @@
             <router-link :to="{path:'/shopLegalPayDetail',query:{id:item.id}}" v-else>{{$t('legal.payed')}} ></router-link>
           </div>
         </div>
-        <div class="flex li-b">
+        <div class="flex li-b" @click="$router.push({path:'/shopLegalPayDetail',query:{id:item.id}})">
           <div>
             <div class="tl">{{$t('time')}}</div>
             <div class="tc">{{item.create_time}}</div>
@@ -182,5 +182,8 @@ export default {
       color: #fff;
     padding: 0 6px;
     border-radius: 3px;
+}
+.li-b{
+  cursor: pointer;
 }
 </style>

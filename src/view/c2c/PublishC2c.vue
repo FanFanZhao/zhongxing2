@@ -3,8 +3,8 @@
     <el-row :gutter="60">
       <el-col :span="12">
         <el-form :model="buyPms" label-position="left" label-width="80px">
-          <el-form-item label="币种">
-            <el-select v-model="buyPms.currency_id" placeholder="请选择币种">
+          <el-form-item :label="$t('c2c.currency')">
+            <el-select v-model="buyPms.currency_id" :placeholder="$t('c2c.selCu')">
               <el-option
                 v-for="(coin,index) in coins"
                 :value="coin.id"
@@ -13,31 +13,31 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="单价">
+          <el-form-item :label="$t('c2c.onePrice')">
             <el-input v-model="buyPms.price" type="number"></el-input>
           </el-form-item>
-          <el-form-item label="数量">
+          <el-form-item :label="$t('c2c.num')">
             <el-input v-model="buyPms.number" type="number"></el-input>
           </el-form-item>
-          <el-form-item label="最小数量">
+          <el-form-item :label="$t('c2c.minNums')">
             <el-input v-model="buyPms.min_number" type="number"></el-input>
           </el-form-item>
-          <el-form-item label="支付方式">
+          <el-form-item :label="$t('c2c.payType')">
             <el-radio-group v-model="buyPms.way">
-              <el-radio label="ali_pay">支付宝</el-radio>
-              <el-radio label="we_chat">微信</el-radio>
-              <el-radio label="bank">银行卡</el-radio>
+              <el-radio label="ali_pay">{{$t('c2c.ailipay')}}</el-radio>
+              <el-radio label="we_chat">{{$t('c2c.wx')}}</el-radio>
+              <el-radio label="bank">{{$t('c2c.bankcard')}}</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item>
-            <el-button @click="buySell('buyPms')" type="success">发布求购</el-button>
+            <el-button @click="buySell('buyPms')" type="success">{{$t('c2c.pBuy')}}</el-button>
           </el-form-item>
         </el-form>
       </el-col>
       <el-col :span="12">
         <el-form :model="sellPms" label-position="left" label-width="80px">
-          <el-form-item label="币种">
-            <el-select v-model="sellPms.currency_id" placeholder="请选择币种">
+          <el-form-item :label="$t('c2c.currency')">
+            <el-select v-model="sellPms.currency_id" :placeholder="$t('c2c.selCu')">
               <el-option
                 v-for="(coin,index) in coins"
                 :value="coin.id"
@@ -46,24 +46,24 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="单价">
+          <el-form-item :label="$t('c2c.onePrice')">
             <el-input v-model="sellPms.price" type="number"></el-input>
           </el-form-item>
-          <el-form-item label="数量">
+          <el-form-item :label="$t('c2c.num')">
             <el-input v-model="sellPms.number" type="number"></el-input>
           </el-form-item>
-          <el-form-item label="最小数量">
+          <el-form-item :label="$t('c2c.minNums')">
             <el-input v-model="sellPms.min_number" type="number"></el-input>
           </el-form-item>
-          <el-form-item label="支付方式">
+          <el-form-item  :label="$t('c2c.payType')">
             <el-radio-group v-model="sellPms.way">
-              <el-radio label="ali_pay">支付宝</el-radio>
-              <el-radio label="we_chat">微信</el-radio>
-              <el-radio label="bank">银行卡</el-radio>
+              <el-radio label="ali_pay">{{$t('c2c.ailipay')}}</el-radio>
+              <el-radio label="we_chat">{{$t('c2c.wx')}}</el-radio>
+              <el-radio label="bank">{{$t('c2c.bankcard')}}</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item>
-            <el-button @click="buySell('sellPms')" type="danger">发布出售</el-button>
+            <el-button @click="buySell('sellPms')" type="danger">{{$t('c2c.pSell')}}</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -84,7 +84,7 @@ export default {
         number: "",
         min_number: "",
         way: "ali_pay",
-        currency_id: "请选择币种"
+        currency_id: this.$t('c2c.selCu')
       },
       sellPms: {
         type: "sell",
@@ -92,7 +92,7 @@ export default {
         number: "",
         min_number: "",
         way: "ali_pay",
-        currency_id: "请选择币种"
+        currency_id: this.$t('c2c.selCu')
       }
     };
   },
@@ -124,18 +124,18 @@ export default {
     buySell(type) {
       var p = this[type];
       var msg = "";
-      if (p.currency_id == "请选择币种") {
-        msg = "请选择币种";
+      if (p.currency_id == this.$t('c2c.selCu')) {
+        msg = this.$t('c2c.selCu');
       } else if (p.price == "") {
-        msg = "请输入价格";
+        msg = this.$t('c2c.enterPrice');
       } else if (p.number == "") {
-        msg = "请输入数量";
+        msg = this.$t('c2c.enterNum');
       } else if (p.min_number == "") {
-        msg = "请输入最小数量";
+        msg =  this.$t('c2c.enterMinnum');
       } else if (p.min_number -0 - p.number >= 0) {
         console.log(p);
         
-        msg = "最小数量不能大于总数量";
+        msg = this.$t('c2c.tips');
       }
       if (msg) {
         layer.msg(msg);
@@ -153,7 +153,7 @@ export default {
           layer.msg(res.data.message);
           if (res.data.type == "ok") {
             this[type] = Object.assign(p, {
-              currency_id: "请选择币种",
+              currency_id: this.$t('c2c.selCu'),
               price: "",
               number: "",
               min_number: ""

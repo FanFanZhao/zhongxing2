@@ -2,14 +2,14 @@
   <div id="c2c-list">
     <div class="filters">
       <div class="flex">
-        <span>类型：</span>
+        <span>{{$t('c2c.type')}}：</span>
         <ul class="types flex">
-          <li @click="filterPms.type='sell';getList()" :class="{selected:filterPms.type=='sell'}">购买</li>
-          <li @click="filterPms.type='buy';getList()" :class="{selected:filterPms.type=='buy'}">出售</li>
+          <li @click="filterPms.type='sell';getList()" :class="{selected:filterPms.type=='sell'}">{{$t('c2c.buy')}}</li>
+          <li @click="filterPms.type='buy';getList()" :class="{selected:filterPms.type=='buy'}">{{$t('c2c.sell')}}</li>
         </ul>
       </div>
       <div class="flex">
-        <span>币种：</span>
+        <span>{{$t('c2c.currency')}}：</span>
         <ul class="coins flex">
           <li
             v-for="(coin,index) in coins"
@@ -23,12 +23,12 @@
     <div class="list-box">
       <div class="list-title">
         <el-row :gutter="10">
-          <el-col :span="4">单价</el-col>
-          <el-col :span="4">数量</el-col>
-          <el-col :span="4">最小数量</el-col>
-          <el-col :span="4">发布时间</el-col>
-          <el-col :span="4">支付方式</el-col>
-          <el-col :span="4">操作</el-col>
+          <el-col :span="4">{{$t('c2c.onePrice')}}</el-col>
+          <el-col :span="4">{{$t('c2c.num')}}</el-col>
+          <el-col :span="4">{{$t('c2c.minNum')}}</el-col>
+          <el-col :span="4">{{$t('c2c.pTime')}}</el-col>
+          <el-col :span="4">{{$t('c2c.payType')}}</el-col>
+          <el-col :span="4">{{$t('c2c.opera')}}</el-col>
         </el-row>
       </div>
       <el-row :gutter="10" v-for="(item,index) in list" :key="index">
@@ -49,8 +49,8 @@
             v-if="filterPms.type=='sell'"
             @click="setPms(index)"
             :disabled="item.number == 0"
-          >购买</el-button>
-          <el-button size="mini" v-else @click="setPms(index)" :disabled="item.number == 0">出售</el-button>
+          >{{$t('c2c.buy')}}</el-button>
+          <el-button size="mini" v-else @click="setPms(index)" :disabled="item.number == 0">{{$t('c2c.sell')}}</el-button>
           <!-- <el-button size="mini" @click="getDetail(item.id)">详情</el-button> -->
         </el-col>
       </el-row>
@@ -58,27 +58,27 @@
     <div class="mask" v-if="orderPms.max != ''">
       <div class="content">
         <el-tabs v-model="orderPms.type">
-          <el-tab-pane label="数量" name="number"></el-tab-pane>
-          <el-tab-pane label="金额" name="money"></el-tab-pane>
+          <el-tab-pane :label="$t('c2c.num')" name="number"></el-tab-pane>
+          <el-tab-pane :label="$t('c2c.money')" name="money"></el-tab-pane>
         </el-tabs>
         <div class="flex">
-          <span>请输入{{orderPms.type == 'number'?'数量':'金额'}}</span>
+          <span>{{$t('c2c.enter')}}{{orderPms.type == 'number'?$t("c2c.num"):$t("c2c.money")}}</span>
           <el-input type="number" v-model="orderPms.number" size="small" :min="orderPms.type == 'number'?orderPms.min:orderPms.pMin" :max="orderPms.type == 'number'?orderPms.max:orderPms.pMax"></el-input>
         </div>
         <div
           class="tip-num"
           v-if="orderPms.type=='number'"
-        >数量在 {{orderPms.min}} - {{orderPms.max}} 之间</div>
-        <div class="tip-num" v-else>金额在 {{orderPms.pMin}} - {{orderPms.pMax}} 之间</div>
+        >{{$t('c2c.numIs')}} {{orderPms.min}} - {{orderPms.max}} {{$t('c2c.rangeL')}}</div>
+        <div class="tip-num" v-else>{{$t('c2c.moneyIs')}} {{orderPms.pMin}} - {{orderPms.pMax}} {{$t('c2c.rangeL')}}</div>
         <div class="btns flex">
-          <el-button size="medium" @click="orderPms.max ='';orderPms.type ='number'">取消</el-button>
+          <el-button size="medium" @click="orderPms.max ='';orderPms.type ='number'">{{$t('c2c.cancel')}}</el-button>
           <el-button
             v-if="filterPms.type=='sell'"
             type="success"
             @click="buySell"
             size="medium"
-          >{{filterPms.type=='sell'&&'购买'}}</el-button>
-          <el-button v-else type="success" @click="buySell" size="medium">出售</el-button>
+          >{{filterPms.type=='sell'&&$t('c2c.buy')}}</el-button>
+          <el-button v-else type="success" @click="buySell" size="medium">{{$t('c2c.sell')}}</el-button>
         </div>
       </div>
     </div>
@@ -175,19 +175,19 @@ export default {
       if (this.token) {
         if (this.orderPms.type == "number") {
           if (this.orderPms.number - 0 - this.orderPms.max > 0) {
-            layer.msg("数量不能超出" + this.orderPms.max);
+            layer.msg(this.$t('c2c.maxNum') + this.orderPms.max);
             return;
           } else if (this.orderPms.number - this.orderPms.min < 0) {
-            layer.msg("数量不能少于" + this.orderPms.min);
+            layer.msg(this.$t('c2c.minNum') + this.orderPms.min);
             return;
           }
         } else {
           
           if (this.orderPms.number - 0 - this.orderPms.pMax > 0) {
-            layer.msg("金额不能超出" + this.orderPms.pMax);
+            layer.msg(this.$t('c2c.maxMoney') + this.orderPms.pMax);
             return;
           } else if (this.orderPms.number - this.orderPms.pMin < 0) {
-            layer.msg("金额不能少于" + this.orderPms.pMin);
+            layer.msg(this.$t('c2c.minMoney') + this.orderPms.pMin);
             return;
           }
         }
@@ -233,8 +233,8 @@ export default {
       }
       .selected {
         font-weight: bold;
-        color: blueviolet;
-        border-bottom: 2px solid blueviolet;
+        color: #194B64;
+        border-bottom: 2px solid #194B64;
       }
     }
   }

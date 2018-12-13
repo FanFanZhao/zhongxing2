@@ -2,9 +2,9 @@
   <div id="c2cpage" class="flex">
     <div class="c2c-l">
       <router-link to="/c2c" exact="">C2C</router-link>
-      <router-link to="/c2c/myTransaction" exact="">我交易的C2C</router-link>
-      <router-link to="/c2c/publishC2c" exact="">发布C2C</router-link>
-      <router-link to="/c2c/myPublishedC2c" exact="">我发布的C2C</router-link>
+      <router-link to="/c2c/myTransaction" exact="">{{$t('c2c.myTc2c')}}</router-link>
+      <router-link to="/c2c/publishC2c" exact="">{{$t('c2c.pc2c')}}</router-link>
+      <router-link to="/c2c/myPublishedC2c" exact="">{{$t('c2c.mypc2c')}}</router-link>
     </div>
     <div class="c2c-r">
       <router-view></router-view>
@@ -56,7 +56,7 @@ export default {
       line-height: 50px;
     }
     >.router-link-active{
-      background: #563BD1;
+      background: #194B64;
       color: #fff;
     }
   }

@@ -41,6 +41,10 @@
                         <router-link :to="{path:'/components/noticeDetail',query:{id:47}}" class="mr15" tag="span">{{$t('footer.connect')}}</router-link>
                         <router-link :to="{path:'/helpcenter'}" tag="span">{{$t('header.help')}}</router-link>
                     </li>
+                    <li class="mb15">
+                        <router-link :to="{path:'/webNotice'}" class="mr15" tag="span">{{$t('footer.gonggao')}}</router-link>
+                        <router-link :to="{path:'/advice'}" tag="span">{{$t('header.complaint')}}</router-link>
+                    </li>
                 </ul>
                 <ul class="ft12 foot_ul">
                     <li class="mb15">{{$t('footer.explain')}}</li>

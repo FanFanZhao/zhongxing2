@@ -28,6 +28,7 @@ export default {
   header:{
     home:'Home',
     c2c:'Legal Transaction',
+    c2cTransfer:'C2C Transaction',
     currency:'Currency Transaction',
     assets:'My Assets',
     setting:'Security settin',
@@ -58,7 +59,8 @@ export default {
      xieyi:'User agreement',
      yinsi:'Privacy clause',
      legal:'Legal statement',
-     feilv:'transaction rate'
+     feilv:'transaction rate',
+     gonggao:'Website announcement'
   },
   home:{
     myMarkets:'My markets',
@@ -433,14 +435,55 @@ export default {
     lessnum:'Minimum quantity not less than ',
     morenum:'The quantity should not exceed ',
     notnum:'Quantity should not be greater than total quantity'
-
-
-
-
-
-
-
-
+  },
+  c2c:{
+    myTc2c:'C2C I traded',
+    pc2c:'Release C2C',
+    mypc2c:'My release of C2C',
+    timer:'time',
+    type:'type',
+    price:'price',
+    num:'number',
+    minNums:'Minimum quantity',
+    payType:'Payment method',
+    cancelp:'Cancel publication',
+    buy:'purchase',
+    sell:'Sell',
+    currency:'currency',
+    onePrice:'Unit Price',
+    minTime:'Minimum time',
+    pTime:'Release time',
+    opera:'operation',
+    money:'Amount of money',
+    enter:'Please input',
+    numIs:'Quantity in',
+    rangeL:'Between',
+    moneyIs:'Amount in',
+    cancel:'cancel',
+    maxNum:'Quantity must not exceed',
+    minNum:'Quantity must not be less than',
+    maxMoney:'The amount should not exceed',
+    minMoney:'The amount should not be less than' ,
+    notMore:'No more',
+    state:'state',
+    cancelOrder:'Cancellation of order',
+    conPay:'Confirm the payment',
+    conReceive:'Confirm receipt',
+    payed:'Paid',
+    completed:'Completed',
+    canceled:'Cancelled',
+    detail:'details',
+    payAccount:'Payment account',
+    selCu:'Please choose currency',
+    ailipay:'Alipay',
+    wx:'WeChat',
+    bankcard:'Bank card',
+    pBuy:'Publish purchase',
+    pSell:'Release for sale',
+    enterPrice:'Please enter the price.',
+    enterNum:'Please enter quantity',
+    enterMinnum:'Please enter the minimum quantity',
+    tips:'The minimum quantity shall not be greater than the total quantity'
   }
 
 

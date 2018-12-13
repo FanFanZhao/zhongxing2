@@ -2,10 +2,10 @@
   <div id="mytransaction">
     <div class="filters">
       <div class="flex">
-        <span>类型：</span>
+        <span>{{$t('c2c.type')}}：</span>
         <ul class="types flex">
-          <li @click="filterPms.type='buy';getList()" :class="{selected:filterPms.type=='buy'}">购买</li>
-          <li @click="filterPms.type='sell';getList()" :class="{selected:filterPms.type=='sell'}">出售</li>
+          <li @click="filterPms.type='buy';getList()" :class="{selected:filterPms.type=='buy'}">{{$t('c2c.buy')}}</li>
+          <li @click="filterPms.type='sell';getList()" :class="{selected:filterPms.type=='sell'}">{{$t('c2c.sell')}}</li>
         </ul>
       </div>
       <!-- <div class="flex">
@@ -18,7 +18,7 @@
         </ul>
       </div> -->
       <div class="flex">
-        <span>币种：</span>
+        <span>{{$t('c2c.currency')}}：</span>
         <ul class="coins flex">
           <li
             v-for="(coin,index) in coins"
@@ -33,11 +33,11 @@
       <div class="list-title">
         <el-row :gutter="10">
           <!-- <el-col :span="3">交易人</el-col> -->
-          <el-col :span="4">单价</el-col>
-          <el-col :span="5">数量</el-col>
-          <el-col :span="5">发布时间</el-col>
-          <el-col :span="4">支付方式</el-col>
-          <el-col :span="6">操作 | 状态</el-col>
+          <el-col :span="4">{{$t('c2c.onePrice')}}</el-col>
+          <el-col :span="5">{{$t('c2c.num')}}</el-col>
+          <el-col :span="5">{{$t('c2c.pTime')}}</el-col>
+          <el-col :span="4">{{$t('c2c.payType')}}</el-col>
+          <el-col :span="6">{{$t('c2c.opera')}} | {{$t('c2c.state')}}</el-col>
         </el-row>
       </div>
       <el-row :gutter="10" v-for="(item,index) in list" :key="index">
@@ -54,44 +54,44 @@
           </div>
         </el-col>
         <el-col :span="6">
-          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id)" type="danger">取消订单</el-button>
-          <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id)" type="danger">确认付款</el-button>
-          <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id)" type="danger">确认收款</el-button>
+          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id)" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
+          <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id)" type="danger">{{$t('c2c.conPay')}}</el-button>
+          <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id)" type="danger">{{$t('c2c.conReceive')}}</el-button>
          
-          <el-button v-if="item.status == 2&&filterPms.type=='buy'" type="success" size="mini" disabled>已付款</el-button>
-          <el-button v-if="item.status == 3" type="success" size="mini" disabled>已完成</el-button>
-          <el-button v-if="item.status == 4" type="info" size="mini" disabled>已取消</el-button>
-          <el-button size="mini" @click="getDetail(item.id)">详情</el-button>
+          <el-button v-if="item.status == 2&&filterPms.type=='buy'" type="success" size="mini" disabled>{{$t('c2c.payed')}}</el-button>
+          <el-button v-if="item.status == 3" type="success" size="mini" disabled>{{$t('c2c.completed')}}</el-button>
+          <el-button v-if="item.status == 4" type="info" size="mini" disabled>{{$t('c2c.canceled')}}</el-button>
+          <el-button size="mini" @click="getDetail(item.id)">{{$t('c2c.detail')}}</el-button>
           <!-- <router-link :to="{path:'/orderDetail',query:{id:item.id}}">
           </router-link>-->
         </el-col>
       </el-row>
-      <div v-if="!list.length" class="tip tc" style="padding:20px">暂无更多</div>
+      <div v-if="!list.length" class="tip tc" style="padding:20px">{{$t('c2c.notMore')}}</div>
       <div class="mask" v-if="selId != ''">
         <div class="content">
           <i class="el-icon-close" @click="selId = ''"></i>
           <div class="flex">
-            <span>币种 ：</span>
+            <span>{{$t('c2c.currency')}} ：</span>
             <div>{{detail.currency_name}}</div>
           </div>
           <div class="flex">
-            <span>时间：</span>
+            <span>{{$t('c2c.timer')}}：</span>
             <div>{{detail.create_time}}</div>
           </div>
           <div class="flex">
-            <span>单价：</span>
+            <span>{{$t('c2c.onePrice')}}：</span>
             <div>{{detail.price}}</div>
           </div>
           <div class="flex">
-            <span>数量：</span>
+            <span>{{$t('c2c.num')}}：</span>
             <div>{{detail.number}}</div>
           </div>
           <div class="flex">
-            <span>支付账户：</span>
+            <span>{{$t('c2c.payAccount')}}：</span>
             <div>{{filterPms.type == 'sell'?detail.cny_uci.pay_account:detail.currency_uci.pay_account}}</div>
           </div>
           <div class="flex">
-            <span>支付方式：</span>
+            <span>{{$t('c2c.payType')}}：</span>
             <div>{{filterPms.type == 'sell'?detail.cny_uci.pay_name:detail.currency_uci.pay_name}}</div>
           </div>
           <!-- <div class="flex">
@@ -258,8 +258,8 @@ export default {
       }
       .selected {
         font-weight: bold;
-        color: blueviolet;
-        border-bottom: 2px solid blueviolet;
+        color: #194B64;
+        border-bottom: 2px solid #194B64;
       }
     }
   }
@@ -326,7 +326,7 @@ export default {
         cursor: pointer;
       }
       .flex {
-        color: blueviolet;
+        color: #194B64;
         >span {
           color: #333;
           width: 80px;

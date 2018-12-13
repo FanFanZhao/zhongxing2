@@ -1,28 +1,28 @@
 <template>
   <div id="c2c-detail">
     <div class="flex">
-      <span>时间：</span>
+      <span>{{$t('c2c.timer')}}：</span>
       <span>{{detail.create_time}}</span>
     </div>
     <div class="flex">
-      <span>类型</span>
-      <span>{{detail.type =='buy'?'购买':'出售'}}</span>
+      <span>{{$t('c2c.type')}}</span>
+      <span>{{detail.type =='buy'?$t('c2c.buy'):$t('c2c.sell')}}</span>
     </div>
     <div class="flex">
-      <span>价格：</span>
+      <span>{{$t('c2c.price')}}：</span>
       <span>{{detail.price}}</span>
     </div>
     <div class="flex">
-      <span>数量：</span>
+      <span>{{$t('c2c.num')}}：</span>
       <span>{{detail.number}}</span>
     </div>
     <div class="flex">
-      <span>支付方式：</span>
+      <span>{{$t('c2c.payType')}}：</span>
       <img v-if="detail.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
       <img v-else-if="detail.way=='we_chat'" src="../../assets/images/wx_icon.png" alt>
       <img v-else src="../../assets/images/bank_icon.png" alt>
     </div>
-    <el-button type="danger" size="small" @click="cancel">取消发布</el-button>
+    <el-button type="danger" size="small" @click="cancel">{{$t('c2c.cancelp')}}</el-button>
   </div>
 </template>
 

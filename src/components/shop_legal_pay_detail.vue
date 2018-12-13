@@ -21,7 +21,7 @@
       <div>
         <span v-if="msg.type == 'buy'">{{$t('legal.seller')}}</span>
         <span v-if="msg.type == 'sell'">{{$t('legal.buyer')}}</span>
-        <span>{{msg.user_cash_info.real_name}}</span>
+        <span>{{realName}}</span>
         <!-- <span v-if="msg.type == 'buy'">{{msg.hes_realname}}</span>
         <span v-if="msg.type == 'sell'">{{msg.seller_name}}</span> -->
       </div>
@@ -116,7 +116,8 @@ export default {
       showCancel:false,
       hasPay:false,
       id:'',
-      msg:{}
+      msg:{},
+      realName:''
     };
   },
   created() {
@@ -140,6 +141,7 @@ export default {
         console.log(res);
         if(res.data.type == 'ok'){
           this.msg = res.data.message;
+          this.realName = res.data.message.user_cash_info.real_name;
         }
       })
     },
