@@ -150,7 +150,7 @@ export default {
         url: "/api/wallet/legal_log",
         method: "post",
         data: {
-          type: "1",
+          type: "legal",
           currency: this.currencyId,
           page: this.page
         },

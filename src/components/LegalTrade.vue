@@ -145,6 +145,8 @@
 		methods: {
 			//关闭弹框
 			close(){
+				this.types = 'trade';
+				this.name01 = 'CNY';
 			   this.shows = false;
 			    clearInterval(this.timer); //弹框关闭清除定时器
 			},

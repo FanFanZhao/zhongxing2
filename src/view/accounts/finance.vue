@@ -383,7 +383,7 @@ export default {
             this.$http({
                         url: '/api/wallet/legal_log',
                         method:'post',
-                        data:{type:'2',currency:currency,page:this.page},
+                        data:{type:'change',currency:currency,page:this.page},
                         headers:{'Authorization':this.token}
                     }).then( res => {
                         console.log(res);

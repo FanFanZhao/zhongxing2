@@ -492,7 +492,10 @@ export default {
     enterPrice:'请输入价格',
     enterNum:'请输入数量',
     enterMinnum:'请输入最小数量',
-    tips:'最小数量不能大于总数量'
+    tips:'最小数量不能大于总数量',
+    name:'姓名',
+    wxName:'微信昵称',
+    bankName:'银行名称'
   }
 
 

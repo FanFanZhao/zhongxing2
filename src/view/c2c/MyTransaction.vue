@@ -48,9 +48,12 @@
         <el-col :span="5">{{item.create_time}}</el-col>
         <el-col :span="4">
           <div class="pay">
-            <img v-if="item.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
+            <!-- <img v-if="item.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
             <img v-else-if="item.way=='we_chat'" src="../../assets/images/wx_icon.png" alt>
-            <img v-else src="../../assets/images/bank_icon.png" alt>
+            <img v-else src="../../assets/images/bank_icon.png" alt> -->
+            <img src="../../assets/images/zfb_icon.png" />
+            <img src="../../assets/images/wx_icon.png" />
+            <img src="../../assets/images/bank_icon.png" />
           </div>
         </el-col>
         <el-col :span="6">
@@ -87,13 +90,38 @@
             <div>{{detail.number}}</div>
           </div>
           <div class="flex">
-            <span>{{$t('c2c.payAccount')}}：</span>
-            <div>{{filterPms.type == 'sell'?detail.cny_uci.pay_account:detail.currency_uci.pay_account}}</div>
+            <span>{{$t('c2c.name')}}：</span>
+            <div>{{detail[detail.other_identity].real_name}}</div>
           </div>
           <div class="flex">
+            <span>{{$t('c2c.ailipay')}}：</span>
+             <div>{{detail[detail.other_identity].ali_pay_account}}</div>
+          </div>
+          <div class="flex">
+            <span>{{$t('c2c.wxName')}}：</span>
+             <div>{{detail[detail.other_identity].we_chat_account_name}}</div>
+          </div>
+          <div class="flex">
+            <span>{{$t('c2c.wx')}}：</span>
+             <div>{{detail[detail.other_identity].we_chat_account}}</div>
+          </div>
+          <div class="flex">
+            <span>{{$t('c2c.bankName')}}：</span>
+            <div>{{detail[detail.other_identity].bank_account_name}}</div>
+          </div>
+          <div class="flex">
+            <span>{{$t('c2c.bankcard')}}：</span>
+            <div>{{detail[detail.other_identity].bank_account}}</div>
+            <!-- <div>{{filterPms.type == 'sell'?detail.cny_uci.pay_account:detail.currency_uci.pay_account}}</div> -->
+          </div>
+          <!-- <div class="flex">
+            <span>{{$t('c2c.payAccount')}}：</span>
+            <div>{{filterPms.type == 'sell'?detail.cny_uci.pay_account:detail.currency_uci.pay_account}}</div>
+          </div> -->
+          <!-- <div class="flex">
             <span>{{$t('c2c.payType')}}：</span>
             <div>{{filterPms.type == 'sell'?detail.cny_uci.pay_name:detail.currency_uci.pay_name}}</div>
-          </div>
+          </div> -->
           <!-- <div class="flex">
             <span>名称：</span>
             <div>{{detail.cny_uci.pay_name}}</div>
@@ -169,6 +197,7 @@ export default {
       }
     },
     getDetail(id) {
+      console.log(id)
       if (this.token) {
         var i = layer.load();
         this.$http({
@@ -314,7 +343,7 @@ export default {
       margin: 100px auto;
       border-radius: 4px;
       padding: 20px 30px;
-      max-width: 300px;
+      max-width: 360px;
       background: #fff;
       line-height: 36px;
       > .el-icon-close {
@@ -329,7 +358,7 @@ export default {
         color: #194B64;
         >span {
           color: #333;
-          width: 80px;
+          min-width: 80px;
         }
       }
       .btns{

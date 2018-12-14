@@ -483,7 +483,10 @@ export default {
     enterPrice:'Please enter the price.',
     enterNum:'Please enter quantity',
     enterMinnum:'Please enter the minimum quantity',
-    tips:'The minimum quantity shall not be greater than the total quantity'
+    tips:'The minimum quantity shall not be greater than the total quantity',
+    name:'Name',
+    wxName:'WeChat nickname',
+    bankName:'Bank name'
   }
 
 

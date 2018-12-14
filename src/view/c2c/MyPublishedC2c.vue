@@ -38,9 +38,12 @@
         <el-col :span="4">{{item.create_time}}</el-col>
         <el-col :span="4">
           <div class="pay">
-            <img v-if="item.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
+            <!-- <img v-if="item.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
             <img v-else-if="item.way=='we_chat'" src="../../assets/images/wx_icon.png" alt>
-            <img v-else src="../../assets/images/bank_icon.png" alt>
+            <img v-else src="../../assets/images/bank_icon.png" alt> -->
+            <img src="../../assets/images/zfb_icon.png" />
+            <img src="../../assets/images/wx_icon.png" />
+            <img src="../../assets/images/bank_icon.png" />
           </div>
         </el-col>
         <el-col :span="4">

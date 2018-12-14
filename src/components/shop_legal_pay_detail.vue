@@ -66,6 +66,7 @@
         <div class="btn" @click="showCancel = true" v-if="msg.is_sure == 0">{{$t('legal.orderceil')}}</div>
         <div class="btn blue_bg" @click="hasPay = true" v-if="msg.is_sure == 0 && msg.type =='buy'">{{$t('legal.mypayed')}}</div>
         <div class="btn blue_bg" @click="showConfirm = true" v-if="(msg.is_sure == 3) && (msg.type =='sell')">{{$t('legal.surepay')}}</div>
+         <div class="btn" style="background:#ccc;color:#333;" @click="showCancel = true" v-if="(msg.is_sure == 3) && (msg.type =='sell')">{{$t('legal.orderceil')}}</div>
       </div>
     </div>
     <div class="cancel-box" v-if="showCancel">
@@ -250,8 +251,9 @@ export default {
     }
     >.btns{
       padding: 20px 0;
-      cursor: pointer;
+     
       >div{
+         cursor: pointer;
         color: #fff;
         border-radius: 2px;
         padding: 0 16px;

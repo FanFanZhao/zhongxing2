@@ -22,13 +22,13 @@
           <el-form-item :label="$t('c2c.minNums')">
             <el-input v-model="buyPms.min_number" type="number"></el-input>
           </el-form-item>
-          <el-form-item :label="$t('c2c.payType')">
+          <!-- <el-form-item :label="$t('c2c.payType')">
             <el-radio-group v-model="buyPms.way">
               <el-radio label="ali_pay">{{$t('c2c.ailipay')}}</el-radio>
               <el-radio label="we_chat">{{$t('c2c.wx')}}</el-radio>
               <el-radio label="bank">{{$t('c2c.bankcard')}}</el-radio>
             </el-radio-group>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button @click="buySell('buyPms')" type="success">{{$t('c2c.pBuy')}}</el-button>
           </el-form-item>
@@ -55,20 +55,19 @@
           <el-form-item :label="$t('c2c.minNums')">
             <el-input v-model="sellPms.min_number" type="number"></el-input>
           </el-form-item>
-          <el-form-item  :label="$t('c2c.payType')">
+          <!-- <el-form-item :label="$t('c2c.payType')">
             <el-radio-group v-model="sellPms.way">
               <el-radio label="ali_pay">{{$t('c2c.ailipay')}}</el-radio>
               <el-radio label="we_chat">{{$t('c2c.wx')}}</el-radio>
               <el-radio label="bank">{{$t('c2c.bankcard')}}</el-radio>
             </el-radio-group>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item>
             <el-button @click="buySell('sellPms')" type="danger">{{$t('c2c.pSell')}}</el-button>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
-    
   </div>
 </template>
 
@@ -84,7 +83,7 @@ export default {
         number: "",
         min_number: "",
         way: "ali_pay",
-        currency_id: this.$t('c2c.selCu')
+        currency_id: this.$t("c2c.selCu")
       },
       sellPms: {
         type: "sell",
@@ -92,7 +91,7 @@ export default {
         number: "",
         min_number: "",
         way: "ali_pay",
-        currency_id: this.$t('c2c.selCu')
+        currency_id: this.$t("c2c.selCu")
       }
     };
   },
@@ -124,43 +123,72 @@ export default {
     buySell(type) {
       var p = this[type];
       var msg = "";
-      if (p.currency_id == this.$t('c2c.selCu')) {
-        msg = this.$t('c2c.selCu');
+      if (p.currency_id == this.$t("c2c.selCu")) {
+        msg = this.$t("c2c.selCu");
       } else if (p.price == "") {
-        msg = this.$t('c2c.enterPrice');
+        msg = this.$t("c2c.enterPrice");
       } else if (p.number == "") {
-        msg = this.$t('c2c.enterNum');
+        msg = this.$t("c2c.enterNum");
       } else if (p.min_number == "") {
-        msg =  this.$t('c2c.enterMinnum');
-      } else if (p.min_number -0 - p.number >= 0) {
+        msg = this.$t("c2c.enterMinnum");
+      } else if (p.min_number - 0 - p.number >= 0) {
         console.log(p);
-        
-        msg = this.$t('c2c.tips');
+
+        msg = this.$t("c2c.tips");
       }
       if (msg) {
         layer.msg(msg);
-        
-      } else {
-        var i = layer.load();
-        this.$http({
-          url: "/api/ctoc/publish",
-          method: "post",
-          data: p,
-          headers: { Authorization: this.token }
-        }).then(res => {
-          layer.close(i);
-          console.log(res);
-          layer.msg(res.data.message);
-          if (res.data.type == "ok") {
-            this[type] = Object.assign(p, {
-              currency_id: this.$t('c2c.selCu'),
-              price: "",
-              number: "",
-              min_number: ""
+        return;
+      }
+      //获取实名认证状态
+      var review_status; //是否实名认证
+      var is_Billing; //是否设置收款方式 1 已设置 0 未设置
+      var load = layer.load();
+      this.$http({
+        url: "/api/user/info",
+        method: "GET",
+        data: {},
+        headers: { Authorization: this.token }
+      }).then(res => {
+        if (res.data.type == "ok") {
+          review_status = res.data.message.review_status;
+          is_Billing = res.data.message.is_Billing;
+          if (review_status != 2) {
+            layer.msg(this.$t("lay.tname"));
+            setTimeout(() => {
+              this.$router.push("/components/authentication");
+            }, 1000);
+            return false;
+          } else if (is_Billing == 0) {
+            layer.msg(this.$t("lay.payset"));
+            setTimeout(() => {
+              this.$router.push("/userSetting");
+            }, 1000);
+
+            return;
+          } else {
+            var i = layer.load();
+            this.$http({
+              url: "/api/ctoc/publish",
+              method: "post",
+              data: p,
+              headers: { Authorization: this.token }
+            }).then(res => {
+              layer.close(i);
+              console.log(res);
+              layer.msg(res.data.message);
+              if (res.data.type == "ok") {
+                this[type] = Object.assign(p, {
+                  currency_id: this.$t("c2c.selCu"),
+                  price: "",
+                  number: "",
+                  min_number: ""
+                });
+              }
             });
           }
-        });
-      }
+        }
+      });
     }
   }
 };
@@ -173,12 +201,12 @@ export default {
   .el-select {
     width: 100%;
   }
-  .el-row{
-    .el-col:first-child{
+  .el-row {
+    .el-col:first-child {
       border-right: 1px dashed #ccc;
     }
   }
-  .el-button{
+  .el-button {
     width: 100%;
   }
 }

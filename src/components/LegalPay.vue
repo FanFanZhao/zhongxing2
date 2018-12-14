@@ -209,8 +209,9 @@ export default {
     }
     > .btns {
       padding: 20px 0;
-      cursor: pointer;
+     
       > div {
+         cursor: pointer;
         color: #fff;
         border-radius: 2px;
         padding: 0 16px;

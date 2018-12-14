@@ -38,9 +38,12 @@
         <el-col :span="4">{{item.create_time}}</el-col>
         <el-col :span="4">
           <div class="pay">
-            <img v-if="item.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
+            <!-- <img v-if="item.way=='ali_pay'" src="../../assets/images/zfb_icon.png" alt>
             <img v-else-if="item.way=='we_chat'" src="../../assets/images/wx_icon.png" alt>
-            <img v-else src="../../assets/images/bank_icon.png" alt>
+            <img v-else src="../../assets/images/bank_icon.png" alt> -->
+            <img src="../../assets/images/zfb_icon.png" />
+            <img src="../../assets/images/wx_icon.png" />
+            <img src="../../assets/images/bank_icon.png" />
           </div>
         </el-col>
         <el-col :span="4">
@@ -191,6 +194,36 @@ export default {
             return;
           }
         }
+        
+        //获取实名认证状态
+      var review_status; //是否实名认证
+      var is_Billing; //是否设置收款方式 1 已设置 0 未设置
+      var load = layer.load();
+      this.$http({
+        url: "/api/user/info",
+        method: "GET",
+        data: {},
+        headers: { Authorization: this.token }
+      }).then(res => {
+        if (res.data.type == "ok") {
+          review_status = res.data.message.review_status;
+          is_Billing = res.data.message.is_Billing;
+          if (review_status != 2) {
+            layer.msg(this.$t("lay.tname"));
+            setTimeout(() => {
+              this.$router.push("/components/authentication");
+            }, 1000);
+            return false;
+          } 
+          if (is_Billing == 0) {
+            layer.msg(this.$t("lay.payset"));
+            setTimeout(() => {
+              this.$router.push("/userSetting");
+            }, 1000);
+
+            return;
+          }
+          //购买或出售
         var i = layer.load();
         this.$http({
           url: "/api/ctoc/order",
@@ -210,6 +243,10 @@ export default {
           layer.msg(res.data.message);
           this.getList();
         });
+        }
+      });
+
+        
       }
     }
   }
