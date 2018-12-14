@@ -139,6 +139,18 @@
         </div>
       </div>
     </div>
+    <!--密码框-->
+    <div class="shdow flex alcenter center" v-if="isshow">
+       <div class="psw_wrap flex column center">
+          
+            <p class="tc">请输入交易密码</p>
+            <input class="mt20" type="password" v-model="psw" />
+            <div class="btn_wrap flex alcenter center mt20">
+              <div class="no" @click="isshow = false">取消</div>
+              <div class="yes" @click="yes">确定</div>
+            </div>
+       </div>
+    </div>
   </div>
 </template>
 
@@ -151,7 +163,10 @@ export default {
       coins: [],
       list: [],
       selId: "",
-      detail: {}
+      detail: {},
+      psw:'',
+      isshow:false,
+      id:''
     };
   },
   created() {
@@ -159,6 +174,23 @@ export default {
     this.getCoins();
   },
   methods: {
+    yes(){
+      this.isshow = false;
+       var i = layer.load();
+      this.$http({
+        url: "/api/ctoc/pay",
+        method: "post",
+        data: { id: this.id,pay_password:this.psw },
+        headers: { Authorization: this.token }
+      }).then(res => {
+        layer.close(i);
+        this.selId = '';
+        layer.msg(res.data.message);
+        if (res.data.type == "ok") {
+          this.getList()
+        }
+      });
+    },
     getCoins() {
       if (this.token) {
         var i = layer.load();
@@ -235,20 +267,8 @@ export default {
       }
     },
     confirmPay(id) {
-      var i = layer.load();
-      this.$http({
-        url: "/api/ctoc/pay",
-        method: "post",
-        data: { id: id },
-        headers: { Authorization: this.token }
-      }).then(res => {
-        layer.close(i);
-        this.selId = '';
-        layer.msg(res.data.message);
-        if (res.data.type == "ok") {
-          this.getList()
-        }
-      });
+      this.isshow = true;
+      this.id = id;
     },
     confirm(id) {
       var i = layer.load();
@@ -369,6 +389,42 @@ export default {
         }
       }
     }
+  }
+  .shdow{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .psw_wrap{
+    width: 450px;
+    height: 200px;
+    background: #fff;
+    border-radius: 5px;
+  }
+  .psw_wrap input{
+    border: 1px solid #ccc;
+    width: 70%;
+    margin: 0 auto;
+    line-height: 50px;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 0 12px;
+  }
+  .yes{
+    margin-left: 50px;
+    background: #f56c6c;
+  }
+  .no{
+    background: #69c03f;
+  }
+  .yes,.no{
+    padding: 8px 15px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
   }
 }
 </style>

@@ -31,12 +31,21 @@
                         <input class="clr-part bg-main bdr-part" type="number" min="0" v-model="buyNum" @keydown.69.prevent  @keyup="numFilter($event)">
                         <span>{{currency_name}}</span>
                     </div>
+                    <div class="mt40 input-item clear">
+                        <label>交易密码</label>
+                        <input class="clr-part bg-main bdr-part" v-model="buyPsw" type="text">
+                    </div>
                     <!-- <div class="mt40 input-item clear">
-                        <label>资金密码</label>
+                        <label>资金密码:</label>
                         <input type="password" v-model="buyInfo.pwd" @keydown.69.prevent>
                     </div> -->
                     <!-- <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div> -->
+                    <!-- <div class="mt40 input-item clear">
+                        <label style="width:25%">交易密码：</label>
+                        <input style="width:75%" class="clr-part bg-main bdr-part" type="text">
+                    </div> -->
                     <el-slider v-model="value1" :min="0" :max="100" show-stops :show-tooltip="true" :format-tooltip="formatTooltip01" :step="25" :disabled="address?current == 0?buyPrice=='':lastPrice02==0?true:false:true" @change="changeVal"></el-slider>
+                    
                     <div class="mt50 1 ft16">{{$t('center.tradetotal')}} {{buyTotal}} {{legal_name}}</div>
                     <div class="sell_btn curPer mt40 tc greenBack 1 ft16" @click="buyCoin">{{$t('center.buyin')}}{{currency_name}}</div>
                 </div>
@@ -62,12 +71,17 @@
                         <input class="clr-part bg-main bdr-part" type="number" @keydown.69.prevent  @keyup="numFilter($event)" v-model="sellNum" min="0">
                         <span>{{currency_name}}</span>
                     </div>
+                    <div class="mt40 input-item clear">
+                        <label>交易密码</label>
+                        <input class="clr-part bg-main bdr-part" v-model="sellPsw" type="text">
+                    </div>
                     <!-- <div class="mt40 input-item clear">
-                        <label>资金密码</label>
+                        <label>资金密码:</label>
                         <input type="password" v-model="sellInfo.pwd" @keydown.69.prevent>
                     </div> -->
                     <!-- <div class="attion tr 1">范围 (0.000001,20,精度: 0.000001)</div> -->
                     <el-slider v-model="value2" :min="0" :max="100" :show-tooltip="true" show-stops :step="25" :format-tooltip="formatTooltip02"  :disabled="address?current == 0?sellPrice=='':lastPrice01==0?true:false:true" @change="changeVal2"></el-slider>
+                    
                     <div class="mt50 1 ft16">{{$t('center.tradetotal')}} {{sellTotal}} {{legal_name}}</div>
                     <div class="sell_btn curPer mt40 tc redBack 1 ft16" @click="sellCoin">{{$t('center.sellout')}}{{currency_name}}</div>
                 </div>
@@ -108,7 +122,9 @@ export default {
       value1: 0,
       value2: 0,
       disable: false,
-      disable02: false
+      disable02: false,
+      buyPsw:'',
+      sellPsw:''
     };
   },
   watch: {
@@ -321,6 +337,10 @@ export default {
         layer.msg(that.$t('lay.innumber'));
         return;
       }
+      if(this.buyPsw == ''){
+        layer.msg('请输入交易密码');
+        return;
+      }
       if(this.address == ''){
         layer.msg(that.$t('lay.plogin'));
         setTimeout(function(){
@@ -340,7 +360,8 @@ export default {
           legal_id: this.legal_id,
           currency_id: this.currency_id,
           price: this.disabled ? this.lastPrice02 : this.buyPrice,
-          num: this.buyNum
+          num: this.buyNum,
+          pay_password:this.buyPsw
           // pay_password:this.buyInfo.pwd
         },
         headers: { Authorization: localStorage.getItem("token") }
@@ -395,6 +416,10 @@ export default {
         layer.msg(that.$t('lay.outnumber'));
         return;
       }
+      if(this.sellPsw == ''){
+        layer.msg('请输入交易密码');
+        return;
+      }
       if(this.address == ''){
         layer.msg(that.$t('lay.plogin'));
         setTimeout(function(){
@@ -414,8 +439,8 @@ export default {
           legal_id: this.legal_id,
           currency_id: this.currency_id,
           price: this.disabled ? this.lastPrice01 : this.sellPrice,
-          num: this.sellNum
-          // pay_password:this.sellInfo.pwd
+          num: this.sellNum,
+          pay_password:this.sellPsw
         },
         headers: { Authorization: localStorage.getItem("token") }
       })
