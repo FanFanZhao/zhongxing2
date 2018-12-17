@@ -33,7 +33,7 @@
                     </div>
                     <div class="mt40 input-item clear">
                         <label>交易密码</label>
-                        <input class="clr-part bg-main bdr-part" v-model="buyPsw" type="text">
+                        <input class="clr-part bg-main bdr-part" v-model="buyPsw" type="password">
                     </div>
                     <!-- <div class="mt40 input-item clear">
                         <label>资金密码:</label>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="mt40 input-item clear">
                         <label>交易密码</label>
-                        <input class="clr-part bg-main bdr-part" v-model="sellPsw" type="text">
+                        <input class="clr-part bg-main bdr-part" v-model="sellPsw" type="password">
                     </div>
                     <!-- <div class="mt40 input-item clear">
                         <label>资金密码:</label>

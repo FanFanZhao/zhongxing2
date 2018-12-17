@@ -495,7 +495,8 @@ export default {
     tips:'最小数量不能大于总数量',
     name:'姓名',
     wxName:'微信昵称',
-    bankName:'银行名称'
+    bankName:'银行名称',
+    connect:'联系方式'
   }
 
 

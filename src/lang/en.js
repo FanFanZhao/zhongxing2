@@ -486,7 +486,8 @@ export default {
     tips:'The minimum quantity shall not be greater than the total quantity',
     name:'Name',
     wxName:'WeChat nickname',
-    bankName:'Bank name'
+    bankName:'Bank name',
+    connect:'contact way'
   }
 
 

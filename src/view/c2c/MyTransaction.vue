@@ -57,9 +57,9 @@
           </div>
         </el-col>
         <el-col :span="6">
-          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id)" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
-          <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id)" type="danger">{{$t('c2c.conPay')}}</el-button>
-          <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id)" type="danger">{{$t('c2c.conReceive')}}</el-button>
+          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id,item.type,item.status)" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
+          <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id,item.type,item.status)" type="danger">{{$t('c2c.conPay')}}</el-button>
+          <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id,item.type,item.status)" type="danger">{{$t('c2c.conReceive')}}</el-button>
          
           <el-button v-if="item.status == 2&&filterPms.type=='buy'" type="success" size="mini" disabled>{{$t('c2c.payed')}}</el-button>
           <el-button v-if="item.status == 3" type="success" size="mini" disabled>{{$t('c2c.completed')}}</el-button>
@@ -92,6 +92,10 @@
           <div class="flex">
             <span>{{$t('c2c.name')}}：</span>
             <div>{{detail[detail.other_identity].real_name}}</div>
+          </div>
+          <div class="flex">
+            <span>{{$t('c2c.connect')}}：</span>
+            <div>{{detail.other_phone}}</div>
           </div>
           <div class="flex">
             <span>{{$t('c2c.ailipay')}}：</span>
@@ -146,7 +150,7 @@
             <p class="tc">请输入交易密码</p>
             <input class="mt20" type="password" v-model="psw" />
             <div class="btn_wrap flex alcenter center mt20">
-              <div class="no" @click="isshow = false">取消</div>
+              <div class="no" @click="no">取消</div>
               <div class="yes" @click="yes">确定</div>
             </div>
        </div>
@@ -166,7 +170,10 @@ export default {
       detail: {},
       psw:'',
       isshow:false,
-      id:''
+      id:'',
+      type:'',
+      state:'',
+      cid:''
     };
   },
   created() {
@@ -176,11 +183,48 @@ export default {
   methods: {
     yes(){
       this.isshow = false;
-       var i = layer.load();
-      this.$http({
+     
+      if((this.type == 'buy' || this.type == 'sell')&& this.state == 2){  //用户已付款或确认收款取消订单时
+         if (this.token) {
+        var i = layer.load();
+        this.$http({
+          url: "/api/ctoc/cancel",
+          method:'post',
+          data: { id: this.cid,pay_password:this.psw },
+          headers: { Authorization: this.token }
+        }).then(res => {
+           this.psw = '';
+          layer.close(i);
+          layer.msg(res.data.message);
+          if(res.data.type == 'ok'){
+            this.getList()
+          }
+          console.log(res);
+        });
+      }
+      }else{
+        if(this.type == 'buy'){
+          var i = layer.load();
+      this.$http({               //确认付款  
         url: "/api/ctoc/pay",
         method: "post",
         data: { id: this.id,pay_password:this.psw },
+        headers: { Authorization: this.token }
+      }).then(res => {
+         this.psw = '';
+        layer.close(i);
+        this.selId = '';
+        layer.msg(res.data.message);
+        if (res.data.type == "ok") {
+          this.getList()
+        }
+      });  
+      }else{
+        var i = layer.load();
+      this.$http({
+        url: "/api/ctoc/confirm",
+        method: "post",
+        data: { id:this.id,pay_password:this.psw },
         headers: { Authorization: this.token }
       }).then(res => {
         layer.close(i);
@@ -190,6 +234,13 @@ export default {
           this.getList()
         }
       });
+      }
+      }
+       
+    },
+    no(){
+        this.isshow = false;
+        this.psw = '';
     },
     getCoins() {
       if (this.token) {
@@ -248,8 +299,15 @@ export default {
         });
       }
     },
-    cancel(id) {
-      if (this.token) {
+    cancel(id,type,status) {
+      if((type == 'buy' || type == 'sell')&& status == 2){
+        console.log('hahahah')
+          this.isshow = true;
+          this.type = type;
+          this.state = status;
+          this.cid = id
+      }else{
+         if (this.token) {
         var i = layer.load();
         this.$http({
           url: "/api/ctoc/cancel",
@@ -265,26 +323,20 @@ export default {
           console.log(res);
         });
       }
+      }
+      
     },
-    confirmPay(id) {
+    confirmPay(id,type,status) {
       this.isshow = true;
       this.id = id;
+      this.type = type;
+      this.state = status;
     },
     confirm(id) {
-      var i = layer.load();
-      this.$http({
-        url: "/api/ctoc/confirm",
-        method: "post",
-        data: { id: id },
-        headers: { Authorization: this.token }
-      }).then(res => {
-        layer.close(i);
-        this.selId = '';
-        layer.msg(res.data.message);
-        if (res.data.type == "ok") {
-          this.getList()
-        }
-      });
+       this.isshow = true;
+       this.id = id;
+       this.type = type;
+      this.state = status;
     }
   }
 };

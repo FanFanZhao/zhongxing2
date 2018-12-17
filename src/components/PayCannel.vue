@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="total">
-			<p class="total-text">{{$t('legal.totalmoney')}}：<span>{{datas.deal_money}}CNY</span></p>
+			<p class="total-text light_blue">{{$t('legal.totalmoney')}}：<span>{{datas.deal_money}}CNY</span></p>
 		</div>
 		<ul class="list">
 			<li>
@@ -34,8 +34,8 @@
 				<p class="right">{{datas.id}}</p>
 			</li>
 			<li>
-				<button class="right" v-show="datas.is_sure == 0" type="button" @click="cannel()">{{$t('legal.ceilorder')}}</button>
-				<button class="right" v-show="comfirmBtn" type="button" @click="comfirm();">{{$t('legal.surepay')}}</button>
+				<button class="right" v-show="datas.is_sure == 0 || datas.is_sure == 3" type="button" @click="cannel()">{{$t('legal.ceilorder')}}</button>
+				<button class="right blue_bg" v-show="comfirmBtn" type="button" @click="comfirm();">{{$t('legal.surepay')}}</button>
 			</li>
 		</ul>
 		<!-- 取消订单弹窗 -->
@@ -59,6 +59,18 @@
 				</div>
 			</div>
 		</div>
+		<!--密码框-->
+    <div class="shdow flex alcenter center" v-if="isshow">
+       <div class="psw_wrap flex column center">
+          
+            <p class="tc">请输入交易密码</p>
+            <input class="mt20" type="password" v-model="psw" />
+            <div class="btn_wrap flex alcenter center mt20">
+              <div class="no" @click="isshow = false">取消</div>
+              <div class="yes" @click="yes">确定</div>
+            </div>
+       </div>
+    </div>
 	</div>
 </template>
 
@@ -73,7 +85,9 @@
 				cannelBtn: false,
 				comfirmBtn: false,
 				comfirmOrder: false,
-				cannelOrder: false
+				cannelOrder: false,
+				isshow:false,
+				psw:''
 
 			};
 		},
@@ -139,6 +153,42 @@
 				document.getElementsByTagName("body")[0].className = "body";
 				this.comfirmOrder = true;
 			},
+			//密码框确认
+			yes(){
+				this.isshow = false
+               var i = layer.load();
+				let _this = this;
+				let ids = this.$route.query.id;
+				let params = {
+					id: ids,
+					pay_password:this.psw
+				}
+				_this.$http({
+					url: '/api/legal_deal_user_sure',
+					method: "post",
+					data: params,
+					headers: {
+						Authorization: localStorage.getItem("token")
+					}
+				}).then(res => {
+					this.psw = '';
+					layer.close(i);
+					console.log(res);
+					layer.msg(res.data.message);
+					if (res.data.type == 'ok') {
+						setInterval(function() {
+							// _this.$router.push({
+							// 	path: '/LegalRecord'
+							// });
+							location.reload();
+						}, 500)
+					} else {
+						_this.cannelOrder = false;
+						_this.comfirmOrder = false;
+					}
+
+				});
+			},
 			// 取消按钮
 			cannelBtns() {
 				this.cannelBtn = false;
@@ -176,36 +226,8 @@
 			},
 			// 确认订单
 			comfirmPay() {
-				var i = layer.load();
-				let _this = this;
-				let ids = this.$route.query.id;
-				let params = {
-					id: ids,
-				}
-				_this.$http({
-					url: '/api/legal_deal_user_sure',
-					method: "post",
-					data: params,
-					headers: {
-						Authorization: localStorage.getItem("token")
-					}
-				}).then(res => {
-					layer.close(i);
-					console.log(res);
-					layer.msg(res.data.message);
-					if (res.data.type == 'ok') {
-						setInterval(function() {
-							// _this.$router.push({
-							// 	path: '/LegalRecord'
-							// });
-							location.reload();
-						}, 500)
-					} else {
-						_this.cannelOrder = false;
-						_this.comfirmOrder = false;
-					}
-
-				});
+				this.comfirmOrder = false;
+				this.isshow = true;
 			}
 
 		}
@@ -213,10 +235,10 @@
 </script>
 
 <style lang='scss'>
-	$purple:#563BD1;
+	$purple:#194B64;
     .status{
 		background: none;
-		color: #333;
+		color: #333!important;
 	}
 	.body {
 		height: 100%;
@@ -358,5 +380,41 @@
 				}
 			}
 		}
+		.shdow{
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .psw_wrap{
+    width: 450px;
+    height: 200px;
+    background: #fff;
+    border-radius: 5px;
+  }
+  .psw_wrap input{
+    border: 1px solid #ccc;
+    width: 70%;
+    margin: 0 auto;
+    line-height: 50px;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding: 0 12px;
+  }
+  .yes{
+    margin-left: 50px;
+    background: #f56c6c;
+  }
+  .no{
+    background: #69c03f;
+  }
+  .yes,.no{
+    padding: 8px 15px;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+  }
 	}
 </style>

@@ -241,7 +241,13 @@ export default {
           this.orderPms.type = "number";
           // this.orderPms = { id: "", number: "", max: "",min:'' };
           layer.msg(res.data.message);
-          this.getList();
+          if(res.data.type == 'ok'){
+             this.getList();
+          setTimeout(() => {
+             this.$router.push('/c2c/myTransaction')
+          }, 1000);
+          }
+          
         });
         }
       });
