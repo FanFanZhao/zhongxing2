@@ -87,7 +87,7 @@
         <div class="w20">{{$t('legal.limit')}}</div>
         <div class="w15">{{$t('price')}}</div>
         <div class="w10">{{$t('legal.pay')}}</div>
-        <div class="w10">{{$t('legal.payed')}}</div>
+        <div class="w10">{{$t('legal.paywait')}}</div>
         <div>{{$t('do')}}</div>
       </div>
       <ul :class="[showWhich+'-box']">
