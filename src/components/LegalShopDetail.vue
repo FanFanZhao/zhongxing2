@@ -87,7 +87,9 @@
         <div class="w20">{{$t('legal.limit')}}</div>
         <div class="w15">{{$t('price')}}</div>
         <div class="w10">{{$t('legal.pay')}}</div>
-        <div class="w10">{{$t('legal.paywait')}}</div>
+        
+        <div v-if="filterPms.type == 'buy'" class="w10">{{$t('legal.paywait')}}</div>
+        <div v-if="filterPms.type == 'sell'" class="w10">{{$t('legal.payed')}}</div>
         <div>{{$t('do')}}</div>
       </div>
       <ul :class="[showWhich+'-box']">
@@ -107,7 +109,8 @@
              <img src="../assets/images/zfb_icon.png">
              <img src="../assets/images/bank_icon.png">
            </div>
-          <div class="w10">{{item.wait_confirm}}</div>
+          <div v-if="filterPms.type == 'buy'"  class="w10">{{item.wait_confirm}}</div>
+          <div v-if="filterPms.type == 'sell'"  class="w10">{{item.paid_confirm}}</div>
           <div>
             <span class="blue_bg" @click="changeOrder('error_send',item.id)" v-if="item.is_done!=1">{{$t('shop.abnormal')}}</span>
             <span class="blue_bg" @click="changeOrder('back_send',item.id)" v-if="item.is_done!=1">{{$t('revoke')}}</span>

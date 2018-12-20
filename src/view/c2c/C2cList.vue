@@ -240,11 +240,12 @@ export default {
           this.orderPms.number = "";
           this.orderPms.type = "number";
           // this.orderPms = { id: "", number: "", max: "",min:'' };
-          layer.msg(res.data.message);
+          // layer.msg(res.data.message);
           if(res.data.type == 'ok'){
+            layer.msg('下单成功');
              this.getList();
           setTimeout(() => {
-             this.$router.push('/c2c/myTransaction')
+             this.$router.push({path:'/orderDetail',query:{id:res.data.id}})
           }, 1000);
           }
           

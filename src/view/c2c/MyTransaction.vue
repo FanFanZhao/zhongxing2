@@ -57,9 +57,9 @@
           </div>
         </el-col>
         <el-col :span="6">
-          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id,item.type,item.status)" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
-          <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id,item.type,item.status)" type="danger">{{$t('c2c.conPay')}}</el-button>
-          <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id,item.type,item.status)" type="danger">{{$t('c2c.conReceive')}}</el-button>
+          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id,item.type,item.status,'cancel')" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
+          <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id,item.type,item.status,'confirmPay')" type="danger">{{$t('c2c.conPay')}}</el-button>
+          <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id,item.type,item.status,'confirm')" type="danger">{{$t('c2c.conReceive')}}</el-button>
          
           <el-button v-if="item.status == 2&&filterPms.type=='buy'" type="success" size="mini" disabled>{{$t('c2c.payed')}}</el-button>
           <el-button v-if="item.status == 3" type="success" size="mini" disabled>{{$t('c2c.completed')}}</el-button>
@@ -173,7 +173,8 @@ export default {
       id:'',
       type:'',
       state:'',
-      cid:''
+      cid:'',
+      cancelOrconfirm:''
     };
   },
   created() {
@@ -184,7 +185,7 @@ export default {
     yes(){
       this.isshow = false;
      
-      if((this.type == 'buy' || this.type == 'sell')&& this.state == 2){  //用户已付款或确认收款取消订单时
+      if((this.type == 'buy' || this.type == 'sell')&& (this.state == 2||this.state == 1)&&this.cancelOrconfirm == 'cancel'){  //用户已付款或确认收款取消订单时
          if (this.token) {
         var i = layer.load();
         this.$http({
@@ -203,7 +204,7 @@ export default {
         });
       }
       }else{
-        if(this.type == 'buy'){
+        if(this.type == 'buy'&&this.cancelOrconfirm == 'confirmPay'){
           var i = layer.load();
       this.$http({               //确认付款  
         url: "/api/ctoc/pay",
@@ -275,6 +276,10 @@ export default {
           if (res.data.type == "ok") {
             var list = res.data.message;
             this.list = list;
+            // if(this.$route.query.status == 'ok'){
+            //    this.selId = list[0].id;
+            //    this.getDetail(list[0].id)
+            // }
           }
         });
       }
@@ -299,8 +304,9 @@ export default {
         });
       }
     },
-    cancel(id,type,status) {
-      if((type == 'buy' || type == 'sell')&& status == 2){
+    cancel(id,type,status,canconfirm) {
+      this.cancelOrconfirm = canconfirm;
+      if((type == 'buy' || type == 'sell')&& (status == 2||status == 1)){
         console.log('hahahah')
           this.isshow = true;
           this.type = type;
@@ -326,13 +332,15 @@ export default {
       }
       
     },
-    confirmPay(id,type,status) {
+    confirmPay(id,type,status,canconfirm) {
+      this.cancelOrconfirm = canconfirm;
       this.isshow = true;
       this.id = id;
       this.type = type;
       this.state = status;
     },
-    confirm(id) {
+    confirm(id,canconfirm) {
+      this.cancelOrconfirm = canconfirm;
        this.isshow = true;
        this.id = id;
        this.type = type;

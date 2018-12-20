@@ -26,8 +26,9 @@
           <el-col :span="4">{{$t('c2c.onePrice')}}</el-col>
           <el-col :span="4">{{$t('c2c.num')}}</el-col>
           <el-col :span="4">{{$t('c2c.minNums')}}</el-col>
-          <el-col :span="4">{{$t('c2c.payType')}}</el-col>
+          
           <el-col :span="4">{{$t('c2c.pTime')}}</el-col>
+          <el-col :span="4">{{$t('c2c.payType')}}</el-col>
           <el-col :span="4">{{$t('c2c.opera')}}</el-col>
         </el-row>
       </div>
