@@ -58,7 +58,7 @@
                                 • {{$t('account.a1')}}{{item.currency_name}}{{$t('account.a2')}}<br>
                                 • {{item.currency_name}} {{$t('account.a3')}}<br>
                                 • {{$t('account.a4')}}<br>
-                                • {{$t('account.a5')}}：{{rate}} {{item.currency_name}} ，{{$t('account.a6')}}<br>
+                                • {{$t('account.a5')}}：{{minNum}} {{item.currency_name}} ，{{$t('account.a6')}}<br>
                                 • {{$t('account.a7')}}<br>
                                 • {{$t('account.a8')}}
                            </li>
@@ -81,9 +81,9 @@
                            <div class="left_inp_wrap flex1">
                                <p class="fColor2 ft12 mb15">
                                    <span>{{$t('rate')}}</span>
-                                   <span>{{$t('account.range')}}：<span>{{ratenum}}</span></span>
+                                   <!-- <span>{{$t('account.range')}}：<span>{{ratenum}}</span></span> -->
                                </p>
-                               <label class="range_lab flex alcenter between"><input class="clr-part" disabled  type="text" v-model="rate" /><span>{{coinname}}</span></label>
+                               <label class="range_lab flex alcenter between"><input class="clr-part" disabled  type="text" v-model="rates" /><span>{{coinname}}</span></label>
                            </div>
                            <div class="right_inp_wrap flex1">
                                <p class=" mb15">
@@ -181,7 +181,8 @@ export default {
             total:'',
             totalCNY:'',
             addressList:[],
-            password:''
+            password:'',
+            minNum:''
         }
     },
     components:{
@@ -191,6 +192,9 @@ export default {
     computed:{
          reachnum(){
              return this.number - this.number*this.rate;
+         },
+         rates(){
+             return this.number*this.rate;
          }   
     },
     methods:{
@@ -246,6 +250,7 @@ export default {
                         headers:{'Authorization':this.token}
                     }).then( res => {
                         if(res.data.type == 'ok'){
+                            this.minNum = res.data.message.min_number;
                             this.rate = res.data.message.rate
                         }
                     }) 

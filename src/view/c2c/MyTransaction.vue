@@ -64,7 +64,7 @@
           <el-button v-if="item.status == 2&&filterPms.type=='buy'" type="success" size="mini" disabled>{{$t('c2c.payed')}}</el-button>
           <el-button v-if="item.status == 3" type="success" size="mini" disabled>{{$t('c2c.completed')}}</el-button>
           <el-button v-if="item.status == 4" type="info" size="mini" disabled>{{$t('c2c.canceled')}}</el-button>
-          <el-button size="mini" @click="getDetail(item.id)">{{$t('c2c.detail')}}</el-button>
+          <el-button size="mini" @click="getDetail(item.id,item.type)">{{$t('c2c.detail')}}</el-button>
           <!-- <router-link :to="{path:'/orderDetail',query:{id:item.id}}">
           </router-link>-->
         </el-col>
@@ -205,21 +205,7 @@ export default {
       }
       }else{
         if(this.type == 'buy'&&this.cancelOrconfirm == 'confirmPay'){
-          var i = layer.load();
-      this.$http({               //确认付款  
-        url: "/api/ctoc/pay",
-        method: "post",
-        data: { id: this.id,pay_password:this.psw },
-        headers: { Authorization: this.token }
-      }).then(res => {
-         this.psw = '';
-        layer.close(i);
-        this.selId = '';
-        layer.msg(res.data.message);
-        if (res.data.type == "ok") {
-          this.getList()
-        }
-      });  
+           
       }else{
         var i = layer.load();
       this.$http({
@@ -284,8 +270,9 @@ export default {
         });
       }
     },
-    getDetail(id) {
-      console.log(id)
+    getDetail(id,type) {
+      console.log(id);
+      this.$router.push({path:'/orderDetail',query:{id:id,types:type}})
       if (this.token) {
         var i = layer.load();
         this.$http({
@@ -333,11 +320,26 @@ export default {
       
     },
     confirmPay(id,type,status,canconfirm) {
-      this.cancelOrconfirm = canconfirm;
-      this.isshow = true;
-      this.id = id;
-      this.type = type;
-      this.state = status;
+      // this.cancelOrconfirm = canconfirm;
+      // this.isshow = true;
+      // this.id = id;
+      // this.type = type;
+      // this.state = status;
+      var i = layer.load();
+      this.$http({               //确认付款  
+        url: "/api/ctoc/pay",
+        method: "post",
+        data: { id:id},
+        headers: { Authorization: this.token }
+      }).then(res => {
+         this.psw = '';
+        layer.close(i);
+        this.selId = '';
+        layer.msg(res.data.message);
+        if (res.data.type == "ok") {
+          this.getList()
+        }
+      }); 
     },
     confirm(id,canconfirm) {
       this.cancelOrconfirm = canconfirm;

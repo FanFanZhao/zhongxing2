@@ -153,11 +153,11 @@
 			getCoins() {
 				var i = layer.load();
 				this.$http({
-					url: "/api/currency/list"
+					url: "/api/currency/legal_list"
 				}).then(res => {
 					layer.close(i);
 					if (res.data.type == "ok") {
-						var list = res.data.message.legal;
+						var list = res.data.message;
 						if (list.length) {
 							this.legals = list;
 							var id = list[0].id;

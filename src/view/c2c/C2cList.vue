@@ -116,12 +116,12 @@ export default {
       if (this.token) {
         var i = layer.load();
         this.$http({
-          url: "/api/currency/list",
+          url: "/api/currency/ctoc_list",
           heades: { Authorization: this.token }
         }).then(res => {
           layer.close(i);
           if (res.data.type == "ok") {
-            var coins = res.data.message.legal;
+            var coins = res.data.message;
             if (coins.length) {
               this.coins = coins;
               this.filterPms.currency_id = this.coins[0].id;
@@ -245,7 +245,7 @@ export default {
             layer.msg('下单成功');
              this.getList();
           setTimeout(() => {
-             this.$router.push({path:'/orderDetail',query:{id:res.data.id}})
+             this.$router.push({path:'/orderDetail',query:{id:res.data.message,types:this.filterPms.type=='sell'?'buy':'sell'}})
           }, 1000);
           }
           

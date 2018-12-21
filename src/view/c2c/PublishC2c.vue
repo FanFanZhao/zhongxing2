@@ -10,6 +10,8 @@
                 :value="coin.id"
                 :key="index"
                 :label="coin.name"
+                :min="coin.min"
+                :max="coin.max"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -92,7 +94,9 @@ export default {
         min_number: "",
         way: "ali_pay",
         currency_id: this.$t("c2c.selCu")
-      }
+      },
+      min:'',
+      max:''
     };
   },
   created() {
@@ -104,7 +108,7 @@ export default {
       if (this.token) {
         var i = layer.load();
         this.$http({
-          url: "/api/currency/list",
+          url: "/api/currency/ctoc_list",
           headers: {
             Authorization: this.token
           }
@@ -112,7 +116,9 @@ export default {
           layer.close(i);
           console.log(res);
           if (res.data.type == "ok") {
-            var coins = res.data.message.legal;
+            var coins = res.data.message;
+            this.min = res.data.message.min;
+            this.max = res.data.message.max;
             if (coins.length) {
               this.coins = coins;
             }
@@ -121,6 +127,7 @@ export default {
       }
     },
     buySell(type) {
+      console.log(this.min)
       var p = this[type];
       var msg = "";
       if (p.currency_id == this.$t("c2c.selCu")) {
@@ -135,6 +142,21 @@ export default {
         console.log(p);
 
         msg = this.$t("c2c.tips");
+      }else{
+          $.each(this.coins,function(k,v){
+          console.log(p.currency_id)
+          if(p.currency_id == v.id){
+            if(p.number<(v.min-0)){
+            msg = '发布数量不能小于'+v.min;
+            }else if(p.number>(v.max-0)){
+              msg = '发布数量不能大于'+v.max;
+            }else if(p.min_number<(v.min-0)){
+              msg = '发布最小数量不能小于'+v.min;
+            }else if(p.min_number>(v.max-0)){
+               msg = '发布最小数量不能大于'+v.max;
+            }
+          }
+        })
       }
       if (msg) {
         layer.msg(msg);
