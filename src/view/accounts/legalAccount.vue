@@ -33,7 +33,7 @@
                 <span>{{$t('account.huanum')}}：</span>
                 <input type="numer" v-model="transferPms.number">
             </div>
-            <button class="blue_bg" type="button" :disabled='transferPms.number == ""' @click="transfer">{{$t('account.transfer')}}</button>
+            <button class="blue_bg" type="button" @click="transfer">{{$t('account.transfer')}}</button>
         </div>
         <div class="rec_wrap">
            <p class="rec_title flex between bg-part" style="padding:20px 30px">
@@ -74,7 +74,7 @@ export default {
       page: 1,
       currencyId: "",
       coins: [],
-      transferPms: { number: "", type: 2 }
+      transferPms: { number: '', type: 2 }
     };
   },
   created() {
@@ -168,6 +168,7 @@ export default {
             this.recData = this.recData.concat(res.data.message.list);
           }
           if (res.data.message.list.length != 0) {
+            this.page+=1;
             this.moreLog = this.$t('more');
           } else {
             this.moreLog = this.$t('nomore')
@@ -176,10 +177,15 @@ export default {
       });
     },
     transfer(){
+      console.log('ppp')
         console.log(this.transferPms.number)
         if(this.transferPms.number == ''){
+          console.log('000')
             layer.msg(this.$t('lay.huanum'));return;
-        } else {
+        }else if(this.transferPms.number<= 0){
+            layer.msg('划转数量必须大于0');return;
+        }
+         else {
             let data = {};
             data.number = this.transferPms.number;
             
@@ -199,7 +205,7 @@ export default {
                 layer.msg(res.data.message)
                 if(res.data.type == 'ok'){
                     this.init();
-                    this.getLog();
+                    this.getLog(true);
                 }
             })
         }
