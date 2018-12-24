@@ -53,7 +53,7 @@
                 <span  class="fr red ml25 mouseDefault"></span>
                 <router-link to="/components/resetPwd" class="fr red">{{$t('security.set')}}</router-link>
             </li>
-            <li class="bdr-part"><img  src="@/assets/images/success.png">
+            <li class="bdr-part"><img  :src="fsrc">
                 <span  class="ml20">{{$t('security.zipwd')}}</span>
                 <span  class="fr red ml25 mouseDefault"></span>
                 <!-- <span  class="fr red mouseDefault"  @click="goPwd()">修改</span> -->

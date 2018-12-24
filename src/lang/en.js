@@ -254,7 +254,7 @@ export default {
     retime:'Registration time',
     balance:'Merchants balance',
     goshop:'Enter the store',
-    allorder:'Total Transaction Order',
+    allorder:'Total singular',
     dayorder:'Orders for 30 days',
     comorder:'Completed order',
     comrate:'Completion rate',

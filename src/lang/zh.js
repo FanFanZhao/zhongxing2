@@ -260,7 +260,7 @@ export default {
     retime:'注册时间',
     balance:'商家余额',
     goshop:'进入店铺',
-    allorder:'总成单',
+    allorder:'总单数',
     dayorder:'30日成单',
     comorder:'完成单',
     comrate:'完成率',
