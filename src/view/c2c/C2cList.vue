@@ -247,6 +247,8 @@ export default {
           setTimeout(() => {
              this.$router.push({path:'/orderDetail',query:{id:res.data.message,types:this.filterPms.type=='sell'?'buy':'sell'}})
           }, 1000);
+          }else if(res.data.type == 'error'){
+             layer.msg(res.data.message);
           }
           
         });

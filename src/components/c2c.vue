@@ -514,6 +514,7 @@ export default {
         headers: { Authorization: this.token }
       }).then(res => {
         layer.close(i);
+        console.log(res);
         layer.msg(res.data.message);
         if (res.data.type == "ok") {
           if (type == "buy") {
@@ -526,6 +527,8 @@ export default {
           this.myBuySell = { hasMore: true, list: [], page: 1 };
           this.getMy("myBuySell"); //更新我交易的c2c
           //   //console.log(res.data);
+        }else if(res.data.type == 'error'){
+            layer.msg(res.data.message);
         }
       });
     },
