@@ -73,6 +73,7 @@
           v-if="orderPms.type=='number'"
         >{{$t('c2c.numIs')}} {{orderPms.min}} - {{orderPms.max}} {{$t('c2c.rangeL')}}</div>
         <div class="tip-num" v-else>{{$t('c2c.moneyIs')}} {{orderPms.pMin}} - {{orderPms.pMax}} {{$t('c2c.rangeL')}}</div>
+        <div class="tip_msg">请在30分钟内联系对方付款，超出30分钟将自动取消</div>
         <div class="btns flex">
           <el-button size="medium" @click="orderPms.max ='';orderPms.type ='number'">{{$t('c2c.cancel')}}</el-button>
           <el-button
@@ -334,7 +335,7 @@ export default {
       margin: 200px auto;
       border-radius: 4px;
       padding: 30px 30px;
-      width: 300px;
+      width: 350px;
 
       background: #fff;
       line-height: 40px;
@@ -350,6 +351,10 @@ export default {
         text-align: right;
         line-height: 0;
         margin: 10px 0 20px;
+      }
+      .tip_msg{
+         font-size: 12px;
+         color: red;
       }
       > .btns {
         justify-content: space-between;
