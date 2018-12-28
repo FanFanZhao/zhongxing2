@@ -10,20 +10,20 @@
         </div>
         <div class="content">
             <ul class="list-title color ft12 clear">
-                <li class="fl w20">时间</li>
+                <li class="fl w18">时间</li>
                 <li class="fl w10">交易对</li>
                 <li class="fl w8">数量</li>
                 <li class="fl w10">价格</li>
                 <li class="fl w8">委托总额</li>
                 <li class="fl w10">成交均价</li>
                 <li class="fl w10">状态</li>
-                <li class="fl w10">手续费</li>
+                <li class="fl w15">手续费</li>
                 <li class="fl w8 tr">方向</li>
             </ul>
             <div class="containers scroll" v-if="comList.length>0">
                 <ul class="list-item color ft12">
                     <li v-for="item in comList" class="clear">
-                        <span class="fl w20">{{item.time}}</span>
+                        <span class="fl w18">{{item.time}}</span>
                         <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w8">{{item.number}}</span>
                         <span class="fl w10">{{item.price}}</span>
@@ -31,11 +31,11 @@
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">已成交</span>
                         <!-- <span class="fl w10">{{item.type=='in'? item.in_fee||'无':item.out_fee||'无'}}</span> -->
-                        <span class="fl w10" v-if="item.type == 'in'">{{item.buyFee||$t('center.nothing')}}</span>
-                        <span class="fl w10" v-if="item.type == 'out'">{{item.sellFee||$t('center.nothing')}}</span>
-                        <span class="fl w10" v-if="item.type == 'in/out'">{{item.fee||$t('center.nothing')}}</span>
+                        <span class="fl w15" v-if="item.type == 'in'">{{item.buyFee||$t('center.nothing')}}</span>
+                        <span class="fl w15" v-if="item.type == 'out'">{{item.sellFee||$t('center.nothing')}}</span>
+                        <span class="fl w15" v-if="item.type == 'in/out'">{{item.fee||$t('center.nothing')}}</span>
                         <!-- <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span> -->
-                        <span class="fl w8 tr" v-if="item.type == 'in'">{{$t('center.inbuy')}}</span>
+                        <span class="fl w8 tr green" v-if="item.type == 'in'">{{$t('center.inbuy')}}</span>
                         <span class="fl w8 tr redColor" v-if="item.type == 'out'">{{$t('center.outsell')}}</span>
                         <span class="fl w8 tr" v-if="item.type == 'in/out'">买入、卖出</span>
                     </li>

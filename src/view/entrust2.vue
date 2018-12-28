@@ -63,20 +63,20 @@
         </div>
         <div class="content" v-show="isUrl==1">
             <ul class="list-title fColor2 ft12 clear bdr-part">
-                <li class="fl w20">{{$t('time')}}</li>
+                <li class="fl w18">{{$t('time')}}</li>
                 <li class="fl w10">{{$t('center.pairs')}}</li>
                 <li class="fl w8">{{$t('number')}}</li>
                 <li class="fl w10">{{$t('price')}}</li>
                 <li class="fl w8">{{$t('center.dealtotal')}}</li>
                 <li class="fl w10">{{$t('center.tprice')}}</li>
                 <li class="fl w10">{{$t('status')}}</li>
-                <li class="fl w10">{{$t('rate')}}</li>
+                <li class="fl w15">{{$t('rate')}}</li>
                 <li class="fl w8 tr">{{$t('center.direction')}}</li>
             </ul>
             <div class="container scroll" v-if="hisList.length>0">
                 <ul class="list-item ft12">
                     <li v-for="item in hisList" class="clear">
-                       <span class="fl w20">{{item.time}}</span>
+                       <span class="fl w18">{{item.time}}</span>
                         <span class="fl w10">{{item.currency_name}}/{{item.legal_name}}</span>
                         <span class="fl w8">{{item.number}}</span>
                         <span class="fl w10">{{item.price}}</span>
@@ -84,13 +84,13 @@
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">{{$t('center.contran')}}</span>
                         <!-- <span class="fl w10">{{item.type=='in'? item.buyFee||$t('center.nothing'):item.sellFee||$t('center.nothing')}}</span> -->
-                        <span class="fl w10" v-if="item.type == 'in'">{{item.buyFee||$t('center.nothing')}}</span>
-                        <span class="fl w10" v-if="item.type == 'out'">{{item.sellFee||$t('center.nothing')}}</span>
-                        <span class="fl w10" v-if="item.type == 'in/out'">{{item.fee||$t('center.nothing')}}</span>
+                        <span class="fl w15" v-if="item.type == 'in'">{{item.buyFee||$t('center.nothing')}}</span>
+                        <span class="fl w15" v-if="item.type == 'out'">{{item.sellFee||$t('center.nothing')}}</span>
+                        <span class="fl w15" v-if="item.type == 'in/out'">{{item.fee||$t('center.nothing')}}</span>
                         <!-- <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?$t('center.inbuy'):$t('center.outsell')}}</span> -->
-                        <span class="fl w8 tr" v-if="item.type == 'in'">{{$t('center.inbuy')}}</span>
+                        <span class="fl w8 tr green" v-if="item.type == 'in'">{{$t('center.inbuy')}}</span>
                         <span class="fl w8 tr redColor" v-if="item.type == 'out'">{{$t('center.outsell')}}</span>
-                        <span class="fl w8 tr" v-if="item.type == 'in/out'">买入、卖出</span>
+                        <span class="fl w8 tr" v-if="item.type == 'in/out'">买入/卖出</span>
                     </li>
                 </ul>
                 <div class="getmore tc fColor1 ft14 mt10 curPer" @click="getMore01" v-if="!loading && hisList.length>9">{{more01}}</div>
