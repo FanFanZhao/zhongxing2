@@ -132,8 +132,8 @@ export default {
 
   },
   lpwd:{
-    setpwd:'设置法币资金密码',
-    resetpwd:'重置法币资金密码',
+    setpwd:'设置资金密码',
+    resetpwd:'重置资金密码',
     oldpwd:'请输入原密码',
     newpwd:'请输入新密码',
     repwd:'请再次输入密码',
@@ -242,7 +242,7 @@ export default {
     transaction:'交易',
     sellall:'全部卖出',
     buyall:'全部买入',
-    conactceil:'请在24小时内联系商家付款，超出24小时将自动取消',
+    conactceil:'请在30分钟内联系商家付款，超出30分钟将自动取消',
     autoceil:'自动取消',
     placeorder:'下单',
     inwant:'请输入要',
@@ -259,6 +259,7 @@ export default {
     tolegal:'所属法币',
     retime:'注册时间',
     balance:'商家余额',
+    lockbalance:'商家冻结余额',
     goshop:'进入店铺',
     allorder:'总单数',
     dayorder:'30日成单',
@@ -497,6 +498,10 @@ export default {
     wxName:'微信昵称',
     bankName:'银行名称',
     connect:'联系方式'
+  },
+  forLegalPsw:{
+      fpwd:'忘记资金密码',
+      setpwd:'设置资金密码'
   }
 
 

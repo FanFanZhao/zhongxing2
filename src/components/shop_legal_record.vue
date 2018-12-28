@@ -178,7 +178,7 @@ export default {
   overflow: auto;
 }
 .status{
-      background: #563BD1;
+      // background: #563BD1;
       color: #fff;
     padding: 0 6px;
     border-radius: 3px;

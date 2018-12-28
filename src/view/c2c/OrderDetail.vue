@@ -94,7 +94,7 @@
             <el-button type="danger" @click="confirm" size="medium">确认付款</el-button>
           </div> -->
           <div>
-          <el-button  v-if="detail.status == 1 || detail.status == 2" size="medium" @click="cancel(detail.id,types,detail.status,'cancel')" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
+          <!-- <el-button  v-if="detail.status == 1 || detail.status == 2" size="medium" @click="cancel(detail.id,types,detail.status,'cancel')" type="danger">{{$t('c2c.cancelOrder')}}</el-button> -->
           <el-button v-if="detail.status == 1&&types == 'buy'" size="medium" @click="confirmPay(detail.id,types,detail.status,'confirmPay')" type="danger">{{$t('c2c.conPay')}}</el-button>
           <el-button v-if="detail.status == 2&&types == 'sell'" size="medium" @click="confirm(detail.id,types,detail.status,'confirm')" type="danger">{{$t('c2c.conReceive')}}</el-button>
          

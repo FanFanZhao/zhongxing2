@@ -30,8 +30,14 @@
                         <span class="fl w8">{{(item.price * item.number) | numFilter}}</span>
                         <span class="fl w10">{{item.price}}</span>
                         <span class="fl w10">已成交</span>
-                        <span class="fl w10">{{item.type=='in'? item.in_fee||'无':item.out_fee||'无'}}</span>
-                        <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span>
+                        <!-- <span class="fl w10">{{item.type=='in'? item.in_fee||'无':item.out_fee||'无'}}</span> -->
+                        <span class="fl w10" v-if="item.type == 'in'">{{item.buyFee||$t('center.nothing')}}</span>
+                        <span class="fl w10" v-if="item.type == 'out'">{{item.sellFee||$t('center.nothing')}}</span>
+                        <span class="fl w10" v-if="item.type == 'in/out'">{{item.fee||$t('center.nothing')}}</span>
+                        <!-- <span class="fl w8 tr" :class="item.type=='out'?'redColor':''">{{item.type=='in'?'买入':'卖出'}}</span> -->
+                        <span class="fl w8 tr" v-if="item.type == 'in'">{{$t('center.inbuy')}}</span>
+                        <span class="fl w8 tr redColor" v-if="item.type == 'out'">{{$t('center.outsell')}}</span>
+                        <span class="fl w8 tr" v-if="item.type == 'in/out'">买入、卖出</span>
                     </li>
                 </ul>
                 <div class="getmore tc gray9 ft14 mt10 curPer pdb20" @click="getMore" v-if="!loading && comList.length>8">{{more}}</div>

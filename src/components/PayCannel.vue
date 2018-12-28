@@ -34,7 +34,7 @@
 				<p class="right">{{datas.id}}</p>
 			</li>
 			<li>
-				<button class="right" v-show="datas.is_sure == 0 || datas.is_sure == 3" type="button" @click="cannel()">{{$t('legal.ceilorder')}}</button>
+				<!-- <button class="right" v-show="datas.is_sure == 0 || datas.is_sure == 3" type="button" @click="cannel()">{{$t('legal.ceilorder')}}</button> -->
 				<button class="right blue_bg" v-show="comfirmBtn" type="button" @click="comfirm();">{{$t('legal.surepay')}}</button>
 			</li>
 		</ul>

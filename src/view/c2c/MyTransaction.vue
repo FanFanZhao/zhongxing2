@@ -57,7 +57,7 @@
           </div>
         </el-col>
         <el-col :span="6">
-          <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id,item.type,item.status,'cancel')" type="danger">{{$t('c2c.cancelOrder')}}</el-button>
+          <!-- <el-button  v-if="item.status == 1 || item.status == 2" size="mini" @click="cancel(item.id,item.type,item.status,'cancel')" type="danger">{{$t('c2c.cancelOrder')}}</el-button> -->
           <el-button v-if="item.status == 1&&filterPms.type == 'buy'" size="mini" @click="confirmPay(item.id,item.type,item.status,'confirmPay')" type="danger">{{$t('c2c.conPay')}}</el-button>
           <el-button v-if="item.status == 2&&filterPms.type == 'sell'" size="mini" @click="confirm(item.id,item.type,item.status,'confirm')" type="danger">{{$t('c2c.conReceive')}}</el-button>
          

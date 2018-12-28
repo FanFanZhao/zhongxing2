@@ -7,6 +7,7 @@
         <div>{{$t('shop.tolegal')}}</div>
         <div>{{$t('shop.retime')}}</div>
         <div>{{$t('shop.balance')}}</div>
+        <div>{{$t('shop.lockbalance')}}</div>
         <!-- <div>支付方式</div> -->
         <div>{{$t('do')}}</div>
       </div>
@@ -19,6 +20,7 @@
           <div>{{item.currency_name}}</div>
           <div>{{item.create_time}}</div>
           <div>{{item.seller_balance}}</div>
+          <div>{{item.lock_seller_balance}}</div>
           <div>
             <router-link class="blue_bg" :to="{path:'/legalShopDetail',query:{id:item.id,min:item.min_legal,max:item.max_legal}}">{{$t('shop.goshop')}}</router-link>
           </div>

@@ -42,7 +42,7 @@ import advice from '@/view/advice'
 import aggrement from '@/view/aggrement' //隐私条款
 import entrust from '@/view/entrust'
 import hisentrust from '@/view/hisentrust'
-
+import forgetLegalPwd from '@/components/ForgetLegalPwd'
 //收款方式
 
 import ForgetPwd from '@/components/ForgetPwd' //忘记密码
@@ -57,6 +57,7 @@ import ResetLegalPwd from '@/components/ResetLegalPwd' //重置密码密码
 import withdraw_address from '@/view/accounts/withdraw_address'
 import PayCannel from '@/components/PayCannel'  //取消订单
 import webNotice from '@/components/webNotice'
+
 Vue.use(Router)
 export default new Router({
 	routes: [
@@ -121,7 +122,7 @@ export default new Router({
 					name: 'aggrement',
 					component: aggrement
 				},
-				
+						
 				{
 					path: '/entrust',
 					name: 'entrust',
@@ -292,7 +293,11 @@ export default new Router({
 				}
 			]
 		},
-
+		{
+			path: '/forgetLegalPwd',
+			name: 'forgetLegalPwd',
+			component: forgetLegalPwd
+		},
 		// {
 		// 	path:'/dealCenter',
 		// 	name:'dealCenter',

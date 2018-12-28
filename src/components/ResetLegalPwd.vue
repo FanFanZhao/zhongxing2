@@ -27,7 +27,7 @@
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
                         <button type="button" class="register-button curPer redBg" @click="reset" >{{paypassword==0?$t('lpwd.spwd'):$t('lpwd.rpwd')}}</button>
-                        
+                        <span class="ft14 redColor ml30 forgetLegalPwd" v-if="paypassword==1" @click="forgetLegalPwd">{{$t('forLegalPsw.fpwd')}}？</span>
                     </div>
                     
                 </div>
@@ -116,12 +116,18 @@ export default {
         });
       }
         
+    },
+    forgetLegalPwd(){
+      this.$router.push('/forgetLegalPwd')
     }
   }
 };
 </script>
 
 <style scoped>
+.forgetLegalPwd{
+   cursor: pointer;
+}
 #reset-pwd {
   min-height: 1050px;
 }

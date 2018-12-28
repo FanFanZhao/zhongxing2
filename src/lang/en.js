@@ -253,6 +253,7 @@ export default {
     tolegal:'Subordinate to the fiat',
     retime:'Registration time',
     balance:'Merchants balance',
+    lockbalance:'Freezing Balance of Businessmen',
     goshop:'Enter the store',
     allorder:'Total singular',
     dayorder:'Orders for 30 days',
@@ -488,7 +489,11 @@ export default {
     wxName:'WeChat nickname',
     bankName:'Bank name',
     connect:'contact way'
-  }
+  },
+  forLegalPsw:{
+    fpwd:'Forget the fund password',
+    setpwd:'Setting up the fund password'
+}
 
 
 }

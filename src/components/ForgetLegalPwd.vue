@@ -5,7 +5,7 @@
         <div class="content-wrap">
             <div class="account">
                 <div class="main" v-if="!showReset">
-                    <p class="main_title">{{$t('forget.fpwd')}}</p>
+                    <p class="main_title">{{$t('forLegalPsw.fpwd')}}</p>
                     <div class="register-input">
                         <span class="register-item">{{$t('accounts')}}</span>
                          <select name="" v-if="isMb" class="chooseTel" v-model="areaCode" ref="select">
@@ -20,6 +20,12 @@
                         <button type="button" @click="setTime" class="redBg">{{$t('forget.getcode')}}</button>
                         </div>
                     </div>
+                    <!-- <div class="register-input code-input" >
+                        <span class="register-item">登录密码</span>
+                        <div class="code-box">
+                            <input type="text" class="input-main input-content" maxlength="16" v-model="phoneCode" id="loginPsw" >
+                        </div>
+                    </div> -->
                     <div style="margin-top: 10px;">
                         <span class="register-item"></span>
                         <button class="register-button curPer redBg" type="button" @click="check">{{$t('confirm')}}</button>
@@ -28,7 +34,7 @@
                    
                 </div>
                 <div class="main" v-if="showReset">
-                    <div class="main_title">{{$t('forget.setpwd')}}</div>
+                    <div class="main_title">{{$t('forLegalPsw.setpwd')}}</div>
                     <div class="register-input pass-box">
                         <span class="register-item">{{$t('forget.inpwd')}}</span>
                         <input :type="showpass?'text':'password'" class="input-main input-content" maxlength="16" v-model="password" id="pwd">
@@ -212,13 +218,13 @@ export default {
       } else {
         let data = {
           account: this.account_number,
-          password: this.password,
-          repassword: this.re_password,
+          payPassword: this.password,
+          repayPassword: this.re_password,
           code: this.phoneCode
         };
         var i = layer.load();
         this.$http({
-          url: "/api/user/forget",
+          url: "/api/user/upPaypassword",
           method: "post",
           data: data
         }).then(res => {
@@ -226,7 +232,7 @@ export default {
           //   console.log(res);
           layer.msg(res.data.message);
           if (res.data.type == "ok") {
-            this.$router.push("/components/login");
+            this.$router.push("/userCenter");
           }
         });
       }
