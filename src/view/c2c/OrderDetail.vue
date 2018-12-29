@@ -43,6 +43,10 @@
             <div>{{detail.number}}</div>
           </div>
           <div class="flex">
+            <span>{{$t('c2c.totalmoney')}}：</span>
+            <div>{{detail.total_price}}</div>
+          </div>
+          <div class="flex">
             <span>{{$t('c2c.name')}}：</span>
             <div>{{realName}}</div>
           </div>

@@ -445,6 +445,7 @@ export default {
     type:'type',
     price:'price',
     num:'number',
+    totalmoney:'total money',
     minNums:'Minimum quantity',
     payType:'Payment method',
     cancelp:'Cancel publication',

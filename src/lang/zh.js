@@ -454,6 +454,7 @@ export default {
     type:'类型',
     price:'价格',
     num:'数量',
+    totalmoney:'总金额',
     minNums:'最小数量',
     payType:'支付方式',
     cancelp:'取消发布',
