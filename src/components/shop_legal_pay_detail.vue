@@ -46,7 +46,7 @@
         <span>{{msg.user_cash_info.wechat_account}}</span>
       </div>
       <div  v-if="(msg.is_sure == 0||msg.is_sure == 3)&&msg.type == 'buy'">
-        <span>{{$t('alipay.')}}：</span>
+        <span>{{$t('alipay')}}：</span>
         <span>{{msg.user_cash_info.alipay_account}}</span>
       </div>
       <div>
