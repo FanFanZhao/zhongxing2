@@ -262,7 +262,7 @@ export default new Router({
 					children: [
 
 						{
-							path: '/finance',
+							path: '/new_account',
 							name: 'finance',
 							component: finance
 						},
@@ -272,7 +272,7 @@ export default new Router({
 							component: lever
 						},
 						{
-							path: '/legal',
+							path: 'legal',
 							name: 'legal',
 							component: legal
 						},

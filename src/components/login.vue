@@ -6,10 +6,10 @@
             <div class="account">
                 <div class="main">
                     <p class="main_title">{{$t('login.welcome')}}</p>
-                    <div class="tab flex" @click="account_number=''">
+                    <!-- <div class="tab flex" @click="account_number=''">
                       <span @click="isMb = true" :class="{now:isMb}">{{$t('login.phone')}}</span>
                       <span @click="isMb = false" :class="{now:!isMb}">{{$t('login.email')}}</span>
-                    </div>
+                    </div> -->
                     <div class="register-input">
                         <span class="register-item">{{$t('accounts')}}</span>
                          <select name="" v-if="isMb" class="chooseTel scroll" v-model="areaCode" ref="select">

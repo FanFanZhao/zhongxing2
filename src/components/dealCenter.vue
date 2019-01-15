@@ -57,7 +57,7 @@
 
 <script>
 import indexHeader from "@/view/indexHeader";
-import notice from "@/components/noticeList";
+import notice from "@/components/webNotice";
 import deal from "@/view/deal";
 import exchange from "@/view/exchange";
 import market from "@/view/market";

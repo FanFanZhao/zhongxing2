@@ -3,10 +3,10 @@
         <indexHeader></indexHeader>
         <div class="reg-content">
             <div class="title">{{$t('regidters')}}</div>
-            <div class="tab">
+            <!-- <div class="tab">
                 <span :class='{active:isMb}' @click="setIsMb(true)">{{$t('register.phone')}}</span>
                 <span :class="{active:!isMb}" @click="setIsMb(false)">{{$t('register.email')}}</span>
-            </div>
+            </div> -->
             <div class="step-one" v-show="!codeTrue">
                  <!-- <div class="account-box">
                     <div class="tip " v-if="isMb">请选择国籍</div>
@@ -52,7 +52,7 @@
                     <input type="text" :placeholder="$t('register.xuan')" v-model="invite" class="invite-input">
                 </div>
                 <p class="flex alcenter ft14">
-                  <input id="agree" class="aggre" v-model="isCheck" @click="check" type="checkbox" /><label for="agree">{{$t('register.agree')}} <router-link to="/aggrement" class="link_text">{{$t('register.mian')}}</router-link></label>
+                  <input id="agree" class="aggre" v-model="isCheck" @click="check" type="checkbox" /><label for="agree">{{$t('register.agree')}} <router-link to="/aggrement" class="link_text">{{$t('footer.xieyi')}}</router-link></label>
                 </p>
                 <button type="button" @click="register" :disabled="isCheck?false:true" :class="[isCheck?'':'pointer']" class="reg-btn confirm-btn redBg">{{$t('confirm')}}</button>
             </div>

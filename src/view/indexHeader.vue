@@ -12,7 +12,7 @@
       <div v-else @click="goLogin()">{{$t('header.c2cTransfer')}}</div>
       <router-link to="/dealCenter">{{$t('header.currency')}}</router-link>
       <router-link to="/myLegalShops" v-if="isShow">{{$t('header.shop')}}</router-link>
-      <router-link to="/finance" v-if="token">{{$t('header.assets')}}</router-link>
+      <router-link to="/new_account" v-if="token">{{$t('header.assets')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.assets')}}</div>
       
        <!-- <router-link to="/helpcenter">{{$t('header.help')}}</router-link>

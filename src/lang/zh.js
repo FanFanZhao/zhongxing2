@@ -105,7 +105,7 @@ export default {
     account:'账号',
     forget:"忘记密码",
     dont:'还未注册？',
-    invite:"立即注册，在全球领先的数字资产交易平台开始交易"
+    invite:"立即注册，在数字资产交易平台开始交易"
   },
   register:{
     phone:"手机号注册",
@@ -113,7 +113,7 @@ export default {
     phonenum:'请输入手机号',
     emailnum:'请输入邮箱',
     codenum:'请输入验证码',
-    notice:'请先查看免责条款，并勾选选项框，才可点击发送验证码',
+    notice:'请先查看用户协议，并勾选选项框，才可点击发送验证码',
     sendcode:'发送验证码',
     logpwd:'请输入登录密码',
     repwd:'请确认密码',
@@ -419,7 +419,7 @@ export default {
     caddress:'请选择提币地址',
     cnumber:'请输入提币数量',
     cpwd:'请输入提币密码',
-    minnum:'输入的提币数量小于最小值',
+    minnumber:'低于最少提币数量，请重新输入',
     copys:'复制成功',
     fcopy:'复制失败',
     recopy:'请重新复制',

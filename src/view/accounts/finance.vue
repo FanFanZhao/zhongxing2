@@ -190,11 +190,45 @@ export default {
         left
     },
     computed:{
-         reachnum(){
-             return this.number - this.number*this.rate;
+         reachnum(){                   
+                function numSub(num1, num2) {    //解决减法计算精度
+                    var baseNum, baseNum1, baseNum2;
+                    var precision;// 精度
+                    try {
+                        baseNum1 = num1.toString().split(".")[1].length;
+                    } catch (e) {
+                        baseNum1 = 0;
+                    }
+                    try {
+                        baseNum2 = num2.toString().split(".")[1].length;
+                    } catch (e) {
+                        baseNum2 = 0;
+                    }
+                    baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
+                    precision = (baseNum1 >= baseNum2) ? baseNum1 : baseNum2;
+                    return ((num1 * baseNum - num2 * baseNum) / baseNum).toFixed(precision);
+                }; 
+             Math.formatFloat = function(f, digit) { 
+                    var m = Math.pow(10, digit); 
+                    return parseInt(f * m, 10) / m; 
+                } 
+               var rateNum = Math.formatFloat(this.number*this.rate,5);
+             return numSub(this.number,rateNum);
          },
          rates(){
-             return this.number*this.rate;
+            function numMulti(num1, num2) {  //解决乘法计算精度
+                var baseNum = 0;
+                try {
+                    baseNum += num1.toString().split(".")[1].length;
+                } catch (e) {
+                }
+                try {
+                    baseNum += num2.toString().split(".")[1].length;
+                } catch (e) {
+                }
+                return Number(num1.toString().replace(".", "")) * Number(num2.toString().replace(".", "")) / Math.pow(10, baseNum);
+            };
+              return numMulti(this.number,this.rate)
          }   
     },
     methods:{
@@ -466,7 +500,7 @@ export default {
             }
             if((number-0)<min_number){
                 console.log(number,min_number)
-                return layer.alert(that.$t('lay.minnum'));
+                return layer.alert(that.$t('lay.minnumber'));
             }
             // if(rate=='' || rate>=1){
             //     layer.alert('请输入0-1之间的提币手续费');

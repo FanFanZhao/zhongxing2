@@ -4,7 +4,7 @@
         <div class="account-wrap" style="width:1200px">
             <div class="account" style="width:auto">
                 <div>
-                    <div class="back-nav  ft20 clear" style="padding:0 20px;">{{$t('header.help')}}</div>
+                    <div class="back-nav  ft20 clear" style="padding:0 20px;">{{$t('footer.gonggao')}}</div>
                     
                 </div>
                 <div class="account-content">
@@ -79,7 +79,7 @@ export default {
       this.$http({
         url:  '/api/news/list',
         method:'post',
-        data:{c_id:19,language:this.$i18n.locale == 'zh'?1:2}
+        data:{language:this.$i18n.locale == 'zh'?1:2}
       }).then(res => {
         var that = this;
         // console.log(res);
