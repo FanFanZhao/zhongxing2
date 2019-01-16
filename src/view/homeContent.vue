@@ -197,6 +197,10 @@
             <div class="text01 mr100">
               <h1 class="ft26 bold mb30">{{$t('home.access')}}</h1>
               <p class="ft16 bold mb10">{{$t('home.cover')}}</p>
+              <div class="ewmImg">
+                <img :src="iosEwm">
+                 <img :src="androidEwm">
+              </div>
             </div>
             <img class="imgs05" src="../assets/images/imgs06.png" />
         </div>
@@ -257,10 +261,13 @@ export default {
       coin_list: [],
       account_number: "",
       token:'',
-      myAdd:[]
+      myAdd:[],
+      iosEwm: '',
+      androidEwm: ''
     };
   },
   created() {
+    this.getEwmImg();
     // this.getMyAdd();
     // this.init(this.initKline);
     this.token = window.localStorage.getItem('token') || '';
@@ -326,6 +333,18 @@ export default {
     this.connect();
   },
   methods: {
+    //获取二维码图片
+    getEwmImg(){
+       this.$http({
+         url:'/api/version/iosAndroidPic',
+         method:'GET',
+       }).then(res=>{
+           if(res.data.type == 'ok'){
+             this.iosEwm = res.data.message.ios;
+             this.androidEwm = res.data.message.android
+           }
+       })  
+    },
     getMyAdd(){
       if(this.token){
 
@@ -686,9 +705,14 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-.swiper-container {
-  // height: 310px;
+.ewmImg{
+  margin-top: 50px;
 }
+.ewmImg img{
+   width: 100px;
+   margin-right: 30px;
+}
+
 .swiper-slide>img{
   width: 100%;
   height: 590px;
