@@ -49,7 +49,7 @@
                 <ul class="ft12 foot_ul">
                     <li class="mb15">{{$t('footer.explain')}}</li>
                     <li class="mb15">
-                        <router-link :to="{path:'/components/noticeDetail',query:{id:34}}" class="mr15" tag="span">{{$t('footer.xieyi')}}</router-link>
+                        <router-link :to="{path:'/aggrement'}" class="mr15" tag="span">{{$t('footer.xieyi')}}</router-link>
                     </li>
                     <li class="mb15">
                         <router-link :to="{path:'/components/noticeDetail',query:{id:44}}" tag="span">{{$t('footer.yinsi')}}</router-link>
