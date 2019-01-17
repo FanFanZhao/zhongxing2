@@ -25,7 +25,7 @@
             </div>
             <div class="flex">
                 <span>{{$t('account.choosecoin')}}：</span>
-                <select name="" id="" style="padding:3px 16px" ref="select" @change="selectChange">
+                <select name="" id="" style="padding:3px 16px" ref="select" @change="selectChange" v-model="currencyId">
                     <option v-for="(item,index) in coins" :key="index" :value="item.currency">{{item.currency_name}}</option>
                 </select>
             </div>

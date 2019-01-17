@@ -32,7 +32,7 @@ export default {
     c2c:'法币交易',
     currency:'币币交易',
     assets:'我的资产',
-    setting:'安全设置',
+    setting:'收款方式',
     help:'帮助中心',
     complaint:'投诉留言',
     in:"登录",
@@ -371,7 +371,7 @@ export default {
     transfer:'划转'
   },
   set:{
-    secset:'安全设置',
+    secset:'收款方式',
     msgcer:'信息认证',
     turemsg:'为了确保您的交易正常进行，请填写您的真实信息',
     tname:'真实姓名',

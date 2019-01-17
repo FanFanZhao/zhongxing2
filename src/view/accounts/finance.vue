@@ -513,7 +513,7 @@ export default {
                 data: {
                     currency:currency,
                     number:number,
-                    rate:rate,
+                    rate:this.rates,
                     address:address,
                     password:this.password
                 },

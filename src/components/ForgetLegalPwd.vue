@@ -11,7 +11,7 @@
                          <select name="" v-if="isMb" class="chooseTel" v-model="areaCode" ref="select">
                         <option :value="index" v-for="(item,index) in country" :key="index">{{item.area_code}} {{item.name_cn}}</option>
                       </select>
-                        <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account">
+                        <input type="text" class="input-main input-content" maxlength="20" v-model="account_number" id="account" style="width:355px;">
                     </div>
                      <div class="register-input code-input" >
                         <span class="register-item">{{$t('code')}}</span>

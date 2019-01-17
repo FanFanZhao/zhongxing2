@@ -277,7 +277,7 @@ export default new Router({
 							component: legal
 						},
 						{
-							path: '/legalAccount/:currency_id',
+							path: '/new_account/legalAccount/:currency_id',
 							name: 'legalAccount',
 							component: legalAccount
 						},
