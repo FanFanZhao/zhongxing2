@@ -237,7 +237,7 @@ export default {
             legal_id: localData.legal_id,
             currency_name: localData.currency_name,
             legal_name: localData.legal_name,
-             now_price:arr_quota[0][0].now_price
+             now_price: localData.now_price
           };
           this.ids = "a";
           this.isShow = localData.isShow;

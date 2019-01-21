@@ -88,7 +88,7 @@
               <div class=""  style="color:#194B64;">
                 <span class=" fr el-icon-star-on" v-if="li.added" @click="addDelete('delete',li.currency_match_id)" style="line-height:30px;margin-left:20px"></span>
                 <span class=" fr el-icon-star-off" v-if="!li.added" style="line-height:30px;margin-left:20px" @click="addDelete('add',li.currency_match_id)"></span>
-                <span class="fr" @click="setCurrent(index,inde)">{{$t('home.toTrade')}}</span>
+                <span class="fr" @click="setCurrent(index,inde,li.now_price)">{{$t('home.toTrade')}}</span>
                 <!-- <span :hah='testMy(li.currency_id,li.legal_id)'>{{li.currency_id +''+li.legal_id}}</span> -->
               </div>
               <!-- <div>
@@ -497,7 +497,7 @@ export default {
         return "";
       }
     },
-    setCurrent(index, inde) {
+    setCurrent(index, inde,now_price) {
       
       let msg = this.quotation[index];
       let quo = msg.quotation[inde];
@@ -508,9 +508,11 @@ export default {
         legal_name: quo.legal_name,
         isShow: index,
         change:quo.change,
-        volume:quo.volume
+        volume:quo.volume,
+        now_price:now_price
       };
       window.localStorage.setItem("tradeData", JSON.stringify(tradeData));
+      
       this.$router.push('/dealCenter');
     },
     getQuotation() {
