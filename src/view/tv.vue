@@ -167,7 +167,7 @@ export default {
       this.$nextTick(function() {
         let widget = (_this.widget = new TradingView.widget({
           symbol: _this.$store.state.symbol,
-          interval: 1,
+          interval: 30,
           debug: true,
           fullscreen: false,
           autosize: true,
@@ -310,9 +310,9 @@ export default {
               .addClass("my2")
               .text(v.text);
 
-            if (v.text == "1min") {
+            if (v.text == "30min") {
               button.css({ "background-color": "#9194a4", color: "#fff" });
-              localStorage.setItem("tim", "1"); //默认为1分钟
+              localStorage.setItem("tim", "30"); //默认为1分钟
             }
 
             // console.log($(this),'999999')
@@ -323,7 +323,7 @@ export default {
                 .find(".my2")
                 .removeAttr("style"); //去掉1分钟的
               handleClick(e, v.value);
-
+                 $(this).css({ "background": "#9194a4", color: "#fff" })
               widget.chart().setChartType(v.chartType); //改变K线类型
             });
           });
