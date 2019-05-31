@@ -18,9 +18,9 @@
        <!-- <router-link to="/helpcenter">{{$t('header.help')}}</router-link>
       <router-link v-if="token" to="/advice">{{$t('header.complaint')}}</router-link>
       <div v-else @click="goLogin()">{{$t('header.complaint')}}</div> -->
-      <div @click="candy">{{$t('header.candy')}}</div>
+      <!-- <div @click="candy">{{$t('header.candy')}}</div>
        <div @click="candy">{{$t('header.coin')}}</div>
-        <div @click="candy">{{$t('header.show')}}</div>
+        <div @click="candy">{{$t('header.show')}}</div> -->
       <!-- <router-link to="/components/noticeList">公告</router-link>
       <div class="coin-box">
         <router-link to="/currencyApply">上币申请</router-link>

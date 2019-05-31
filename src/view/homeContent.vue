@@ -285,17 +285,17 @@ export default {
   mounted() {
     this.getSwiper();
     
-    var mySwiper = new Swiper(".swiper-container01", {
-      // 如果需要分页器
-      pagination: ".swiper-pagination01",
-      paginationClickable: true,
-      // 如果需要前进后退按钮
-      slidesPerView: 5,
-      nextButton: ".swiper-button-next",
-      prevButton: ".swiper-button-prev",
-      observer: true, //修改swiper自己或子元素时，自动初始化swiper
-      observeParents: true //修改swiper的父元素时，自动初始化swiper
-    });
+    // var mySwiper = new Swiper(".swiper-container01", {
+    //   // 如果需要分页器
+    //   pagination: ".swiper-pagination01",
+    //   paginationClickable: true,
+    //   // 如果需要前进后退按钮
+    //   slidesPerView: 5,
+    //   nextButton: ".swiper-button-next",
+    //   prevButton: ".swiper-button-prev",
+    //   observer: true, //修改swiper自己或子元素时，自动初始化swiper
+    //   observeParents: true //修改swiper的父元素时，自动初始化swiper
+    // });
     
     // this.setChart();
     this.$http({
@@ -410,8 +410,8 @@ export default {
         this.pics = res.data.message;
         var mySwiper02 = new Swiper(".banner_wrap", {
       // direction: 'vertical',
-      loop: true,
-      autoplay: 2000,
+      loop: false,
+      autoplay: 3000,
       autoplayDisableOnInteraction:false, //用户操作swiper之后自动切换不会停止
       // 如果需要分页器
       pagination: ".swiper-pagination02",
